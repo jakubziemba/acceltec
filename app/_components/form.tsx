@@ -4,7 +4,9 @@ import { motion } from 'framer-motion';
 
 export default function Form() {
   return (
-    <motion.form layoutId="form-button">
+    <motion.form
+    // layoutId="form-button"
+    >
       <div className="flex rounded-[32px] bg-[#171717] gap-6 p-4 lg:p-7">
         <div className="flex flex-col max-w-md w-full gap-2 leading-10 text-base lg:text-xl tracking-wide flex-2">
           <label
