@@ -43,7 +43,6 @@ export default function LogoHero({ className = "" }) {
         type: "spring",
         duration: 1.2,
         bounce: 0,
-        ease: "easeIn",
         opacity: { type: "tween", duration: 1.2, ease: "easeOut" },
       }}
       width={1134}
