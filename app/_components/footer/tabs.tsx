@@ -1,20 +1,22 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { tw } from '@/utils/tailwind';
+import { useState } from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { tw } from "@/utils/tailwind";
 
 const tabs = [
   {
-    id: crypto.randomUUID(),
-    href: '',
-    label: 'Impressum',
+    // id: crypto.randomUUID(),
+    id: 0,
+    href: "",
+    label: "Impressum",
   },
   {
-    id: crypto.randomUUID(),
-    href: '',
-    label: 'Datenschutz',
+    // id: crypto.randomUUID(),
+    id: 1,
+    href: "",
+    label: "Datenschutz",
   },
 ];
 
@@ -23,7 +25,7 @@ export default function FooterTabs() {
 
   return (
     <ul className="flex w-fit gap-1">
-      {tabs.map(tab => {
+      {tabs.map((tab) => {
         const isActive = tab.label === activeTab;
 
         return (
@@ -31,8 +33,8 @@ export default function FooterTabs() {
             key={tab.id}
             layout
             className={tw(
-              'relative cursor-pointer outline-none text-sm leading-8 transition-colors',
-              isActive ? 'text-white/80' : 'text-white/20'
+              "relative cursor-pointer text-sm leading-8 outline-none transition-colors",
+              isActive ? "text-white/80" : "text-white/20",
             )}
             onFocus={() => setActiveTab(tab.label)}
             onMouseOver={() => setActiveTab(tab.label)}
@@ -45,11 +47,11 @@ export default function FooterTabs() {
               <motion.span
                 layoutId="footer-pill"
                 transition={{
-                  type: 'spring',
+                  type: "spring",
                   bounce: 0,
                   duration: 0.4,
                 }}
-                className="absolute inset-0 flex items-center justify-center w-full h-full bg-white/10 rounded-[10px]"
+                className="absolute inset-0 flex h-full w-full items-center justify-center rounded-[10px] bg-white/10"
               />
             )}
           </motion.li>

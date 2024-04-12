@@ -1,13 +1,13 @@
-import type { Metadata } from 'next';
-import { Inter_Tight } from 'next/font/google';
-import './globals.css';
+import type { Metadata } from "next";
+import { Inter_Tight } from "next/font/google";
+import "./globals.css";
 
-const inter = Inter_Tight({ subsets: ['latin'] });
+const inter = Inter_Tight({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Acceltec',
+  title: "Acceltec",
   description:
-    'Berlin-based software studio that exclusively works with founders, executives and innovative teams.',
+    "Berlin-based software studio that exclusively works with founders, executives and innovative teams.",
 };
 
 export default function RootLayout({

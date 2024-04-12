@@ -1,3 +1,3 @@
-'use client';
+"use client";
 
-export * from '@studio-freight/react-lenis';
+export * from "@studio-freight/react-lenis";

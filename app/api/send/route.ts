@@ -10,6 +10,8 @@ const sendRouteSchema = z.object({
   content: z.string().min(2),
 });
 
+// TODO - register domain to send emails from any email address
+
 export async function POST(request: NextRequest) {
   const { name, email, content } = await request.json().then(body => sendRouteSchema.parse(body));
 
