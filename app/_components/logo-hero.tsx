@@ -51,7 +51,7 @@ export default function LogoHero({ className = "" }) {
       viewBox="0 0 1134 651"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={tw("origin-center", className)}
+      className={className}
       onMouseMove={(e) => handleMouseMove(e)}
     >
       <motion.path
