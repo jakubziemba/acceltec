@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { motion } from "framer-motion";
+import LogoCard from "./logo-card";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -58,10 +59,11 @@ export default function Form() {
               id="name"
               type="text"
               placeholder="Name"
-              className="peer bg-inherit px-4 py-2 leading-10 outline-none transition duration-300 placeholder:tracking-wide placeholder:text-white/20"
+              autoComplete="off"
+              className="peer bg-inherit px-4 py-2 leading-10 outline-none transition duration-200 placeholder:tracking-wide placeholder:text-white/20"
               {...register("name")}
             />
-            <div className="pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-300 group-hover/name:bg-white/35 peer-focus-within:bg-white" />
+            <div className="pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-200 group-hover/name:bg-white/35 peer-focus-within:bg-white" />
           </div>
           {errors?.name && (
             <p className="px-1 text-xs text-red-600">{errors.name.message}</p>
@@ -72,10 +74,11 @@ export default function Form() {
               id="email"
               type="email"
               placeholder="Email"
-              className="peer bg-inherit px-4 py-2 leading-10 outline-none transition-colors duration-300 placeholder:tracking-wide placeholder:text-white/20"
+              autoComplete="off"
+              className="peer bg-inherit px-4 py-2 leading-10 outline-none transition-colors duration-200 placeholder:tracking-wide placeholder:text-white/20"
               {...register("email")}
             />
-            <div className="pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-300 group-hover/email:bg-white/35 peer-focus-visible:bg-white" />
+            <div className="pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-200 group-hover/email:bg-white/35 peer-focus-visible:bg-white" />
           </div>
           {errors?.email && (
             <p className="px-1 text-xs text-red-600">{errors.email.message}</p>
@@ -87,25 +90,26 @@ export default function Form() {
               className="peer h-32 resize-none bg-inherit px-4 py-2 leading-6 outline-none placeholder:tracking-wide placeholder:text-white/20 lg:h-72"
               {...register("content")}
             />
-            <div className="pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-300 group-hover/content:bg-white/35 peer-focus-visible:bg-white" />
+            <div className="pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-200 group-hover/content:bg-white/35 peer-focus-visible:bg-white" />
           </div>
           {errors?.content && (
             <p className="px-1 text-xs text-red-600">
               {errors.content.message}
             </p>
           )}
-          <button className="rounded-[44px] bg-white/10 px-6 py-1 text-base leading-10 text-white/50 outline-none transition duration-300 focus-visible:scale-[0.98] lg:w-max lg:rounded-xl lg:bg-white lg:text-black lg:hover:scale-[1.02] lg:active:scale-[0.98]">
+          <button className="rounded-[44px] bg-white/10 px-6 py-1 text-base leading-10 text-white/50 outline-none transition duration-200 focus-visible:scale-[0.98] lg:w-max lg:rounded-xl lg:bg-white lg:text-black lg:hover:scale-[1.02] lg:active:scale-[0.98]">
             Send
           </button>
         </div>
-        <div className="relative isolate w-full rounded-[18px] bg-white/5 lg:flex-1">
-          <div className="flex h-full w-full flex-col justify-between px-6 pb-4 pt-2 tracking-wide lg:absolute lg:inset-0">
+        <div className="relative isolate min-h-64 w-full overflow-hidden rounded-[18px] bg-white/5 lg:flex-1">
+          <div className="flex h-auto min-h-64 w-full flex-col justify-between px-6 pb-4 pt-2 tracking-wide lg:absolute lg:inset-0">
             <p className="text-lg leading-10 text-white/50">To</p>
             <div className="text-2xl leading-10">
               <p className="text-white">Laurence Laumann</p>
               <p className="text-white/70">Founder</p>
             </div>
           </div>
+          <LogoCard className="absolute -left-7 top-2 -z-10 h-full w-full select-none lg:-top-80" />
         </div>
       </div>
     </motion.form>
