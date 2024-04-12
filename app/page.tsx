@@ -35,7 +35,7 @@ export default function Home() {
           </div>
           <Button>Pitch your project</Button>
         </section>
-        <section className="min-h-screen w-full max-w-4xl px-4 py-20 lg:px-0">
+        <section className="min-h-screen w-full px-4 py-20 lg:px-0">
           <Form />
         </section>
       </main>

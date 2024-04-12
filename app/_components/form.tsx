@@ -43,47 +43,58 @@ export default function Form() {
     <motion.form
       onSubmit={handleSubmit(onSubmit)}
       // layoutId="form-button"
+      className="mx-auto max-w-4xl"
     >
-      <div className="flex flex-col gap-6 rounded-[30px] bg-[#171717] p-4 lg:flex-row lg:p-7">
-        <div className="flex-2 flex max-w-md flex-col gap-2 text-base leading-10 tracking-wide lg:w-full lg:text-xl">
+      <div className="mx-auto flex max-w-xl flex-col gap-6 rounded-[30px] bg-[#171717] p-4 lg:max-w-full lg:flex-row lg:p-7">
+        <div className="lg:flex-2 flex flex-col gap-2 text-base leading-10 tracking-wide lg:w-full lg:max-w-md lg:text-xl">
           <label
             htmlFor="name"
             className="w-full rounded-[18px] bg-white/5 px-4 py-3 leading-10 tracking-wide text-white/50 lg:text-lg"
           >
             From
           </label>
-          <input
-            id="name"
-            type="text"
-            placeholder="Name"
-            className="border-b border-white/5 bg-inherit px-4 py-2 leading-10 outline-none placeholder:tracking-wide placeholder:text-white/20"
-            {...register("name")}
-          />
+          <div className="group/name relative flex flex-col gap-2">
+            <input
+              id="name"
+              type="text"
+              placeholder="Name"
+              className="peer bg-inherit px-4 py-2 leading-10 outline-none transition duration-300 placeholder:tracking-wide placeholder:text-white/20"
+              {...register("name")}
+            />
+            <div className="pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-300 group-hover/name:bg-white/35 peer-focus-within:bg-white" />
+          </div>
           {errors?.name && (
             <p className="px-1 text-xs text-red-600">{errors.name.message}</p>
           )}
-          <input
-            id="email"
-            type="email"
-            placeholder="Email"
-            className="border-b border-white/5 bg-inherit px-4 py-2 leading-10 outline-none placeholder:tracking-wide placeholder:text-white/20"
-            {...register("email")}
-          />
+
+          <div className="group/email relative flex flex-col gap-2">
+            <input
+              id="email"
+              type="email"
+              placeholder="Email"
+              className="peer bg-inherit px-4 py-2 leading-10 outline-none transition-colors duration-300 placeholder:tracking-wide placeholder:text-white/20"
+              {...register("email")}
+            />
+            <div className="pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-300 group-hover/email:bg-white/35 peer-focus-visible:bg-white" />
+          </div>
           {errors?.email && (
             <p className="px-1 text-xs text-red-600">{errors.email.message}</p>
           )}
-          <textarea
-            id="content"
-            placeholder="My project is about..."
-            className="h-32 resize-none border-b border-white/5 bg-inherit px-4 py-2 leading-6 outline-none placeholder:tracking-wide placeholder:text-white/20 lg:h-72"
-            {...register("content")}
-          ></textarea>
+          <div className="group/content relative flex flex-col gap-2">
+            <textarea
+              id="content"
+              placeholder="My project is about..."
+              className="peer h-32 resize-none bg-inherit px-4 py-2 leading-6 outline-none placeholder:tracking-wide placeholder:text-white/20 lg:h-72"
+              {...register("content")}
+            />
+            <div className="pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-300 group-hover/content:bg-white/35 peer-focus-visible:bg-white" />
+          </div>
           {errors?.content && (
             <p className="px-1 text-xs text-red-600">
               {errors.content.message}
             </p>
           )}
-          <button className="rounded-[44px] bg-white/10 px-6 py-1 text-base leading-10 text-white/50 outline-none lg:w-max lg:rounded-xl lg:bg-white lg:text-black">
+          <button className="rounded-[44px] bg-white/10 px-6 py-1 text-base leading-10 text-white/50 outline-none transition duration-300 focus-visible:scale-[0.98] lg:w-max lg:rounded-xl lg:bg-white lg:text-black lg:hover:scale-[1.02] lg:active:scale-[0.98]">
             Send
           </button>
         </div>
