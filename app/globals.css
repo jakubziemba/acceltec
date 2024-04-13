@@ -35,7 +35,7 @@ body {
     text-wrap: pretty;
   }
 }
-
+/* 
 html.lenis,
 html.lenis body {
   height: auto;
@@ -55,4 +55,4 @@ html.lenis body {
 
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
-}
+} */

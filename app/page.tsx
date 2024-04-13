@@ -1,12 +1,11 @@
-import LenisWrapper from "./_components/lenis-wrapper";
+import HeroSection from "./_components/hero/hero-section";
 import Button from "./_components/button";
 import Form from "./_components/form";
 import Footer from "./_components/footer/footer";
-import HeroSection from "./_components/hero/hero-section";
 
 export default function Home() {
   return (
-    <LenisWrapper>
+    <>
       <main className="container mx-auto flex min-h-screen flex-col items-center justify-center">
         <HeroSection />
         <section className="flex min-h-screen max-w-xl flex-col items-center px-6 pt-20 lg:max-w-3xl lg:px-0">
@@ -33,6 +32,6 @@ export default function Home() {
         </section>
       </main>
       <Footer />
-    </LenisWrapper>
+    </>
   );
 }
