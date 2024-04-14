@@ -5,10 +5,10 @@ import LogoHero from "./logo";
 
 export default function HeroSection() {
   return (
-    <section className="min-h-screen w-screen overflow-hidden pb-12 lg:pt-24">
-      <div className="flex w-full items-center justify-center px-6">
-        <LogoHero className="relative -bottom-6 w-full min-w-[890px]" />
-      </div>
+    <section className="min-h-screen w-screen overflow-hidden pb-12">
+      {/* <div className="flex w-full items-center justify-center px-6"> */}
+      <LogoHero className="relative -bottom-6 top-0 h-full w-full min-w-[890px] pb-12 lg:pt-24" />
+      {/* </div> */}
       <motion.h1
         initial={{ opacity: 0, scale: 0.98, y: -10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}

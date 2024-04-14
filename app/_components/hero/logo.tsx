@@ -1,40 +1,43 @@
 "use client";
 
-import {
-  motion,
-  useMotionTemplate,
-  useMotionValue,
-  useSpring,
-} from "framer-motion";
-// import { tw } from "@/utils/tailwind";
-import { MouseEvent, useEffect } from "react";
+import { motion, useMotionTemplate, useSpring } from "framer-motion";
+import { MouseEvent } from "react";
 
 export default function LogoHero({ className = "" }) {
-  let mouseX = useMotionValue(420);
-  let mouseY = useMotionValue(84);
-  // let mouseXSpring = useSpring(420, {
-  //   // damping: 40,
-  //   // mass: 0.5,
-  //   bounce: 0,
-  // });
-  // let mouseYSpring = useSpring(84, {
-  //   // damping: 40,
-  //   // mass: 0.5,
-  //   bounce: 0,
-  // });
+  // let mouseX = useMotionValue(420);
+  // let mouseY = useMotionValue(84);
+  let mouseXSpring = useSpring(486, {
+    // stiffness: 100,
+    damping: 40,
+    mass: 0.5,
+    bounce: 0,
+    velocity: 5,
+    // restDelta: 10,
+    // restSpeed: 10,
+  });
+  let mouseYSpring = useSpring(84, {
+    // stiffness: 100,
+    damping: 40,
+    mass: 0.5,
+    bounce: 0,
+    velocity: 5,
+    // restDelta: 10,
+    // restSpeed: 10,
+  });
+
+  // const defaultTransform = useMotionTemplate`translate(486 84) rotate(112.237) scale(350.073 450.056)`;
+  let gradientMove = useMotionTemplate`translate(${mouseXSpring} ${mouseYSpring}) rotate(112.237) scale(350.073 450.056)`;
 
   function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent) {
     if (!currentTarget) return;
 
     let { left, top } = currentTarget.getBoundingClientRect();
-    const xPosition = Math.max(0, clientX - left);
-    const yPosition = Math.max(0, clientY - top);
+    const xPosition = clientX - left;
+    const yPosition = clientY - top;
 
-    mouseX.set(xPosition);
-    mouseY.set(yPosition);
+    mouseXSpring.set(xPosition);
+    mouseYSpring.set(yPosition);
   }
-
-  const gradientTransform = useMotionTemplate`translate(${mouseX} ${mouseY}) rotate(112.237) scale(350.073 450.056)`;
 
   return (
     <motion.svg
@@ -65,7 +68,7 @@ export default function LogoHero({ className = "" }) {
           cy={0}
           r={1}
           gradientUnits="userSpaceOnUse"
-          gradientTransform={gradientTransform}
+          gradientTransform={gradientMove}
         >
           <stop
             stopColor="white"
