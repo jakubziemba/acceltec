@@ -106,7 +106,7 @@ export default function Form() {
             <p className="text-lg leading-10 text-white/50">To</p>
             <div className="text-2xl leading-10">
               <p className="text-white">Laurence Laumann</p>
-              <p className="text-white/70">Founder</p>
+              <p className="text-xl text-white/70">Founder</p>
             </div>
           </div>
           <LogoCard className="absolute -left-7 top-2 -z-10 h-full w-full select-none lg:-top-80" />

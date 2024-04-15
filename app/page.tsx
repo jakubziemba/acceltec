@@ -9,7 +9,7 @@ export default function Home() {
       <main className="container mx-auto flex min-h-screen flex-col items-center justify-center">
         <HeroSection />
         <section className="flex min-h-screen max-w-xl flex-col items-center px-6 pt-20 lg:max-w-3xl lg:px-0">
-          <div className="mx-auto space-y-8 text-2xl leading-6 lg:space-y-6 lg:text-4xl lg:leading-10">
+          <div className="xs:[text-wrap:initial] mx-auto space-y-8 text-balance text-2xl leading-6 lg:space-y-6 lg:text-4xl lg:leading-10">
             <h2 className="text-white/80">
               Berlin-based software studio that exclusively works with founders,
               executives and innovative teams.
