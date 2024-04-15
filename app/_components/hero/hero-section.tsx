@@ -7,8 +7,8 @@ export default function HeroSection() {
   return (
     <section className="w-screen overflow-hidden pt-32 lg:h-screen lg:pt-48">
       <motion.h1
-        initial={{ opacity: 0, scale: 0.98, y: -10 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
+        initial={{ opacity: 0, scale: 0.97 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{
           type: "spring",
           duration: 1.2,
