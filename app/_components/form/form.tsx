@@ -51,7 +51,7 @@ export default function Form({ id = "form" }) {
         <div className="lg:flex-2 flex flex-col gap-2 text-base leading-10 tracking-wide lg:w-full lg:max-w-md lg:text-xl">
           <label
             htmlFor="name"
-            className="w-full rounded-[18px] bg-white/5 px-4 py-3 leading-10 tracking-wide text-white/50 lg:text-lg"
+            className="w-full rounded-[18px] px-4 py-3 leading-10 tracking-wide text-white/50 lg:text-lg"
           >
             From
           </label>
@@ -98,7 +98,7 @@ export default function Form({ id = "form" }) {
               {errors.content.message}
             </p>
           )}
-          <button className="rounded-[44px] bg-white/10 px-6 py-1 text-base leading-10 text-white/50 outline-none transition duration-200 focus-visible:scale-[0.98] lg:w-max lg:rounded-xl lg:bg-white lg:text-black lg:hover:scale-[1.02] lg:active:scale-[0.98]">
+          <button className="rounded-[44px] bg-white/10 px-4 py-1 text-base leading-10 text-white/50 outline-none transition duration-200 focus-visible:scale-[0.98] lg:w-max lg:rounded-xl lg:bg-inherit lg:text-xl lg:text-white lg:hover:scale-[1.02] lg:active:scale-[0.98]">
             Send
           </button>
         </div>
@@ -110,7 +110,7 @@ export default function Form({ id = "form" }) {
               <p className="text-xl text-white/70">Founder</p>
             </div>
           </div>
-          <LogoCard className="absolute -left-7 top-2 -z-10 h-full w-full select-none lg:-top-80" />
+          <LogoCard className="absolute -top-96 left-36 -z-10 h-full w-full select-none lg:-left-7 lg:-top-[360px]" />
         </div>
       </div>
     </motion.form>
