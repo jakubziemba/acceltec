@@ -7,7 +7,7 @@ import BackgroundGradient from "./_components/bg-gradient";
 export default function Home() {
   return (
     <>
-      <BackgroundGradient />
+      {/* <BackgroundGradient /> */}
       <HeroSection />
       <AboutSection />
       <FormSection />
