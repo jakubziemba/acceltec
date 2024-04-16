@@ -9,13 +9,13 @@ const tabs = [
   {
     // id: crypto.randomUUID(),
     id: 0,
-    href: "",
+    href: "/impressum",
     label: "Impressum",
   },
   {
     // id: crypto.randomUUID(),
     id: 1,
-    href: "",
+    href: "/datenschutz",
     label: "Datenschutz",
   },
 ];
@@ -51,7 +51,7 @@ export default function FooterTabs() {
                   bounce: 0,
                   duration: 0.4,
                 }}
-                className="absolute inset-0 flex h-full w-full items-center justify-center rounded-[10px] bg-white/10"
+                className="absolute inset-0 -z-10 flex h-full w-full items-center justify-center rounded-[10px] bg-white/10"
               />
             )}
           </motion.li>

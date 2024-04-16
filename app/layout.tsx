@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter_Tight } from "next/font/google";
 import "./globals.css";
+import Footer from "./_components/footer/footer";
+import { tw } from "@/utils/tailwind";
 
 const inter = Inter_Tight({ subsets: ["latin"] });
 
@@ -17,7 +19,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <main className="container relative z-10 mx-auto flex min-h-[90vh] flex-col items-center justify-center">
+          {children}
+        </main>
+        <Footer />
+      </body>
     </html>
   );
 }
