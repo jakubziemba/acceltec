@@ -20,7 +20,7 @@ const formSchema = z.object({
 
 // TODO: clean up, ask for error states in design, submit message & loading state
 
-export default function Form() {
+export default function Form({ id = "form" }) {
   const {
     register,
     handleSubmit,
@@ -42,9 +42,10 @@ export default function Form() {
 
   return (
     <motion.form
+      id={id}
       onSubmit={handleSubmit(onSubmit)}
-      // layoutId="form-button"
-      className="mx-auto max-w-4xl"
+      className="mx-auto my-32 w-full max-w-4xl origin-top"
+      layoutId="form-button"
     >
       <div className="mx-auto flex max-w-xl flex-col gap-6 rounded-[30px] bg-[#171717] p-4 lg:max-w-full lg:flex-row lg:p-7">
         <div className="lg:flex-2 flex flex-col gap-2 text-base leading-10 tracking-wide lg:w-full lg:max-w-md lg:text-xl">
