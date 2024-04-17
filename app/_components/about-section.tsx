@@ -1,6 +1,12 @@
+import { tw } from "@/utils/tailwind";
+
 export default function AboutSection() {
   return (
-    <section className="flex max-w-xl flex-col items-center px-6 py-20 lg:max-w-4xl lg:px-0">
+    <section
+      className={tw(
+        "flex max-w-xl flex-col items-center px-6 py-20 lg:max-w-4xl lg:px-0",
+      )}
+    >
       <div className="mx-auto space-y-8 text-balance text-2xl leading-6 xs:[text-wrap:initial] lg:space-y-6 lg:text-4xl lg:leading-10">
         <h2 className="text-white/80">
           Berlin-based software studio that exclusively works with founders,
