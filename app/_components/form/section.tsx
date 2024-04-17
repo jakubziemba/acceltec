@@ -45,18 +45,18 @@ export default function FormSection() {
   }, [containerInView]);
 
   useEffect(() => {
-    if (showForm && formRef.current) {
-      formRef.current.scrollIntoView({
-        block: "start",
-        behavior: "smooth",
-      });
-    }
+    if (!showForm || !formRef.current) return;
+
+    formRef.current?.scrollIntoView({
+      block: "start",
+      behavior: "smooth",
+    });
   }, [showForm]);
 
   return (
     <section
       ref={containerRef}
-      className="relative bottom-0 mx-auto flex min-h-[60vh] w-full max-w-4xl snap-center flex-col items-center px-4 pb-20 pt-16 lg:px-0"
+      className="relative bottom-0 mx-auto flex min-h-[60vh] w-full max-w-4xl flex-col items-center px-4 pb-20 pt-16 lg:px-0"
     >
       {!showForm ? (
         <motion.button
