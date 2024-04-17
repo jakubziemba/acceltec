@@ -17,20 +17,19 @@ export default function FormSection() {
   const formRef = useRef<null | HTMLFormElement>(null);
   const [showForm, setShowForm] = useState(false);
   const containerInView = useInView(containerRef, {
-    amount: 0.5,
+    amount: 0.6,
   });
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["100px end", "end end"],
+    offset: ["5% end", "end end"],
   });
 
   const springScale = useSpring(scrollYProgress, {
-    stiffness: 2000,
-    damping: 15,
-    mass: 0.1,
-    bounce: 0,
+    stiffness: 1000,
+    damping: 30,
+    mass: 0.001,
   });
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.5]);
+  const scale = useTransform(scrollYProgress, [0.1, 0.25, 0.6], [1, 1.2, 1.3]);
 
   useEffect(() => {
     if (containerInView) {
@@ -39,18 +38,11 @@ export default function FormSection() {
   }, [containerInView]);
 
   useEffect(() => {
-    if (showForm && containerRef.current) {
-      window.requestAnimationFrame(() => {
-        if (!containerRef.current) return;
-        // Interrupt the current scroll
-        const currentScrollPosition = containerRef.current.scrollTop;
-        containerRef.current.scrollTop = currentScrollPosition;
-
-        // Now, scroll into view
-        formRef.current?.scrollIntoView({
-          block: "start",
-          behavior: "smooth",
-        });
+    if (showForm && formRef.current) {
+      // Now, scroll into view
+      formRef.current.scrollIntoView({
+        block: "start",
+        behavior: "smooth",
       });
     }
   }, [showForm]);
@@ -58,11 +50,8 @@ export default function FormSection() {
   return (
     <section
       ref={containerRef}
-      className="relative bottom-0 mx-auto flex min-h-[70vh] w-full max-w-4xl flex-col items-center px-4 pb-20 pt-16 lg:px-0"
+      className="relative bottom-0 mx-auto flex min-h-[60vh] w-full max-w-4xl flex-col items-center px-4 pb-20 pt-16 lg:px-0"
     >
-      {/* <MotionConfig
-        transition={{ type: "spring", mass: 0.6, damping: 20, stiffness: 100 }}
-      > */}
       {!showForm ? (
         <motion.button
           onClick={() => setShowForm(true)}
@@ -75,7 +64,6 @@ export default function FormSection() {
       ) : (
         <Form ref={formRef} />
       )}
-      {/* </MotionConfig> */}
     </section>
   );
 }

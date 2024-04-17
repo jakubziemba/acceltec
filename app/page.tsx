@@ -9,8 +9,10 @@ export default function Home() {
     <>
       {/* <BackgroundGradient /> */}
       <HeroSection />
+      {/* <div className="sticky top-0 min-h-screen"> */}
       <AboutSection />
       <FormSection />
+      {/* </div> */}
       {/* <Footer /> */}
     </>
   );
