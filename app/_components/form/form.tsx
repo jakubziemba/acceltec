@@ -1,5 +1,6 @@
 "use client";
 
+import { forwardRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -20,7 +21,7 @@ const formSchema = z.object({
 
 // TODO: clean up, ask for error states in design, submit message & loading state
 
-export default function Form({ id = "form" }) {
+const Form = ({ id = "form" }, ref: React.ForwardedRef<HTMLFormElement>) => {
   const {
     register,
     handleSubmit,
@@ -42,9 +43,10 @@ export default function Form({ id = "form" }) {
 
   return (
     <motion.form
+      ref={ref}
       id={id}
       onSubmit={handleSubmit(onSubmit)}
-      className="mx-auto my-32 w-full max-w-4xl origin-top"
+      className="mx-auto w-full max-w-4xl origin-bottom"
       layoutId="form-button"
     >
       <div className="mx-auto flex max-w-xl flex-col gap-6 rounded-[30px] bg-[#171717] p-4 lg:max-w-full lg:flex-row lg:p-7">
@@ -115,4 +117,6 @@ export default function Form({ id = "form" }) {
       </div>
     </motion.form>
   );
-}
+};
+
+export default forwardRef(Form);
