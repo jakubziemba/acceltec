@@ -46,7 +46,7 @@ const Form = ({ id = "form" }, ref: React.ForwardedRef<HTMLFormElement>) => {
       ref={ref}
       id={id}
       onSubmit={handleSubmit(onSubmit)}
-      className="mx-auto w-full max-w-4xl origin-bottom"
+      className="mx-auto w-full max-w-4xl origin-bottom scroll-mt-10"
       layoutId="form-button"
     >
       <div className="mx-auto flex max-w-xl flex-col gap-6 rounded-[30px] bg-[#171717] p-4 lg:max-w-full lg:flex-row lg:p-7">
