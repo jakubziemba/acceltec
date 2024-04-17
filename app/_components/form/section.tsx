@@ -45,13 +45,13 @@ export default function FormSection() {
   }, [containerInView]);
 
   useEffect(() => {
-    if (shouldScroll && formRef.current) {
+    if (showForm && formRef.current) {
       formRef.current.scrollIntoView({
         block: "start",
         behavior: "smooth",
       });
     }
-  }, [shouldScroll]);
+  }, [showForm]);
 
   return (
     <section
