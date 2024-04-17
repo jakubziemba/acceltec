@@ -103,8 +103,8 @@ const Form = ({ id = "form" }, ref: React.ForwardedRef<HTMLFormElement>) => {
             Send
           </button>
         </div>
-        <div className="relative isolate min-h-64 w-full overflow-hidden rounded-[18px] bg-white/5 lg:flex-1">
-          <div className="flex h-auto min-h-64 w-full flex-col justify-between px-6 pb-4 pt-2 tracking-wide lg:absolute lg:inset-0">
+        <div className="relative isolate w-full overflow-hidden rounded-[18px] bg-white/5 lg:flex-1">
+          <div className="flex h-auto min-h-48 w-full flex-col justify-between px-6 pb-4 pt-2 tracking-wide lg:absolute lg:inset-0">
             <p className="text-lg leading-10 text-white/50">To</p>
             <div className="text-2xl leading-10">
               <p className="text-white">Laurence Laumann</p>
