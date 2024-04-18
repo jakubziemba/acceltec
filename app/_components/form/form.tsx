@@ -54,9 +54,9 @@ const Form = (
         opacity: { type: "linear", duration: 0.2 },
         // delayChildren: 0.5,
       }}
-      className="mx-auto w-full max-w-4xl origin-top scroll-mt-10"
       layout
       layoutId="form-button"
+      className="mx-auto w-full max-w-4xl origin-top scroll-mt-10"
     >
       <div className="mx-auto flex max-w-xl flex-col gap-6 rounded-[30px] bg-[#171717] p-4 lg:max-w-full lg:flex-row lg:p-7">
         <div className="lg:flex-2 flex flex-col gap-2 text-base leading-10 tracking-wide lg:w-full lg:max-w-md lg:text-xl">
