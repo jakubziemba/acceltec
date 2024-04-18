@@ -3,6 +3,7 @@ import { Inter_Tight } from "next/font/google";
 import "./globals.css";
 import Footer from "./_components/footer/footer";
 import { tw } from "@/utils/tailwind";
+import BackgroundGradient from "./_components/bg-gradient";
 
 const inter = Inter_Tight({ subsets: ["latin"] });
 
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        {/* <BackgroundGradient /> */}
         <main className="container relative z-10 mx-auto flex min-h-[90vh] flex-col items-center justify-center">
           {children}
         </main>

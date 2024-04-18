@@ -21,7 +21,10 @@ const formSchema = z.object({
 
 // TODO: clean up, ask for error states in design, submit message & loading state
 
-const Form = ({ id = "form" }, ref: React.ForwardedRef<HTMLFormElement>) => {
+const Form = (
+  { id = "form", showForm }: { id?: string; showForm?: boolean },
+  ref: React.ForwardedRef<HTMLFormElement>,
+) => {
   const {
     register,
     handleSubmit,
@@ -45,7 +48,14 @@ const Form = ({ id = "form" }, ref: React.ForwardedRef<HTMLFormElement>) => {
     <motion.form
       ref={ref}
       id={id}
-      className="mx-auto w-full max-w-4xl origin-bottom scroll-mt-10"
+      animate={{ scale: 1, opacity: showForm ? 1 : 0 }}
+      transition={{
+        duration: 0.2,
+        opacity: { type: "linear", duration: 0.2 },
+        // delayChildren: 0.5,
+      }}
+      className="mx-auto w-full max-w-4xl origin-top scroll-mt-10"
+      layout
       layoutId="form-button"
     >
       <div className="mx-auto flex max-w-xl flex-col gap-6 rounded-[30px] bg-[#171717] p-4 lg:max-w-full lg:flex-row lg:p-7">
