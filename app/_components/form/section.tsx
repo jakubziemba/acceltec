@@ -15,6 +15,7 @@ import { tw } from "@/utils/tailwind";
 
 export default function FormSection() {
   const containerRef = useRef<null | HTMLDivElement>(null);
+  const buttonRef = useRef<null | HTMLButtonElement>(null);
   const formRef = useRef<null | HTMLFormElement>(null);
   const [showForm, setShowForm] = useState(false);
   const [shouldScroll, setShouldScroll] = useState(false);
@@ -33,8 +34,13 @@ export default function FormSection() {
     amount: 0.85,
   });
 
+  const buttonInView = useInView(buttonRef, {
+    amount: 0.9,
+  });
+
   // useMotionValueEvent(scrollYProgress, "change", (value) => {
-  //   console.log(value);
+  //   // console.log(containerInView);
+  //   console.log(buttonInView);
   // });
 
   // const buttonInView = useInView(wrapperRef, {
@@ -75,14 +81,14 @@ export default function FormSection() {
     }
   }, [containerInView]);
 
-  // useEffect(() => {
-  //   if (!showForm || !formRef.current) return;
+  useEffect(() => {
+    if (!showForm || !formRef.current) return;
 
-  //   formRef.current?.scrollIntoView({
-  //     block: "start",
-  //     behavior: "smooth",
-  //   });
-  // }, [showForm]);
+    formRef.current?.scrollIntoView({
+      block: "start",
+      behavior: "smooth",
+    });
+  }, [showForm]);
 
   return (
     <>
@@ -100,6 +106,7 @@ export default function FormSection() {
           }}
           transition={{
             bounce: 0,
+            opacity: { type: "linear", duration: 0.2 },
           }}
           className="relative mx-auto origin-center space-y-8 text-balance text-2xl leading-6 xs:[text-wrap:initial] lg:space-y-6 lg:text-4xl lg:leading-10"
         >
@@ -121,7 +128,7 @@ export default function FormSection() {
         <motion.div
           key="pitch"
           initial={{ y: "0%" }}
-          animate={{ y: showForm ? "-60%" : "0%" }}
+          animate={{ y: showForm ? "-50%" : "0%" }}
           transition={{
             duration: 0.25,
           }}
@@ -129,10 +136,11 @@ export default function FormSection() {
         >
           {!showForm ? (
             <motion.button
+              ref={buttonRef}
               onClick={handleButtonClick}
               layoutId="form-button"
               layout
-              animate={{ scale: 1 }}
+              animate={{ scale: buttonInView ? 1.25 : 1 }}
               transition={{
                 type: "spring",
                 damping: 5,
