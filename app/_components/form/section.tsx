@@ -45,7 +45,7 @@ export default function FormSection() {
 
     if (shouldScroll) return;
 
-    if (value < 0.8) {
+    if (value < 0.85) {
       setShowForm(false);
     }
   });
@@ -143,11 +143,11 @@ export default function FormSection() {
             key="pitch"
             layout
             initial={{ y: "0%" }}
-            animate={{ y: showForm ? "-30%" : "0%" }}
+            animate={{ y: showForm ? "-20%" : "0%" }}
             transition={{
               duration: 0.25,
             }}
-            className="sticky top-20 z-10 flex w-full flex-col items-center"
+            className="sticky top-0 z-10 flex w-full flex-col items-center"
           >
             <Form ref={formRef} showForm={showForm} />
           </motion.div>
