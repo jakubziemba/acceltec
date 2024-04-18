@@ -39,10 +39,12 @@ export default function LogoHero({ className = "" }) {
   }
 
   function handleMouseLeave() {
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       mouseXSpring.set(486); // Reset to default X position
       mouseYSpring.set(84); // Reset to default Y position
     }, 700);
+
+    return () => clearTimeout(timeout);
   }
 
   return (
