@@ -19,21 +19,19 @@ export default function AnimatedText({
     once: true,
   });
   return (
-    <Wrapper className={tw("[perspective:100px]", className)}>
+    <Wrapper className={tw("[perspective:250px]", className)}>
       <motion.span
         ref={ref}
         initial={{
           opacity: 0,
-          transform: "translate3d(0px, 8px, -1px) scaleX(0.98)",
+          y: 8,
         }}
         animate={{
           opacity: isInView ? 1 : 0,
-          transform: isInView
-            ? "translate3d(0px, 0px, 0px) scaleX(1)"
-            : "translate3d(0px, 8px, -1px) scaleX(0.98)",
+          y: isInView ? 0 : 8,
         }}
         transition={{ duration: 0.38 }}
-        className="inline-flex"
+        className="inline-flex origin-top-left"
       >
         {children}
       </motion.span>

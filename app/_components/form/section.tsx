@@ -38,7 +38,6 @@ export default function FormSection() {
   });
 
   useMotionValueEvent(scrollYProgress, "change", (value) => {
-    console.log(scrollYProgress.get());
     if (value > 0.85) {
       setShowForm(true);
       setShouldScroll(false);
@@ -46,7 +45,7 @@ export default function FormSection() {
 
     if (shouldScroll) return;
 
-    if (value < 0.75) {
+    if (value < 0.8) {
       setShowForm(false);
     }
   });
@@ -65,15 +64,15 @@ export default function FormSection() {
       <motion.section
         ref={containerRef}
         className={tw(
-          "relative mx-auto mt-20 h-[135vh] w-full max-w-xl origin-center space-y-20 px-6 lg:h-[105vh] lg:max-w-4xl lg:px-0 xl:h-screen",
+          "relative mx-auto mt-20 h-[135vh] w-full max-w-xl origin-center space-y-20 px-6 [perspective:45px] lg:h-[105vh] lg:max-w-4xl lg:px-0 xl:h-screen 2xl:h-[95vh]",
         )}
       >
         <motion.div
-          initial={{ scale: 1, opacity: 1, y: 0 }}
+          initial={{ scale: 1, opacity: 1, translateZ: "0px" }}
           animate={{
-            scale: showForm ? 0.8 : 1,
-            opacity: showForm ? 0 : 1,
-            // y: showForm ? 100 : 0,
+            // scale: showForm ? 0.95 : 1,
+            opacity: showForm ? 0.1 : 1,
+            translateZ: showForm ? "-3px" : "0px",
           }}
           transition={{
             duration: 0.25,
@@ -102,9 +101,21 @@ export default function FormSection() {
                 onClick={handleButtonClick}
                 layoutId="form-button"
                 layout
-                initial={{ translateZ: 0 }}
-                animate={{ translateZ: 0 }}
+                initial={{
+                  translateZ: 0,
+                  boxShadow:
+                    "0px 0px 0px 2px rgba(255, 255, 255, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.2)",
+                }}
+                animate={{
+                  translateZ: 0,
+                  boxShadow:
+                    "0px 0px 0px 2px rgba(255, 255, 255, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.2)",
+                }}
                 whileInView={{ scale: 1.25, translateZ: 0 }}
+                whileHover={{
+                  boxShadow:
+                    "0px 0px 0px 2px rgba(255, 255, 255, 1), 0px 2px 2px 0px rgba(0, 0, 0, 0.2)",
+                }}
                 viewport={{ margin: "-20%" }}
                 transition={{
                   type: "spring",
@@ -113,7 +124,7 @@ export default function FormSection() {
                   bounce: 0,
                   duration: 0.5,
                 }}
-                className="origin-top select-none self-center rounded-[32px] px-6 py-3 text-xl text-white/80 shadow-[0px_0px_0px_2px_hsla(0,0%,100%,0.2),0px_2px_2px_0px_hsla(0,0%,0%,0.2)] outline-none transition-shadow duration-200 hover:scale-[1.01] hover:text-white hover:shadow-[0px_0px_0px_2px_hsla(0,0%,100%,1),0px_2px_2px_0px_hsla(0,0%,0%,0.2)] focus-visible:shadow-[0px_0px_0px_2px_hsla(0,0%,100%,1),0px_2px_2px_0px_hsla(0,0%,0%,0.2)] active:scale-[0.99]"
+                className="origin-top select-none self-center rounded-[32px] px-6 py-3 text-xl text-white/80 outline-none hover:scale-[1.01] hover:text-white  focus-visible:shadow-[0px_0px_0px_2px_hsla(0,0%,100%,1),0px_2px_2px_0px_hsla(0,0%,0%,0.2)] active:scale-[0.99]"
               >
                 <motion.span
                   initial={{ opacity: 0 }}
@@ -132,7 +143,7 @@ export default function FormSection() {
             key="pitch"
             layout
             initial={{ y: "0%" }}
-            animate={{ y: showForm ? "-50%" : "0%" }}
+            animate={{ y: showForm ? "-30%" : "0%" }}
             transition={{
               duration: 0.25,
             }}
