@@ -7,8 +7,6 @@ import {
   useInView,
   useMotionValueEvent,
   useScroll,
-  useSpring,
-  useTransform,
 } from "framer-motion";
 import Form from "./form";
 import { tw } from "@/utils/tailwind";
@@ -64,19 +62,19 @@ export default function FormSection() {
       <motion.section
         ref={containerRef}
         className={tw(
-          "relative mx-auto mt-20 h-[160vh] w-full max-w-xl origin-center space-y-20 px-6 [perspective:45px] lg:h-[105vh] lg:max-w-4xl lg:px-0 xl:h-screen 2xl:h-[95vh]",
+          "relative mx-auto mt-20 min-h-screen w-full max-w-xl origin-center space-y-20 px-6 [perspective:45px] lg:max-w-4xl lg:px-0 ",
         )}
       >
         <motion.div
-          initial={{ scale: 1, opacity: 1, translateZ: "0px" }}
+          initial={{ opacity: 1, translateZ: "0px" }}
           animate={{
             // scale: showForm ? 0.95 : 1,
             opacity: showForm ? 0.1 : 1,
             translateZ: showForm ? "-3px" : "0px",
           }}
           transition={{
-            duration: 0.25,
-            opacity: { type: "linear", duration: 0.25 },
+            duration: 0.2,
+            opacity: { type: "linear", duration: 0.2 },
           }}
           className="sticky top-20 mx-auto flex flex-col space-y-8 text-balance text-2xl leading-6 [perspective:1000px] xs:[text-wrap:initial] lg:space-y-6 lg:text-4xl lg:leading-10"
         >
@@ -111,10 +109,16 @@ export default function FormSection() {
                   boxShadow:
                     "0px 0px 0px 2px rgba(255, 255, 255, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.2)",
                 }}
+                exit={{
+                  translateZ: 0,
+                  boxShadow:
+                    "0px 0px 0px 2px rgba(255, 255, 255, 0), 0px 2px 2px 0px rgba(0, 0, 0, 0)",
+                }}
                 whileInView={{ scale: 1.25, translateZ: 0 }}
                 whileHover={{
                   boxShadow:
                     "0px 0px 0px 2px rgba(255, 255, 255, 1), 0px 2px 2px 0px rgba(0, 0, 0, 0.2)",
+                  color: "white",
                 }}
                 viewport={{ margin: "-20%" }}
                 transition={{
@@ -122,15 +126,14 @@ export default function FormSection() {
                   damping: 5,
                   mass: 0.01,
                   bounce: 0,
-                  duration: 0.5,
                 }}
-                className="origin-top select-none self-center rounded-[32px] px-6 py-3 text-xl text-white/80 outline-none hover:scale-[1.01] hover:text-white  focus-visible:shadow-[0px_0px_0px_2px_hsla(0,0%,100%,1),0px_2px_2px_0px_hsla(0,0%,0%,0.2)] active:scale-[0.99]"
+                className="origin-top select-none self-center rounded-[32px] px-6 py-3 text-xl text-white/80 outline-none focus-visible:shadow-[0px_0px_0px_2px_hsla(0,0%,100%,1),0px_2px_2px_0px_hsla(0,0%,0%,0.2)]"
               >
                 <motion.span
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5 }}
-                  className="scale-100"
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3, delay: showForm ? 0 : 0.3 }}
                 >
                   Pitch your project
                 </motion.span>
@@ -138,21 +141,22 @@ export default function FormSection() {
             )}
           </div>
         </motion.div>
-        {showForm && (
-          <motion.div
-            key="pitch"
-            layout
-            initial={{ y: "0%" }}
-            animate={{ y: showForm ? "-20%" : "0%" }}
-            transition={{
-              duration: 0.25,
-            }}
-            className="sticky top-0 z-10 flex w-full flex-col items-center"
-          >
-            <Form ref={formRef} showForm={showForm} />
-          </motion.div>
-        )}
       </motion.section>
+      {showForm && (
+        <motion.div
+          key="pitch"
+          layout
+          // initial={{ y: "0%" }}
+          // animate={{ y: showForm ? "40%" : "0%" }}
+          exit={{ scale: 0 }}
+          transition={{
+            duration: 0.25,
+          }}
+          className="fixed bottom-20 flex w-full flex-col items-center"
+        >
+          <Form ref={formRef} showForm={showForm} />
+        </motion.div>
+      )}
     </>
   );
 }

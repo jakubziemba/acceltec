@@ -61,7 +61,8 @@ const Form = (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.15, delay: 0.1 }}
+          exit={{ opacity: 0 }}
+          transition={{ type: "linear", duration: 0.1 }}
           className="lg:flex-2 flex flex-col gap-2 text-base leading-10 tracking-wide lg:w-full lg:max-w-md lg:text-xl"
         >
           <label
@@ -120,7 +121,7 @@ const Form = (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.15, delay: 0.1 }}
+          transition={{ type: "linear", duration: 0.1 }}
           className="relative isolate w-full overflow-hidden rounded-[18px] bg-white/5 lg:flex-1"
         >
           <div className="flex h-auto min-h-48 w-full flex-col justify-between px-6 pb-4 pt-2 tracking-wide lg:absolute lg:inset-0">
