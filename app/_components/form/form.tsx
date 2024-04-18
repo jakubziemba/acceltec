@@ -52,14 +52,18 @@ const Form = (
       transition={{
         duration: 0.2,
         opacity: { type: "linear", duration: 0.2 },
-        // delayChildren: 0.5,
       }}
       layout
       layoutId="form-button"
       className="mx-auto w-full max-w-4xl origin-top scroll-mt-10"
     >
       <div className="mx-auto flex max-w-xl flex-col gap-6 rounded-[30px] bg-[#171717] p-4 lg:max-w-full lg:flex-row lg:p-7">
-        <div className="lg:flex-2 flex flex-col gap-2 text-base leading-10 tracking-wide lg:w-full lg:max-w-md lg:text-xl">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.15, delay: 0.1 }}
+          className="lg:flex-2 flex flex-col gap-2 text-base leading-10 tracking-wide lg:w-full lg:max-w-md lg:text-xl"
+        >
           <label
             htmlFor="name"
             className="w-full rounded-[18px] px-4 py-3 leading-10 tracking-wide text-white/50 lg:text-lg"
@@ -112,8 +116,13 @@ const Form = (
           <button className="rounded-[44px] bg-white/10 px-4 py-1 text-base leading-10 text-white/50 outline-none transition duration-200 focus-visible:scale-[0.98] lg:w-max lg:rounded-xl lg:bg-inherit lg:text-xl lg:text-white lg:hover:scale-[1.02] lg:active:scale-[0.98]">
             Send
           </button>
-        </div>
-        <div className="relative isolate w-full overflow-hidden rounded-[18px] bg-white/5 lg:flex-1">
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.15, delay: 0.1 }}
+          className="relative isolate w-full overflow-hidden rounded-[18px] bg-white/5 lg:flex-1"
+        >
           <div className="flex h-auto min-h-48 w-full flex-col justify-between px-6 pb-4 pt-2 tracking-wide lg:absolute lg:inset-0">
             <p className="text-lg leading-10 text-white/50">To</p>
             <div className="text-2xl leading-10">
@@ -122,7 +131,7 @@ const Form = (
             </div>
           </div>
           <LogoCard className="absolute -top-96 left-36 -z-10 h-full w-full select-none lg:-left-7 lg:-top-[360px]" />
-        </div>
+        </motion.div>
       </div>
     </motion.form>
   );

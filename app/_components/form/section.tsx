@@ -64,7 +64,7 @@ export default function FormSection() {
       <motion.section
         ref={containerRef}
         className={tw(
-          "relative mx-auto mt-20 h-[135vh] w-full max-w-xl origin-center space-y-20 px-6 [perspective:45px] lg:h-[105vh] lg:max-w-4xl lg:px-0 xl:h-screen 2xl:h-[95vh]",
+          "relative mx-auto mt-20 h-[160vh] w-full max-w-xl origin-center space-y-20 px-6 [perspective:45px] lg:h-[105vh] lg:max-w-4xl lg:px-0 xl:h-screen 2xl:h-[95vh]",
         )}
       >
         <motion.div
