@@ -1,4 +1,12 @@
+"use client";
+
+import { motion, useTime, useMotionValue, useTransform } from "framer-motion";
+
 export default function BackgroundGradient() {
+  const time = useTime();
+  const rotate = useTransform(time, [0, 4000], [0, 360], { clamp: false });
+  const scale = useTransform(time, [0, 4000], [0.1, 1]);
+  const x = useTransform(time, [0, 4000], [-200, 100], { clamp: false });
   return (
     <div className="fixed left-0 top-0 isolate -z-10 h-full w-full mix-blend-difference">
       {/* <div
@@ -16,11 +24,11 @@ export default function BackgroundGradient() {
         className="absolute right-0 top-0 h-[806px] w-[1100px]"
       >
         <g filter="url(#filter0_f_61_21)">
-          <path
+          <motion.path
             d="M819.898 804.5C819.898 909.71 197.226 1204 468.398 1204C603.825 1204 1114.7 1227.83 1311.4 1135C1508.56 1041.95 1391.4 832.167 1391.4 779.5C1391.4 674.29 1059.07 400 787.898 400C516.726 400 819.898 699.29 819.898 804.5Z"
             fill="url(#paint0_linear_61_21)"
-            fillOpacity={0.08}
-            style={{}}
+            fillOpacity={0.2}
+            style={{ rotate, scale, x }}
           />
         </g>
         <defs>
