@@ -48,14 +48,19 @@ const Form = (
     <motion.form
       ref={ref}
       id={id}
-      animate={{ scale: 1, opacity: showForm ? 1 : 0 }}
+      initial={{ opacity: 0, visibility: "hidden" }}
+      animate={{
+        opacity: showForm ? 1 : 0,
+        visibility: showForm ? "visible" : "hidden",
+      }}
       transition={{
-        duration: 0.2,
+        duration: 0.3,
+        bounce: 0,
         opacity: { type: "linear", duration: 0.2 },
       }}
       layout
       layoutId="form-button"
-      className="mx-auto w-full max-w-4xl origin-top -scroll-mt-10"
+      className="mx-auto w-full max-w-4xl origin-bottom -scroll-mt-10"
     >
       <div className="mx-auto flex max-w-xl flex-col gap-6 rounded-[30px] bg-[#171717] p-4 lg:max-w-full lg:flex-row lg:p-7">
         <MotionConfig

@@ -47,12 +47,12 @@ export default function FormSection() {
   return (
     <section
       ref={containerRef}
-      className="2xs:mt-[80vh] 4k:mt-[60vh] relative mt-[100vh] w-full [perspective:45px] lg:mt-[100vh] 2xl:mt-[80vh]"
+      className="relative mt-[90vh] w-full [perspective:45px] 2xs:mt-[70vh] lg:mt-[100vh] 2xl:mt-[80vh] 4k:mt-[50vh]"
     >
       <motion.div
         initial={{ opacity: 1, translateZ: "0px", y: 0 }}
         animate={{
-          opacity: showForm ? 0.1 : 1,
+          opacity: showForm ? 0.05 : 1,
           translateZ: showForm ? "-2px" : "0px",
           y: showForm ? 20 : 0,
         }}
@@ -80,7 +80,7 @@ export default function FormSection() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ margin: "-10%", once: true }}
-          className="flex w-full justify-center pt-8"
+          className="flex w-full justify-center pt-8 [perspective:30px]"
         >
           {!showForm && (
             <Button showForm={showForm} handleButtonClick={handleButtonClick}>
@@ -91,7 +91,6 @@ export default function FormSection() {
       </motion.div>
       <motion.div
         key="pitch"
-        layout
         initial={{ position: "static", bottom: "0%" }}
         animate={{
           position: showForm ? "sticky" : "static",
