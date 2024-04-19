@@ -6,7 +6,7 @@ import FormSection from "./_components/form/section";
 
 export default function Home() {
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <HeroSection />
       {/* <div className="sticky top-0 min-h-screen"> */}
       {/* <AboutSection /> */}

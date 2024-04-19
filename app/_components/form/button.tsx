@@ -37,7 +37,7 @@ export default function Button({
           "0px 0px 0px 2px rgba(255, 255, 255, 1), 0px 2px 2px 0px rgba(0, 0, 0, 0.2)",
         color: "rgba(255, 255, 255, 1)",
       }}
-      viewport={{ margin: "-15%" }}
+      viewport={{ margin: "-12%" }}
       transition={{
         type: "spring",
         damping: 5,

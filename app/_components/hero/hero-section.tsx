@@ -9,7 +9,7 @@ export default function HeroSection() {
   const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
   return (
     <motion.section
-      className="fixed left-0 top-0 h-screen w-screen overflow-hidden pt-32 lg:h-screen lg:pt-48"
+      className="fixed left-0 top-0 min-h-screen w-screen overflow-hidden"
       style={{ y, opacity }}
     >
       <motion.h1
@@ -21,7 +21,7 @@ export default function HeroSection() {
           bounce: 0,
           opacity: { type: "linear", duration: 1.2 },
         }}
-        className="text-balance px-6 text-center text-[1.75rem] font-normal leading-8 lg:text-[2.5rem] lg:leading-[1.8]"
+        className="text-balance px-6 pt-20 text-center text-[1.75rem] font-normal leading-8 lg:pt-32 lg:text-[2.5rem] lg:leading-[1.8]"
       >
         We partner with founders who look for greatness
       </motion.h1>

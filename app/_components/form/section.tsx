@@ -41,24 +41,23 @@ export default function FormSection() {
 
     formRef.current?.scrollIntoView({
       block: "end",
-      behavior: "smooth",
     });
   }, [shouldScroll]);
 
   return (
     <section
       ref={containerRef}
-      className="relative mt-[100vh] w-full [perspective:45px]"
+      className="2xs:mt-[80vh] 4k:mt-[60vh] relative mt-[100vh] w-full [perspective:45px] lg:mt-[100vh] 2xl:mt-[80vh]"
     >
       <motion.div
         initial={{ opacity: 1, translateZ: "0px", y: 0 }}
         animate={{
           opacity: showForm ? 0.1 : 1,
-          translateZ: showForm ? "-3px" : "0px",
+          translateZ: showForm ? "-2px" : "0px",
           y: showForm ? 20 : 0,
         }}
         transition={{
-          duration: 0.2,
+          duration: 0.25,
           opacity: { type: "linear", duration: 0.2 },
         }}
         className="sticky top-0 z-10 mx-auto flex h-screen w-full max-w-xl -translate-y-1/2 flex-col items-center justify-center space-y-8 text-balance px-6 text-2xl leading-6 [perspective:1000px] supports-[height:100dvh]:h-dvh xs:[text-wrap:initial] lg:max-w-4xl lg:space-y-6 lg:px-0 lg:pt-0 lg:text-4xl lg:leading-10"
