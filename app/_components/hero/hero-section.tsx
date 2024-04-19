@@ -5,8 +5,8 @@ import LogoHero from "./logo";
 
 export default function HeroSection() {
   const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 1], [0, -400]);
-  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, -300]);
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
   return (
     <motion.section
       className="fixed left-0 top-0 h-screen w-screen overflow-hidden pt-32 lg:h-screen lg:pt-48"
