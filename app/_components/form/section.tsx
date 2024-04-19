@@ -29,14 +29,14 @@ export default function FormSection() {
   }
 
   useMotionValueEvent(scrollYProgress, "change", (value) => {
-    if (value > 0.9) {
+    if (value > 0.85) {
       setShowForm(true);
       setShouldScroll(false);
     }
 
     if (shouldScroll) return;
 
-    if (value < 0.9) {
+    if (value < 0.85) {
       setShowForm(false);
     }
   });
