@@ -6,7 +6,7 @@ import FormSection from "./_components/form/section";
 
 export default function Home() {
   return (
-    <>
+    <div className="relative min-h-[180vh]">
       {/* <BackgroundGradient /> */}
       <HeroSection />
       {/* <div className="sticky top-0 min-h-screen"> */}
@@ -14,6 +14,6 @@ export default function Home() {
       <FormSection />
       {/* </div> */}
       {/* <Footer /> */}
-    </>
+    </div>
   );
 }

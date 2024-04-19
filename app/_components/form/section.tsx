@@ -29,14 +29,14 @@ export default function FormSection() {
   }
 
   useMotionValueEvent(scrollYProgress, "change", (value) => {
-    if (value > 0.85) {
+    if (value > 0.9) {
       setShowForm(true);
       setShouldScroll(false);
     }
 
     if (shouldScroll) return;
 
-    if (value < 0.85) {
+    if (value < 0.9) {
       setShowForm(false);
     }
   });
@@ -51,11 +51,11 @@ export default function FormSection() {
   }, [shouldScroll]);
 
   return (
-    <div ref={containerRef} className="relative">
+    <section ref={containerRef} className="relative mt-[100vh] w-full">
       <LayoutGroup>
-        <motion.section
+        <motion.div
           className={tw(
-            "relative mx-auto w-full max-w-xl origin-center space-y-20 px-6 pt-20 [perspective:45px] lg:max-w-4xl lg:px-0 ",
+            "relative mx-auto w-full max-w-xl origin-center space-y-20 px-6 pt-10 [perspective:45px] lg:max-w-4xl lg:px-0 ",
           )}
         >
           <motion.div
@@ -96,7 +96,7 @@ export default function FormSection() {
               )}
             </div>
           </motion.div>
-        </motion.section>
+        </motion.div>
         <motion.div
           key="pitch"
           layout
@@ -114,6 +114,6 @@ export default function FormSection() {
           </div>
         </motion.div>
       </LayoutGroup>
-    </div>
+    </section>
   );
 }
