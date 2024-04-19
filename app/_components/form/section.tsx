@@ -10,6 +10,7 @@ import {
 import Form from "./form";
 import { tw } from "@/utils/tailwind";
 import AnimatedText from "../animated-text";
+import Button from "./button";
 
 export default function FormSection() {
   const containerRef = useRef<null | HTMLDivElement>(null);
@@ -28,14 +29,14 @@ export default function FormSection() {
   }
 
   useMotionValueEvent(scrollYProgress, "change", (value) => {
-    if (value > 0.8) {
+    if (value > 0.9) {
       setShowForm(true);
       setShouldScroll(false);
     }
 
     if (shouldScroll) return;
 
-    if (value < 0.8) {
+    if (value < 0.9) {
       setShowForm(false);
     }
   });
@@ -62,12 +63,13 @@ export default function FormSection() {
             animate={{
               opacity: showForm ? 0.1 : 1,
               translateZ: showForm ? "-3px" : "0px",
+              y: showForm ? 20 : 0,
             }}
             transition={{
               duration: 0.2,
               opacity: { type: "linear", duration: 0.2 },
             }}
-            className="sticky top-20 mx-auto flex flex-col space-y-8 text-balance text-2xl leading-6 [perspective:1000px] xs:[text-wrap:initial] lg:space-y-6 lg:text-4xl lg:leading-10"
+            className="sticky top-40 mx-auto flex -translate-y-1/2 flex-col space-y-8 text-balance text-2xl leading-6 [perspective:1000px] xs:[text-wrap:initial] lg:space-y-6 lg:text-4xl lg:leading-10"
           >
             <AnimatedText el="h2" className="origin-bottom text-white/80">
               Berlin-based software studio that exclusively works with founders,
@@ -85,54 +87,12 @@ export default function FormSection() {
             </AnimatedText>
             <div className="flex w-full justify-center pt-10">
               {!showForm && (
-                <motion.button
-                  onClick={handleButtonClick}
-                  layoutId="form-button"
-                  layout
-                  initial={{
-                    translateZ: 0,
-                    boxShadow:
-                      "0px 0px 0px 2px rgba(255, 255, 255, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.2)",
-                  }}
-                  animate={{
-                    translateZ: 0,
-                    boxShadow:
-                      "0px 0px 0px 2px rgba(255, 255, 255, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.2)",
-                  }}
-                  exit={{
-                    translateZ: 0,
-                    boxShadow:
-                      "0px 0px 0px 2px rgba(255, 255, 255, 0), 0px 2px 2px 0px rgba(0, 0, 0, 0)",
-                  }}
-                  whileInView={{ scale: 1.25, translateZ: 0 }}
-                  whileHover={{
-                    boxShadow:
-                      "0px 0px 0px 2px rgba(255, 255, 255, 1), 0px 2px 2px 0px rgba(0, 0, 0, 0.2)",
-                    color: "rgba(255, 255, 255, 1)",
-                  }}
-                  viewport={{ margin: "-20%" }}
-                  transition={{
-                    type: "spring",
-                    damping: 5,
-                    mass: 0.01,
-                    bounce: 0,
-                  }}
-                  className="relative z-[9999] origin-top select-none self-center rounded-[32px] px-6 py-3 text-xl text-white/80 outline-none focus-visible:shadow-[0px_0px_0px_2px_hsla(0,0%,100%,1),0px_2px_2px_0px_hsla(0,0%,0%,0.2)]"
+                <Button
+                  showForm={showForm}
+                  handleButtonClick={handleButtonClick}
                 >
-                  <motion.span
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{
-                      type: "linear",
-                      duration: 0.3,
-                      ease: "easeIn",
-                      delay: showForm ? 0 : 0.3,
-                    }}
-                  >
-                    Pitch your project
-                  </motion.span>
-                </motion.button>
+                  Pitch your project
+                </Button>
               )}
             </div>
           </motion.div>
