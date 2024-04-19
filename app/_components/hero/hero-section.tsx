@@ -5,7 +5,7 @@ import LogoHero from "./logo";
 
 export default function HeroSection() {
   const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 1], [0, -300]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, -800]);
   const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
   return (
     <motion.section
