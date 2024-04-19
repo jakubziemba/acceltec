@@ -31,20 +31,20 @@ export default function Button({
         boxShadow:
           "0px 0px 0px 2px rgba(255, 255, 255, 0), 0px 2px 2px 0px rgba(0, 0, 0, 0)",
       }}
-      whileInView={{ scale: 1.25, translateZ: 0 }}
+      whileInView={{ scale: 1.2, translateZ: 0 }}
       whileHover={{
         boxShadow:
           "0px 0px 0px 2px rgba(255, 255, 255, 1), 0px 2px 2px 0px rgba(0, 0, 0, 0.2)",
         color: "rgba(255, 255, 255, 1)",
       }}
-      viewport={{ margin: "-20%" }}
+      viewport={{ margin: "-12%" }}
       transition={{
         type: "spring",
         damping: 5,
         mass: 0.01,
         bounce: 0,
       }}
-      className="relative z-[9999] origin-top select-none self-center rounded-[32px] px-6 py-3 text-xl text-white/80 outline-none focus-visible:shadow-[0px_0px_0px_2px_hsla(0,0%,100%,1),0px_2px_2px_0px_hsla(0,0%,0%,0.2)]"
+      className="relative origin-top select-none self-center rounded-[32px] px-6 py-3 text-xl text-white/80 outline-none focus-visible:shadow-[0px_0px_0px_2px_hsla(0,0%,100%,1),0px_2px_2px_0px_hsla(0,0%,0%,0.2)]"
     >
       <motion.span
         initial={{ opacity: 0 }}
