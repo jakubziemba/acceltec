@@ -31,12 +31,12 @@ export default function Button({
         boxShadow:
           "0px 0px 0px 2px rgba(255, 255, 255, 0), 0px 2px 2px 0px rgba(0, 0, 0, 0)",
       }}
-      whileInView={{ scale: 1.2, translateZ: 0 }}
       whileHover={{
         boxShadow:
           "0px 0px 0px 2px rgba(255, 255, 255, 1), 0px 2px 2px 0px rgba(0, 0, 0, 0.2)",
         color: "rgba(255, 255, 255, 1)",
       }}
+      whileInView={{ scale: 1.1, translateZ: 0 }}
       viewport={{ margin: "-12%" }}
       transition={{
         type: "spring",
