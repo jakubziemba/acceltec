@@ -30,7 +30,7 @@ export default function FooterTabs() {
           <li
             key={tab.id}
             className={tw(
-              "relative cursor-pointer text-sm leading-8 outline-none transition-colors",
+              "relative cursor-pointer text-sm leading-8 outline-none transition-all duration-200 active:scale-[0.98] ",
               isActive ? "text-white/80" : "text-white/20",
             )}
             onFocus={() => setActiveTab(tab.label)}

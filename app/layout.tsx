@@ -20,9 +20,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body
+        className={tw(
+          inter.className,
+          "flex min-h-screen flex-col justify-between",
+        )}
+      >
         {/* <BackgroundGradient /> */}
-        <main className="container relative mx-auto flex min-h-[94vh] flex-col items-center justify-center">
+        <main className="container mx-auto flex min-h-[calc(100vh-80px)] flex-col items-center">
           {children}
         </main>
         <Footer />
