@@ -91,11 +91,10 @@ export default function FormSection() {
       </motion.div>
       <motion.div
         key="pitch"
-        initial={{ position: "static", bottom: "0%" }}
+        initial={{ position: "static" }}
         animate={{
           position: showForm ? "sticky" : "static",
           y: showForm ? -160 : 0,
-          bottom: "2%",
         }}
         exit={{ opacity: 0 }}
         className="relative z-20 flex h-[476px] w-full flex-col items-center px-4 lg:px-0"
