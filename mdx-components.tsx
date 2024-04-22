@@ -4,10 +4,18 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ...components,
     h1: (props) => (
-      <h1 className="text-4xl leading-10 text-white/80" {...props} />
+      <h1
+        className="leading-10 text-white/80"
+        style={{ fontSize: 36 }}
+        {...props}
+      />
     ),
     h2: (props) => (
-      <h2 className="text-[1.75rem] leading-10 text-white/50" {...props} />
+      <h2
+        className="leading-10 text-white/50"
+        style={{ fontSize: 28 }}
+        {...props}
+      />
     ),
     p: (props) => (
       <p className="text-lg leading-7 text-white/50 lg:text-xl" {...props} />
