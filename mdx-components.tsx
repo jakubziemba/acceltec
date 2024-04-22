@@ -9,7 +9,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h2: (props) => (
       <h2 className="text-[1.75rem] leading-10 text-white/50" {...props} />
     ),
-    p: (props) => <p className="text-xl leading-7 text-white/50" {...props} />,
+    p: (props) => (
+      <p className="text-lg leading-7 text-white/50 lg:text-xl" {...props} />
+    ),
     a: (props) => <a className="text-white/70" {...props} />,
   };
 }
