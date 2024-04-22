@@ -1,7 +1,7 @@
 export default function Page() {
   return (
-    <section className="flex w-full max-w-xl flex-col px-6 py-20 text-left lg:max-w-4xl lg:px-0">
-      <h1 className="text-4xl">Impressum</h1>
+    <div>
+      <h1 className="pb-2 text-4xl">Impressum</h1>
       <h2 className="text-[1.75rem] text-white/80">
         Anbieterkennzeichnung gem. § 5 TMG
       </h2>
@@ -30,6 +30,6 @@ export default function Page() {
           <p>Laurence Laumann</p>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

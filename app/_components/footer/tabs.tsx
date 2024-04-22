@@ -1,19 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { tw } from "@/utils/tailwind";
 
 const tabs = [
   {
-    // id: crypto.randomUUID(),
     id: 0,
     href: "/impressum",
     label: "Impressum",
   },
   {
-    // id: crypto.randomUUID(),
     id: 1,
     href: "/datenschutz",
     label: "Datenschutz",
@@ -29,9 +27,8 @@ export default function FooterTabs() {
         const isActive = tab.label === activeTab;
 
         return (
-          <motion.li
+          <li
             key={tab.id}
-            layout
             className={tw(
               "relative cursor-pointer text-sm leading-8 outline-none transition-colors",
               isActive ? "text-white/80" : "text-white/20",
@@ -40,7 +37,10 @@ export default function FooterTabs() {
             onMouseOver={() => setActiveTab(tab.label)}
             onMouseLeave={() => setActiveTab(tab.label)}
           >
-            <Link href={tab.href} className="px-3 py-1 outline-none">
+            <Link
+              href={tab.href}
+              className="relative inset-0 px-3 py-2 outline-none"
+            >
               {tab.label}
             </Link>
             {isActive && (
@@ -51,10 +51,10 @@ export default function FooterTabs() {
                   bounce: 0,
                   duration: 0.4,
                 }}
-                className="absolute inset-0 -z-10 flex h-full w-full items-center justify-center rounded-[10px] bg-white/10"
+                className="absolute inset-0 -z-10 rounded-[10px] bg-white/10"
               />
             )}
-          </motion.li>
+          </li>
         );
       })}
     </ul>

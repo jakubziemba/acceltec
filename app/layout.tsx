@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         {/* <BackgroundGradient /> */}
-        <main className="container relative mx-auto flex flex-col items-center justify-center">
+        <main className="container relative mx-auto flex min-h-[94vh] flex-col items-center justify-center">
           {children}
         </main>
         <Footer />
