@@ -1,17 +1,13 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
-export default function ButtonHome({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const ButtonHome = ({ children }: { children: React.ReactNode }) => {
   const { scrollY } = useScroll();
   const [isVisible, setIsVisible] = useState(true);
-  const initialLoad = useRef(true);
   let lastScrollY = scrollY.get();
 
   const MotionLink = motion(Link);
@@ -27,19 +23,12 @@ export default function ButtonHome({
     lastScrollY = currentScrollY;
   });
 
-  useEffect(() => {
-    if (initialLoad) {
-      initialLoad.current = false;
-      return;
-    }
-  }, []);
-
   return (
     <MotionLink
       href="/"
       initial={{
         opacity: isVisible ? 0 : 1,
-        scale: initialLoad.current ? 0.75 : isVisible ? 0.75 : 1,
+        scale: isVisible ? 0.75 : 1,
         boxShadow:
           "0px 0px 0px 2px rgba(255, 255, 255, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.2)",
       }}
@@ -83,4 +72,6 @@ export default function ButtonHome({
       {children}
     </MotionLink>
   );
-}
+};
+
+export default React.memo(ButtonHome);
