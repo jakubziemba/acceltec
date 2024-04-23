@@ -11,8 +11,8 @@ export default function ButtonHome({
 }) {
   const { scrollY } = useScroll();
   const [isVisible, setIsVisible] = useState(true);
+  const initialLoad = useRef(true);
   let lastScrollY = scrollY.get();
-  let initialLoad = useRef(true);
 
   const MotionLink = motion(Link);
 
