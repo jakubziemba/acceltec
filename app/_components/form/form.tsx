@@ -1,11 +1,13 @@
 "use client";
 
-import { forwardRef } from "react";
+import { forwardRef, useEffect } from "react";
+import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { MotionConfig, motion } from "framer-motion";
+import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import LogoCard from "./logo-card";
+import CheckIcon from "./check-icon";
+import { tw } from "@/utils/tailwind";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -28,7 +30,7 @@ const Form = (
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { isSubmitting, isSubmitSuccessful, errors },
   } = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
@@ -63,7 +65,7 @@ const Form = (
       className="mx-auto w-full max-w-4xl origin-bottom -scroll-mt-10"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="mx-auto flex max-w-xl flex-col gap-6 rounded-[30px] bg-[#171717] p-4 lg:max-w-full lg:flex-row lg:p-7">
+      <div className="mx-auto flex max-w-xl flex-col gap-4 rounded-[30px] bg-[hsla(0,0%,7%,1)] p-4 lg:max-w-full lg:flex-row lg:gap-6 lg:p-7">
         <MotionConfig
           transition={{
             type: "linear",
@@ -92,12 +94,17 @@ const Form = (
                 autoComplete="off"
                 className="peer bg-inherit px-4 py-2 leading-10 outline-none transition duration-200 placeholder:tracking-wide placeholder:text-white/20"
                 {...register("name")}
+                aria-invalid={errors?.name ? "true" : "false"}
               />
-              <div className="pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-200 group-hover/name:bg-white/35 peer-focus-within:bg-white" />
+              <div
+                className={tw(
+                  "pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-200 group-hover/name:bg-white/35 peer-focus-within:bg-white",
+                  errors?.name
+                    ? "bg-red-700/50 group-hover/name:bg-red-700/75 peer-focus-visible:bg-red-700/75"
+                    : "group-hover/name:bg-white/35 peer-focus-visible:bg-white",
+                )}
+              />
             </div>
-            {errors?.name && (
-              <p className="px-1 text-xs text-red-600">{errors.name.message}</p>
-            )}
 
             <div className="group/email relative flex flex-col gap-2">
               <input
@@ -107,31 +114,68 @@ const Form = (
                 autoComplete="off"
                 className="peer bg-inherit px-4 py-2 leading-10 outline-none transition-colors duration-200 placeholder:tracking-wide placeholder:text-white/20"
                 {...register("email")}
+                aria-invalid={errors?.email ? "true" : "false"}
               />
-              <div className="pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-200 group-hover/email:bg-white/35 peer-focus-visible:bg-white" />
+              <div
+                className={tw(
+                  "pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-200 group-hover/email:bg-white/35 peer-focus-visible:bg-white",
+                  errors?.email
+                    ? "bg-red-700/50 group-hover/email:bg-red-700/75 peer-focus-visible:bg-red-700/75"
+                    : "group-hover/email:bg-white/35 peer-focus-visible:bg-white",
+                )}
+              />
             </div>
-            {errors?.email && (
-              <p className="px-1 text-xs text-red-600">
-                {errors.email.message}
-              </p>
-            )}
+
             <div className="group/content relative flex flex-col gap-2">
               <textarea
                 id="content"
                 placeholder="My project is about..."
                 className="peer h-32 resize-none bg-inherit px-4 py-2 leading-6 outline-none placeholder:tracking-wide placeholder:text-white/20 lg:h-72"
                 {...register("content")}
+                aria-invalid={errors?.content ? "true" : "false"}
               />
-              <div className="pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-200 group-hover/content:bg-white/35 peer-focus-visible:bg-white" />
+              <div
+                className={tw(
+                  "pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-200 group-hover/content:bg-white/35 peer-focus-visible:bg-white",
+                  errors?.content
+                    ? "bg-red-700/50 group-hover/content:bg-red-700/75 peer-focus-visible:bg-red-700/75"
+                    : "group-hover/content:bg-white/35 peer-focus-visible:bg-white",
+                )}
+              />
             </div>
-            {errors?.content && (
-              <p className="px-1 text-xs text-red-600">
-                {errors.content.message}
-              </p>
-            )}
-            <button className="rounded-[44px] bg-white/10 px-4 py-1 text-base leading-10 text-white/50 outline-none transition duration-200 focus-visible:scale-[0.98] lg:w-max lg:rounded-xl lg:bg-inherit lg:text-xl lg:text-white lg:hover:scale-[1.02] lg:active:scale-[0.98]">
-              Send
-            </button>
+            <div className="flex min-h-14 justify-center py-1 lg:justify-start">
+              <AnimatePresence mode="wait">
+                {!isSubmitSuccessful ? (
+                  <motion.button
+                    initial={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    disabled={isSubmitting}
+                    className="px-4 py-1 text-base leading-9 text-white/50 outline-none transition duration-200 disabled:text-white/50 lg:w-max lg:rounded-xl lg:bg-inherit lg:text-xl lg:leading-10 lg:text-white lg:focus-visible:text-white/80 lg:active:scale-[0.98]"
+                  >
+                    {isSubmitting ? "Sending..." : "Send"}
+                  </motion.button>
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0, visibility: "hidden" }}
+                    animate={{ opacity: 1, visibility: "visible" }}
+                    exit={{ opacity: 0, visibility: "hidden" }}
+                    transition={{
+                      type: "tween",
+                      duration: 0.2,
+                      visibility: { delay: isSubmitSuccessful ? 0 : 0.2 },
+                    }}
+                    className="flex w-full items-center gap-2"
+                  >
+                    <span className="inline-flex self-start xs:self-center">
+                      <CheckIcon />
+                    </span>
+                    <p className="text-base text-white/50 lg:text-lg">
+                      Your email was sent. We&apos;ll get back to you soon.
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </motion.div>
           <motion.div
             // initial={{ opacity: 0 }}
