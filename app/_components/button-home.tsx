@@ -47,6 +47,9 @@ export default function ButtonHome({
           "0px 0px 0px 2px rgba(255, 255, 255, 1), 0px 2px 2px 0px rgba(0, 0, 0, 0.2)",
         color: "rgba(255, 255, 255, 1)",
       }}
+      whileTap={{
+        scale: 0.95,
+      }}
       transition={{
         scale: { duration: isVisible ? 0.12 : 0.1 },
         opacity: {
@@ -62,7 +65,7 @@ export default function ButtonHome({
           bounce: 0,
         },
       }}
-      className="origin-top select-none
+      className="origin-center select-none
       rounded-[32px] bg-[hsla(0,0%,9%,0.5)] px-6 py-3 text-lg text-white/80 outline-none backdrop-blur-sm focus-visible:shadow-[0px_0px_0px_2px_hsla(0,0%,100%,1),0px_2px_2px_0px_hsla(0,0%,0%,0.2)] lg:top-12 lg:text-xl"
       style={{
         boxShadow:
