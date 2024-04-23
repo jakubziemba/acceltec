@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function ButtonHome({
   children,
