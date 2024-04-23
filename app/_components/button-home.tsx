@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function ButtonHome({
   children,
@@ -12,6 +12,7 @@ export default function ButtonHome({
   const { scrollY } = useScroll();
   const [isVisible, setIsVisible] = useState(true);
   let lastScrollY = scrollY.get();
+  let initialLoad = useRef(true);
 
   const MotionLink = motion(Link);
 
@@ -26,12 +27,19 @@ export default function ButtonHome({
     lastScrollY = currentScrollY;
   });
 
+  useEffect(() => {
+    if (initialLoad) {
+      initialLoad.current = false;
+      return;
+    }
+  }, []);
+
   return (
     <MotionLink
       href="/"
       initial={{
         opacity: isVisible ? 0 : 1,
-        scale: isVisible ? 0.75 : 1,
+        scale: initialLoad.current ? 0.75 : isVisible ? 0.75 : 1,
         boxShadow:
           "0px 0px 0px 2px rgba(255, 255, 255, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.2)",
       }}
@@ -65,8 +73,7 @@ export default function ButtonHome({
           bounce: 0,
         },
       }}
-      className="origin-center select-none
-      rounded-[32px] bg-[hsla(0,0%,9%,0.5)] px-6 py-3 text-lg text-white/80 outline-none backdrop-blur-sm focus-visible:shadow-[0px_0px_0px_2px_hsla(0,0%,100%,1),0px_2px_2px_0px_hsla(0,0%,0%,0.2)] lg:top-12 lg:text-xl"
+      className="origin-center select-none rounded-[32px] bg-[hsla(0,0%,9%,0.5)] px-6 py-3 text-lg text-white/80 outline-none backdrop-blur-sm focus-visible:shadow-[0px_0px_0px_2px_hsla(0,0%,100%,1),0px_2px_2px_0px_hsla(0,0%,0%,0.2)] lg:top-12 lg:text-xl"
       style={{
         boxShadow:
           "0px 0px 0px 2px rgba(255, 255, 255, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.2)",
