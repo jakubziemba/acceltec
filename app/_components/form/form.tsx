@@ -92,6 +92,7 @@ const Form = (
                 type="text"
                 placeholder="Name"
                 autoComplete="off"
+                required
                 className="peer bg-inherit px-4 py-2 leading-10 outline-none transition duration-200 placeholder:tracking-wide placeholder:text-white/20"
                 {...register("name")}
                 aria-invalid={errors?.name ? "true" : "false"}
@@ -99,9 +100,9 @@ const Form = (
               <div
                 className={tw(
                   "pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-200 group-hover/name:bg-white/35 peer-focus-within:bg-white",
-                  errors?.name
-                    ? "bg-red-700/50 group-hover/name:bg-red-700/75 peer-focus-visible:bg-red-700/75"
-                    : "group-hover/name:bg-white/35 peer-focus-visible:bg-white",
+                  // errors?.name
+                  //   ? "bg-red-700/50 group-hover/name:bg-red-700/80 peer-focus-visible:bg-red-700/80"
+                  //   : "group-hover/name:bg-white/35 peer-focus-visible:bg-white",
                 )}
               />
             </div>
@@ -110,6 +111,7 @@ const Form = (
               <input
                 id="email"
                 type="email"
+                required
                 placeholder="Email"
                 autoComplete="off"
                 className="peer bg-inherit px-4 py-2 leading-10 outline-none transition-colors duration-200 placeholder:tracking-wide placeholder:text-white/20"
@@ -119,9 +121,9 @@ const Form = (
               <div
                 className={tw(
                   "pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-200 group-hover/email:bg-white/35 peer-focus-visible:bg-white",
-                  errors?.email
-                    ? "bg-red-700/50 group-hover/email:bg-red-700/75 peer-focus-visible:bg-red-700/75"
-                    : "group-hover/email:bg-white/35 peer-focus-visible:bg-white",
+                  // errors?.email
+                  //   ? "bg-red-700/50 group-hover/email:bg-red-700/80 peer-focus-visible:bg-red-700/80"
+                  //   : "group-hover/email:bg-white/35 peer-focus-visible:bg-white",
                 )}
               />
             </div>
@@ -129,6 +131,7 @@ const Form = (
             <div className="group/content relative flex flex-col gap-2">
               <textarea
                 id="content"
+                required
                 placeholder="My project is about..."
                 className="peer h-32 resize-none bg-inherit px-4 py-2 leading-6 outline-none placeholder:tracking-wide placeholder:text-white/20 lg:h-72"
                 {...register("content")}
@@ -137,9 +140,9 @@ const Form = (
               <div
                 className={tw(
                   "pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-200 group-hover/content:bg-white/35 peer-focus-visible:bg-white",
-                  errors?.content
-                    ? "bg-red-700/50 group-hover/content:bg-red-700/75 peer-focus-visible:bg-red-700/75"
-                    : "group-hover/content:bg-white/35 peer-focus-visible:bg-white",
+                  // errors?.content
+                  //   ? "bg-red-700/50 group-hover/content:bg-red-700/80 peer-focus-visible:bg-red-700/80"
+                  //   : "group-hover/content:bg-white/35 peer-focus-visible:bg-white",
                 )}
               />
             </div>

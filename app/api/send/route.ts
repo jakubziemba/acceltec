@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
 import * as z from "zod";
+import { Resend } from "resend";
+import { nanoid } from "nanoid";
 
 const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
 
@@ -23,6 +24,9 @@ export async function POST(request: NextRequest, response: NextResponse) {
       to: "ziemba.jak@gmail.com",
       subject: `${name} sent you a message`,
       text: content,
+      headers: {
+        "X-Entity-Ref-ID": nanoid(10),
+      },
     });
 
     if (res.error) {
