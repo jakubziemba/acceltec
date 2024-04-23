@@ -61,6 +61,7 @@ const Form = (
       layout
       layoutId="form-button"
       className="mx-auto w-full max-w-4xl origin-bottom -scroll-mt-10"
+      onSubmit={handleSubmit(onSubmit)}
     >
       <div className="mx-auto flex max-w-xl flex-col gap-6 rounded-[30px] bg-[#171717] p-4 lg:max-w-full lg:flex-row lg:p-7">
         <MotionConfig
