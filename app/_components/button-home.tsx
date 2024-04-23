@@ -31,7 +31,7 @@ export default function ButtonHome({
       href="/"
       initial={{
         opacity: isVisible ? 0 : 1,
-        scale: isVisible ? 0.91 : 1,
+        scale: isVisible ? 0.75 : 1,
         boxShadow:
           "0px 0px 0px 2px rgba(255, 255, 255, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.2)",
       }}
@@ -39,7 +39,7 @@ export default function ButtonHome({
         boxShadow:
           "0px 0px 0px 2px rgba(255, 255, 255, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.2)",
         opacity: isVisible ? 1 : 0,
-        scale: isVisible ? 1 : 0.91,
+        scale: isVisible ? 1 : 0.75,
         visibility: isVisible ? "visible" : "hidden",
       }}
       whileHover={{
@@ -51,8 +51,8 @@ export default function ButtonHome({
         scale: { duration: isVisible ? 0.12 : 0.1 },
         opacity: {
           type: "tween",
-          duration: isVisible ? 0.15 : 0.1,
-          delay: isVisible ? 0 : 0.04,
+          duration: isVisible ? 0.15 : 0.08,
+          delay: isVisible ? 0 : 0.03,
         },
         visibility: { delay: 0.16 },
         boxShadow: {
