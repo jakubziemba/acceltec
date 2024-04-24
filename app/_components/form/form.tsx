@@ -151,7 +151,12 @@ const Form = (
                 {!isSubmitSuccessful ? (
                   <motion.button
                     initial={{ opacity: 1 }}
+                    animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
+                    transition={{
+                      type: "tween",
+                      duration: 0.4,
+                    }}
                     disabled={isSubmitting}
                     className="px-4 py-1 text-base leading-9 text-white/50 outline-none transition duration-200 disabled:text-white/50 lg:w-max lg:rounded-xl lg:bg-inherit lg:text-xl lg:leading-10 lg:text-white lg:focus-visible:text-white/80 lg:active:scale-[0.98]"
                   >
@@ -159,13 +164,13 @@ const Form = (
                   </motion.button>
                 ) : (
                   <motion.div
-                    initial={{ opacity: 0, visibility: "hidden" }}
+                    initial={{ opacity: 0 }}
                     animate={{ opacity: 1, visibility: "visible" }}
                     exit={{ opacity: 0, visibility: "hidden" }}
                     transition={{
                       type: "tween",
-                      duration: 0.2,
-                      visibility: { delay: isSubmitSuccessful ? 0 : 0.2 },
+                      duration: 0.4,
+                      visibility: { delay: isSubmitSuccessful ? 0 : 0.4 },
                     }}
                     className="flex w-full items-center gap-2"
                   >
