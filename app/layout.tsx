@@ -26,11 +26,11 @@ export default function RootLayout({
           "flex min-h-screen flex-col justify-between",
         )}
       >
-        <CanvasAnimation />
         <main className="container mx-auto flex min-h-[calc(100vh-80px)] flex-col items-center">
           {children}
         </main>
         <Footer />
+        <CanvasAnimation />
       </body>
     </html>
   );
