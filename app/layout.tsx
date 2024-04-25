@@ -4,6 +4,7 @@ import "./globals.css";
 import Footer from "./_components/footer/footer";
 import { tw } from "@/utils/tailwind";
 import BackgroundGradient from "./_components/bg-gradient";
+import GradientCSS from "./_components/gradient-css";
 
 const inter = Inter_Tight({ subsets: ["latin"] });
 
@@ -27,6 +28,7 @@ export default function RootLayout({
         )}
       >
         {/* <BackgroundGradient /> */}
+        <GradientCSS />
         <main className="container mx-auto flex min-h-[calc(100vh-80px)] flex-col items-center">
           {children}
         </main>
