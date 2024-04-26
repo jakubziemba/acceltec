@@ -10,12 +10,16 @@ const CanvasAnimation: React.FC = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) return;
 
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = (window.innerWidth / canvas.width) * dpr;
-    canvas.height = (window.innerHeight / canvas.height) * dpr;
+    const scaleX = window.innerWidth / canvas.width;
+    const scaleY = window.innerHeight / canvas.height;
+
+    const scaleToCover = Math.max(scaleX, scaleY);
+
+    canvas.style.transformOrigin = "0 0"; //scale from top left
+    canvas.style.transform = `scale(${scaleToCover})`;
 
     const col = (x: number, y: number, shade: number) => {
       if (!ctx) return;
@@ -44,7 +48,9 @@ const CanvasAnimation: React.FC = () => {
     let animationFrameId: number;
 
     const run = () => {
+      // Run the animation
       for (let x = 0; x <= 31; x++) {
+        // Loop through the canvas
         for (let y = 0; y <= 31; y++) {
           const shade = Math.max(
             0,
@@ -59,9 +65,19 @@ const CanvasAnimation: React.FC = () => {
 
     run();
 
+    const resizeHandler = () => {
+      const scaleX = window.innerWidth / canvas.width;
+      const scaleY = window.innerHeight / canvas.height;
+      const scaleToCover = Math.max(scaleX, scaleY);
+      canvas.style.transform = `scale(${scaleToCover})`;
+    };
+
+    window.addEventListener("resize", resizeHandler);
+
     // Cleanup function
     return () => {
       window.cancelAnimationFrame(animationFrameId);
+      window.removeEventListener("resize", resizeHandler);
     };
   }, []);
 
@@ -78,7 +94,7 @@ const CanvasAnimation: React.FC = () => {
       id="canv"
       width={32}
       height={32}
-      className="fixed inset-0 -z-50 h-screen w-screen"
+      className="fixed inset-0 -z-50"
     />
   );
 };

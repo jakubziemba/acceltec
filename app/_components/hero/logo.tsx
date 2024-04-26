@@ -87,7 +87,7 @@ export default function LogoHero({ className = "" }) {
     if (!initialAnimationOver) return;
     const timeout = setTimeout(() => {
       resetMousePosition();
-    }, 300);
+    }, 700);
 
     return () => clearTimeout(timeout);
   }
