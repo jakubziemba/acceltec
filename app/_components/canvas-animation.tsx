@@ -59,7 +59,7 @@ const CanvasAnimation: React.FC = () => {
           col(x, y, shade);
         }
       }
-      t = t + 0.006;
+      t = t + 0.01;
       animationFrameId = window.requestAnimationFrame(run);
     };
 
