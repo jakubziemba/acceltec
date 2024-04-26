@@ -6,7 +6,7 @@ import { motion, useInView } from "framer-motion";
 const CanvasAnimation: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isInView = useInView(canvasRef, {
-    amount: 0.6,
+    amount: 0.5,
   });
 
   console.log(isInView);
@@ -69,16 +69,41 @@ const CanvasAnimation: React.FC = () => {
       animationFrameId = window.requestAnimationFrame(run);
     };
 
-    if (!isInView) return;
-
-    run();
-
     const resizeHandler = () => {
-      const scaleX = window.innerWidth / canvas.width;
-      const scaleY = window.innerHeight / canvas.height;
-      const scaleToCover = Math.max(scaleX, scaleY);
-      canvas.style.transform = `scale(${scaleToCover})`;
+      const canvas = canvasRef.current;
+      if (!canvas || !isInView) return;
+
+      const parentHeight =
+        canvas.parentElement?.clientHeight || window.innerHeight;
+
+      canvas.width = canvas.parentElement?.clientWidth || window.innerWidth;
+      canvas.height = parentHeight;
+
+      // Redraw the canvas content
+      const col = (x: number, y: number, shade: number) => {
+        ctx.fillStyle = `rgba(${shade}, ${shade}, ${shade}, 1)`;
+        ctx.fillRect(x, y, 1, 1);
+      };
+
+      // Clear the canvas
+      // ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Re-run the animation
+      for (let x = 0; x <= 31; x++) {
+        for (let y = 0; y <= 31; y++) {
+          const shade = Math.max(
+            10,
+            Math.min(255, R(x, y, t) + G(x, y, t) + B(x, y, t)),
+          );
+          col(x, y, shade);
+        }
+      }
+
+      if (isInView) run();
     };
+
+    if (!isInView) return;
+    run();
 
     window.addEventListener("resize", resizeHandler);
 
@@ -105,7 +130,7 @@ const CanvasAnimation: React.FC = () => {
       }}
       width={32}
       height={32}
-      className="absolute inset-0 -z-50 w-full"
+      className="absolute left-0 top-0 -z-50 w-full"
     />
   );
 };
