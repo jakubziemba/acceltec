@@ -101,8 +101,10 @@ export default function LogoHero({ className = "" }) {
     if (!currentTarget || !ref.current || !initialAnimationOver) return;
 
     const { left, top, right } = ref.current.getBoundingClientRect();
-    const xPosition = Math.min(right - left, Math.max(0, clientX - left));
-    const yPosition = Math.max(0, clientY - top);
+    const xPosition = Math.floor(
+      Math.min(right - left, Math.max(0, clientX - left)),
+    );
+    const yPosition = Math.floor(Math.max(0, clientY - top));
 
     mouseXSpring.set(xPosition);
     mouseYSpring.set(yPosition);
