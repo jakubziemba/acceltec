@@ -65,7 +65,7 @@ const CanvasAnimation: React.FC = () => {
     <motion.canvas
       ref={canvasRef}
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      animate={{ opacity: 0.8 }}
       transition={{
         type: "tween",
         duration: 0.6,

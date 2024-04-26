@@ -47,7 +47,7 @@ export default function FormSection() {
   return (
     <section
       ref={containerRef}
-      className="relative mt-[90vh] w-full [perspective:45px] 2xs:mt-[70vh] lg:mt-[100vh] 2xl:mt-[80vh] 4k:mt-[50vh]"
+      className="relative mt-[90vh] w-full [perspective:45px] 2xs:mt-[70vh] lg:mt-[100vh] 2xl:mt-[100vh] 4k:mt-[95vh]"
     >
       <motion.div
         initial={{ opacity: 1, translateZ: "0px", y: 0 }}
@@ -60,7 +60,7 @@ export default function FormSection() {
           duration: 0.25,
           opacity: { type: "linear", duration: 0.2 },
         }}
-        className="sticky top-0 z-10 mx-auto flex h-screen w-full max-w-xl -translate-y-1/2 flex-col items-center justify-center space-y-8 text-balance px-6 text-2xl leading-6 [perspective:1000px] supports-[height:100dvh]:h-dvh xs:[text-wrap:initial] lg:max-w-4xl lg:space-y-6 lg:px-0 lg:pt-0 lg:text-4xl lg:leading-10"
+        className="sticky top-0 z-10 mx-auto flex w-full max-w-xl -translate-y-1/2 flex-col items-center justify-center space-y-8 text-balance px-6 text-2xl leading-6 [perspective:1000px] supports-[height:100dvh]:h-dvh xs:[text-wrap:initial] lg:max-w-4xl lg:space-y-6 lg:px-0 lg:pt-0 lg:text-4xl lg:leading-10"
       >
         <AnimatedText el="h2" className="origin-bottom text-white/80">
           Berlin-based software studio that exclusively works with founders,
