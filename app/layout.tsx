@@ -23,14 +23,11 @@ export default function RootLayout({
       <body
         className={tw(
           inter.className,
-          "flex min-h-screen flex-col justify-between",
+          "flex min-h-screen flex-col items-center justify-between",
         )}
       >
-        <main className="container mx-auto flex min-h-[calc(100vh-80px)] flex-col items-center">
-          {children}
-        </main>
+        {children}
         <Footer />
-        <CanvasAnimation />
       </body>
     </html>
   );
