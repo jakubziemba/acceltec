@@ -39,7 +39,7 @@ const CanvasAnimation: React.FC = () => {
 
     const G = (x: number, y: number, t: number) => {
       return Math.floor(
-        5 +
+        0 +
           2 *
             Math.sin((x * x * Math.cos(t / 2) + y * y * Math.sin(t / 3)) / 100),
       );
@@ -124,9 +124,9 @@ const CanvasAnimation: React.FC = () => {
       }}
       transition={{
         type: "tween",
-        duration: 1,
-        ease: "easeIn",
-        visibility: { delay: isInView ? 0 : 1 },
+        duration: isInView ? 0.1 : 0.05,
+        // ease: "easeIn",
+        visibility: { delay: isInView ? 0 : 0.05 },
       }}
       width={32}
       height={32}
