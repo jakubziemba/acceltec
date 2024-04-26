@@ -20,7 +20,7 @@ const CanvasAnimation: React.FC = () => {
     };
 
     const R = (x: number, y: number, t: number) => {
-      return Math.floor(10 + 4 * Math.cos((x * x + y * y) / 100 + t)); // Decreased amplitude and adjusted frequency
+      return Math.floor(10 + 4 * Math.cos((x * x + y * y) / 100 + t));
     };
 
     const G = (x: number, y: number, t: number) => {
@@ -28,11 +28,11 @@ const CanvasAnimation: React.FC = () => {
         0 +
           2 *
             Math.sin((x * x * Math.cos(t / 2) + y * y * Math.sin(t / 3)) / 100),
-      ); // Decreased amplitude and adjusted frequency
+      );
     };
 
     const B = (x: number, y: number, t: number) => {
-      return Math.floor(0 + 2 * Math.sin(5 * Math.sin(t / 6) + (x * y) / 800)); // Decreased amplitude and adjusted frequency
+      return Math.floor(0 + 2 * Math.sin(5 * Math.sin(t / 6) + (x * y) / 800));
     };
 
     let t = 0;
@@ -49,7 +49,7 @@ const CanvasAnimation: React.FC = () => {
           col(x, y, shade);
         }
       }
-      t = t + 0.01;
+      t = t + 0.008;
       animationFrameId = window.requestAnimationFrame(run);
     };
 
@@ -66,11 +66,15 @@ const CanvasAnimation: React.FC = () => {
       ref={canvasRef}
       initial={{ opacity: 0 }}
       animate={{ opacity: 0.7 }}
-      transition={{ duration: 0.5, delay: 0.5 }}
+      transition={{
+        type: "tween",
+        duration: 0.6,
+        ease: "easeIn",
+      }}
       id="canv"
       width={32}
       height={32}
-      className="fixed inset-0 -z-50 h-screen w-screen opacity-80"
+      className="fixed inset-0 -z-50 h-screen w-screen"
     />
   );
 };
