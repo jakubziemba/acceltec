@@ -13,6 +13,10 @@ const CanvasAnimation: React.FC = () => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = (window.innerWidth / canvas.width) * dpr;
+    canvas.height = (window.innerHeight / canvas.height) * dpr;
+
     const col = (x: number, y: number, shade: number) => {
       if (!ctx) return;
       ctx.fillStyle = `rgba(${shade}, ${shade}, ${shade}, 1)`;
@@ -49,7 +53,7 @@ const CanvasAnimation: React.FC = () => {
           col(x, y, shade);
         }
       }
-      t = t + 0.008;
+      t = t + 0.006;
       animationFrameId = window.requestAnimationFrame(run);
     };
 
@@ -65,7 +69,7 @@ const CanvasAnimation: React.FC = () => {
     <motion.canvas
       ref={canvasRef}
       initial={{ opacity: 0 }}
-      animate={{ opacity: 0.8 }}
+      animate={{ opacity: 0.7 }}
       transition={{
         type: "tween",
         duration: 0.6,
