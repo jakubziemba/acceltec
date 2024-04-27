@@ -1,4 +1,4 @@
-export default function LogoCard({ className }: { className?: string }) {
+export default function LogoCardSVG({ className }: { className?: string }) {
   return (
     <div className={className}>
       <svg

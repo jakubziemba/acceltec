@@ -1,11 +1,11 @@
 "use client";
 
-import { forwardRef, useEffect } from "react";
+import { forwardRef } from "react";
 import * as z from "zod";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
-import LogoCard from "./logo-card";
+import LogoCardSVG from "./logo-card";
 import CheckIcon from "./check-icon";
 import { tw } from "@/utils/tailwind";
 
@@ -20,8 +20,6 @@ const formSchema = z.object({
     message: "Message must be at least 2 characters.",
   }),
 });
-
-// TODO: clean up, ask for error states in design, submit message & loading state
 
 const Form = (
   { id = "form", showForm }: { id?: string; showForm?: boolean },
@@ -100,9 +98,6 @@ const Form = (
               <div
                 className={tw(
                   "pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-200 group-hover/name:bg-white/35 peer-focus-within:bg-white",
-                  // errors?.name
-                  //   ? "bg-red-700/50 group-hover/name:bg-red-700/80 peer-focus-visible:bg-red-700/80"
-                  //   : "group-hover/name:bg-white/35 peer-focus-visible:bg-white",
                 )}
               />
             </div>
@@ -121,9 +116,6 @@ const Form = (
               <div
                 className={tw(
                   "pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-200 group-hover/email:bg-white/35 peer-focus-visible:bg-white",
-                  // errors?.email
-                  //   ? "bg-red-700/50 group-hover/email:bg-red-700/80 peer-focus-visible:bg-red-700/80"
-                  //   : "group-hover/email:bg-white/35 peer-focus-visible:bg-white",
                 )}
               />
             </div>
@@ -140,9 +132,6 @@ const Form = (
               <div
                 className={tw(
                   "pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-200 group-hover/content:bg-white/35 peer-focus-visible:bg-white",
-                  // errors?.content
-                  //   ? "bg-red-700/50 group-hover/content:bg-red-700/80 peer-focus-visible:bg-red-700/80"
-                  //   : "group-hover/content:bg-white/35 peer-focus-visible:bg-white",
                 )}
               />
             </div>
@@ -198,7 +187,7 @@ const Form = (
                 <p className="text-xl text-white/70">Founder</p>
               </div>
             </div>
-            <LogoCard className="absolute -top-96 left-36 -z-10 h-full w-full select-none lg:-left-7 lg:-top-[360px]" />
+            <LogoCardSVG className="absolute -top-96 left-36 -z-10 h-full w-full select-none lg:-left-7 lg:-top-[360px]" />
           </motion.div>
         </MotionConfig>
       </div>
