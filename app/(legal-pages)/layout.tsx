@@ -1,8 +1,9 @@
 import ButtonHome from "../_components/button-home";
+import Footer from "../_components/footer/footer";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <>
+    <main className="container flex min-h-[calc(100vh-80px)] w-screen flex-col items-center">
       <nav className="fixed top-10 z-10 flex w-full justify-center lg:top-20">
         <ButtonHome>Home</ButtonHome>
       </nav>
@@ -11,6 +12,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           {children}
         </div>
       </section>
-    </>
+      <Footer />
+    </main>
   );
 }

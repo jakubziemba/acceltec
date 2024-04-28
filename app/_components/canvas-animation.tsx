@@ -6,10 +6,10 @@ import { motion, useInView } from "framer-motion";
 const CanvasAnimation: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isInView = useInView(canvasRef, {
-    amount: 0.5,
+    amount: 0.7,
   });
 
-  console.log(isInView);
+  // console.log(isInView);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -130,7 +130,7 @@ const CanvasAnimation: React.FC = () => {
       }}
       width={32}
       height={32}
-      className="absolute left-0 top-0 -z-50 w-full"
+      className="absolute left-0 top-0 -z-50 w-screen"
     />
   );
 };

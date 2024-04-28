@@ -8,6 +8,7 @@ import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import LogoCardSVG from "./logo-card";
 import CheckIcon from "./check-icon";
 import { tw } from "@/utils/tailwind";
+import Footer from "../footer/footer";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -45,153 +46,147 @@ const Form = (
   }
 
   return (
-    <motion.form
-      ref={ref}
-      id={id}
-      initial={{ opacity: 0, visibility: "hidden" }}
-      animate={{
-        opacity: showForm ? 1 : 0,
-        visibility: showForm ? "visible" : "hidden",
-      }}
-      transition={{
-        duration: 0.3,
-        bounce: 0,
-        opacity: { type: "linear", duration: 0.2 },
-      }}
-      layout
-      layoutId="form-button"
-      className="mx-auto w-full max-w-4xl origin-bottom -scroll-mt-10"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <div className="mx-auto flex max-w-xl flex-col gap-4 rounded-[30px] bg-[hsla(0,0%,7%,1)] p-4 lg:max-w-full lg:flex-row lg:gap-6 lg:p-7">
-        <MotionConfig
-          transition={{
-            type: "linear",
-            delay: 0.15,
-            duration: 0.25,
-            ease: "easeIn",
-          }}
-        >
-          <motion.div
-            // initial={{ opacity: 0 }}
-            // animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="lg:flex-2 flex flex-col gap-2 text-base leading-10 tracking-wide lg:w-full lg:max-w-md lg:text-xl"
+    <div className="w-full self-center">
+      <motion.form
+        ref={ref}
+        id={id}
+        className="mx-auto w-full max-w-4xl origin-bottom -scroll-mt-10"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className="mx-auto flex max-w-xl flex-col gap-4 rounded-[30px] bg-[hsla(0,0%,7%,1)] p-4 lg:max-w-full lg:flex-row lg:gap-6 lg:p-7">
+          <MotionConfig
+            transition={{
+              type: "linear",
+              delay: 0.15,
+              duration: 0.25,
+              ease: "easeIn",
+            }}
           >
-            <label
-              htmlFor="name"
-              className="w-full rounded-[18px] px-4 py-3 leading-10 tracking-wide text-white/50 lg:text-lg"
+            <motion.div
+              initial={{ opacity: showForm ? 1 : 0 }}
+              animate={{ opacity: showForm ? 1 : 0 }}
+              transition={{
+                duration: showForm ? 0.2 : 0.15,
+                delay: showForm ? 0.2 : 0,
+              }}
+              className="lg:flex-2 flex flex-col gap-2 text-base leading-10 tracking-wide lg:w-full lg:max-w-md lg:text-xl"
             >
-              From
-            </label>
-            <div className="group/name relative flex flex-col gap-2">
-              <input
-                id="name"
-                type="text"
-                placeholder="Name"
-                autoComplete="off"
-                required
-                className="peer bg-inherit px-4 py-2 leading-10 outline-none transition duration-200 placeholder:tracking-wide placeholder:text-white/20"
-                {...register("name")}
-                aria-invalid={errors?.name ? "true" : "false"}
-              />
-              <div
-                className={tw(
-                  "pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-200 group-hover/name:bg-white/35 peer-focus-within:bg-white",
-                )}
-              />
-            </div>
-
-            <div className="group/email relative flex flex-col gap-2">
-              <input
-                id="email"
-                type="email"
-                required
-                placeholder="Email"
-                autoComplete="off"
-                className="peer bg-inherit px-4 py-2 leading-10 outline-none transition-colors duration-200 placeholder:tracking-wide placeholder:text-white/20"
-                {...register("email")}
-                aria-invalid={errors?.email ? "true" : "false"}
-              />
-              <div
-                className={tw(
-                  "pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-200 group-hover/email:bg-white/35 peer-focus-visible:bg-white",
-                )}
-              />
-            </div>
-
-            <div className="group/content relative flex flex-col gap-2">
-              <textarea
-                id="content"
-                required
-                placeholder="My project is about..."
-                className="peer h-32 resize-none bg-inherit px-4 py-2 leading-6 outline-none placeholder:tracking-wide placeholder:text-white/20 lg:h-72"
-                {...register("content")}
-                aria-invalid={errors?.content ? "true" : "false"}
-              />
-              <div
-                className={tw(
-                  "pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-200 group-hover/content:bg-white/35 peer-focus-visible:bg-white",
-                )}
-              />
-            </div>
-            <div className="flex min-h-14 justify-center py-1 lg:justify-start">
-              <AnimatePresence mode="wait">
-                {!isSubmitSuccessful ? (
-                  <motion.button
-                    initial={{ opacity: 1 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{
-                      type: "tween",
-                      duration: 0.4,
-                    }}
-                    disabled={isSubmitting}
-                    className="px-4 py-1 text-base leading-9 text-white/50 outline-none transition duration-200 disabled:text-white/50 lg:w-max lg:rounded-xl lg:bg-inherit lg:text-xl lg:leading-10 lg:text-white lg:focus-visible:text-white/80 lg:active:scale-[0.98]"
-                  >
-                    {isSubmitting ? "Sending..." : "Send"}
-                  </motion.button>
-                ) : (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1, visibility: "visible" }}
-                    exit={{ opacity: 0, visibility: "hidden" }}
-                    transition={{
-                      type: "tween",
-                      duration: 0.4,
-                      visibility: { delay: isSubmitSuccessful ? 0 : 0.4 },
-                    }}
-                    className="flex w-full items-center gap-2"
-                  >
-                    <span className="inline-flex self-start xs:self-center">
-                      <CheckIcon />
-                    </span>
-                    <p className="text-base text-white/50 lg:text-lg">
-                      Your email was sent. We&apos;ll get back to you soon.
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </motion.div>
-          <motion.div
-            // initial={{ opacity: 0 }}
-            // animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="relative isolate w-full overflow-hidden rounded-[18px] bg-white/5 lg:flex-1"
-          >
-            <div className="flex h-auto min-h-48 w-full flex-col justify-between px-6 pb-4 pt-2 tracking-wide lg:absolute lg:inset-0">
-              <p className="text-lg leading-10 text-white/50">To</p>
-              <div className="text-2xl leading-10">
-                <p className="text-white">Laurence Laumann</p>
-                <p className="text-xl text-white/70">Founder</p>
+              <label
+                htmlFor="name"
+                className="w-full rounded-[18px] px-4 py-3 leading-10 tracking-wide text-white/50 lg:text-lg"
+              >
+                From
+              </label>
+              <div className="group/name relative flex flex-col gap-2">
+                <input
+                  id="name"
+                  type="text"
+                  placeholder="Name"
+                  autoComplete="off"
+                  required
+                  className="peer bg-inherit px-4 py-2 leading-10 outline-none transition duration-200 placeholder:tracking-wide placeholder:text-white/20"
+                  {...register("name")}
+                  aria-invalid={errors?.name ? "true" : "false"}
+                />
+                <div
+                  className={tw(
+                    "pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-200 group-hover/name:bg-white/35 peer-focus-within:bg-white",
+                  )}
+                />
               </div>
-            </div>
-            <LogoCardSVG className="absolute -top-96 left-36 -z-10 h-full w-full select-none lg:-left-7 lg:-top-[360px]" />
-          </motion.div>
-        </MotionConfig>
-      </div>
-    </motion.form>
+              <div className="group/email relative flex flex-col gap-2">
+                <input
+                  id="email"
+                  type="email"
+                  required
+                  placeholder="Email"
+                  autoComplete="off"
+                  className="peer bg-inherit px-4 py-2 leading-10 outline-none transition-colors duration-200 placeholder:tracking-wide placeholder:text-white/20"
+                  {...register("email")}
+                  aria-invalid={errors?.email ? "true" : "false"}
+                />
+                <div
+                  className={tw(
+                    "pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-200 group-hover/email:bg-white/35 peer-focus-visible:bg-white",
+                  )}
+                />
+              </div>
+              <div className="group/content relative flex flex-col gap-2">
+                <textarea
+                  id="content"
+                  required
+                  placeholder="My project is about..."
+                  className="peer h-32 resize-none bg-inherit px-4 py-2 leading-6 outline-none placeholder:tracking-wide placeholder:text-white/20 lg:h-72"
+                  {...register("content")}
+                  aria-invalid={errors?.content ? "true" : "false"}
+                />
+                <div
+                  className={tw(
+                    "pointer-events-none absolute bottom-0 left-0 h-px w-full rounded-lg bg-white/5 transition-colors duration-200 group-hover/content:bg-white/35 peer-focus-visible:bg-white",
+                  )}
+                />
+              </div>
+              <div className="flex min-h-14 justify-center py-1 lg:justify-start">
+                <AnimatePresence mode="wait">
+                  {!isSubmitSuccessful ? (
+                    <motion.button
+                      initial={{ opacity: 1 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{
+                        type: "tween",
+                        duration: 0.4,
+                      }}
+                      disabled={isSubmitting}
+                      className="px-4 py-1 text-base leading-9 text-white/50 outline-none transition duration-200 disabled:text-white/50 lg:w-max lg:rounded-xl lg:bg-inherit lg:text-xl lg:leading-10 lg:text-white lg:focus-visible:text-white/80 lg:active:scale-[0.98]"
+                    >
+                      {isSubmitting ? "Sending..." : "Send"}
+                    </motion.button>
+                  ) : (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1, visibility: "visible" }}
+                      exit={{ opacity: 0, visibility: "hidden" }}
+                      transition={{
+                        type: "tween",
+                        duration: 0.4,
+                        visibility: { delay: isSubmitSuccessful ? 0 : 0.4 },
+                      }}
+                      className="flex w-full items-center gap-2"
+                    >
+                      <span className="inline-flex self-start xs:self-center">
+                        <CheckIcon />
+                      </span>
+                      <p className="text-base text-white/50 lg:text-lg">
+                        Your email was sent. We&apos;ll get back to you soon.
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: showForm ? 1 : 0 }}
+              animate={{ opacity: showForm ? 1 : 0 }}
+              transition={{
+                duration: showForm ? 0.2 : 0.15,
+                delay: showForm ? 0.2 : 0,
+              }}
+              className="relative isolate w-full overflow-hidden rounded-[18px] bg-white/5 lg:flex-1"
+            >
+              <div className="flex h-auto min-h-48 w-full flex-col justify-between px-6 pb-4 pt-2 tracking-wide lg:absolute lg:inset-0">
+                <p className="text-lg leading-10 text-white/50">To</p>
+                <div className="text-2xl leading-10">
+                  <p className="text-white">Laurence Laumann</p>
+                  <p className="text-xl text-white/70">Founder</p>
+                </div>
+              </div>
+              <LogoCardSVG className="absolute -top-96 left-36 -z-10 h-full w-full select-none lg:-left-7 lg:-top-[360px]" />
+            </motion.div>
+          </MotionConfig>
+        </div>
+      </motion.form>
+    </div>
   );
 };
 
