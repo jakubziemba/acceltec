@@ -29,19 +29,19 @@ export default function FormSection() {
 
   const buttonScale = useTransform(
     scrollYProgressSection,
-    [0.35, 0.4, 0.99],
+    [0.35, 0.4, 0.95],
     [1.1, 1.1, 1.4],
   );
 
   const textTranslateZ = useTransform(
     scrollYProgressSection,
-    [0.35, 0.4, 0.9],
+    [0.35, 0.4, 0.95],
     [0, 0, -10],
   );
 
   const textOpacity = useTransform(
     scrollYProgressSection,
-    [0.35, 0.4, 0.9],
+    [0.35, 0.4, 0.95],
     [1, 1, 0.3],
   );
 
@@ -79,7 +79,7 @@ export default function FormSection() {
 
       if (shouldScroll) return; // guard for button click
 
-      if (value < 0.92) {
+      if (value < 0.95) {
         setShowForm(false);
         setShouldScroll(false);
         setLockBodyScroll(false);
