@@ -41,8 +41,8 @@ export default function FormSection() {
 
   const textOpacity = useTransform(
     scrollYProgressSection,
-    [0.35, 0.4, 0.95],
-    [1, 1, 0.3],
+    [0.35, 0.4, 0.95, 0.96],
+    [1, 1, 0.3, 0],
   );
 
   function handleButtonClick() {
@@ -138,9 +138,9 @@ export default function FormSection() {
       >
         <div className="sticky top-0 mx-auto flex h-screen w-full max-w-xl origin-center flex-col items-center justify-center text-balance px-6 text-2xl leading-6 [perspective:45px] xs:[text-wrap:initial] lg:max-w-4xl lg:px-0 lg:pt-0 lg:text-4xl lg:leading-10">
           <motion.div
-            initial={{ translateZ: "0px", opacity: showForm ? 0 : undefined }}
+            initial={{ translateZ: "0px" }}
             animate={{
-              opacity: showForm ? 0 : undefined,
+              // opacity: showForm ? 0 : undefined,
               translateZ: showForm ? "-15px" : "0px",
             }}
             transition={{
