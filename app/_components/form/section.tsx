@@ -65,7 +65,7 @@ export default function FormSection() {
         setLockBodyScroll(true);
       }
 
-      if (shouldScroll) return; // guard
+      if (shouldScroll) return; // guard for button click
 
       if (value < 0.95) {
         setShowForm(false);
@@ -210,25 +210,11 @@ export default function FormSection() {
               initial={{
                 opacity: 0,
                 scale: showForm ? 1 : 0.05,
-                // filter: showForm ? "blur(0px)" : "blur(4px)",
-                // y:
-                //   shouldButtonScale && !showForm
-                //     ? -40
-                //     : shouldButtonScale && showForm
-                //       ? 0
-                //       : 0,
               }}
               animate={{
                 opacity: showForm ? 1 : 0.05,
                 scale: showForm ? 1 : 0.05,
-                // filter: showForm ? "blur(0px)" : "blur(4px)",
                 visibility: showForm ? "visible" : "hidden",
-                //   y:
-                //     shouldButtonScale && !showForm
-                //       ? -40
-                //       : shouldButtonScale && showForm
-                //         ? 0
-                //         : 0,
               }}
               transition={{
                 opacity: {
@@ -238,14 +224,11 @@ export default function FormSection() {
                 },
                 scale: {
                   type: "spring",
-                  // duration: showForm ? 0.4 : 0.22,
                   bounce: 0,
                   stiffness: 270,
                   damping: 30,
-                  // delay: showForm ? 0.05 : 0,
                 },
                 visibility: { delay: showForm ? 0 : 0.34 },
-                // y: { duration: 0.25 },
               }}
               className={tw(
                 "relative -top-10 flex w-screen origin-center snap-y snap-mandatory snap-center flex-col items-center justify-end gap-8",
@@ -263,7 +246,7 @@ export default function FormSection() {
                 }}
                 transition={{
                   type: "tween",
-                  duration: 0.3,
+                  duration: showForm ? 0.3 : 0.1,
                   delay: showForm ? 0.45 : 0,
                   ease: "easeOut",
                 }}
