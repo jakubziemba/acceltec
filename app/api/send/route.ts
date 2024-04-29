@@ -31,6 +31,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
       from: "Acceltec <send@marketing.acceltec.de>",
       to: [email],
       bcc: "ziemba.jak@gmail.com",
+      reply_to: email,
       subject: `${name} sent you a message`,
       text: content,
       headers: {
