@@ -16,19 +16,23 @@ export default function Button({
   return (
     <motion.button
       onClick={handleButtonClick}
-      initial={{
-        boxShadow:
-          "0px 0px 0px 2px rgba(255, 255, 255, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.2)",
-      }}
-      animate={{
-        boxShadow: showForm
-          ? "0px 0px 0px 2px rgba(255, 255, 255, 0), 0px 2px 2px 0px rgba(0, 0, 0, 0.0)"
-          : "0px 0px 0px 2px rgba(255, 255, 255, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.2)",
-        scale: shouldScale ? 1.2 : 1,
-      }}
+      initial={
+        {
+          // boxShadow:
+          //   "0px 0px 0px 2px rgba(255, 255, 255, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.2)",
+        }
+      }
+      animate={
+        {
+          // boxShadow: showForm
+          //   ? "0px 0px 0px 2px rgba(255, 255, 255, 0), 0px 2px 2px 0px rgba(0, 0, 0, 0.0)"
+          //   : "0px 0px 0px 2px rgba(255, 255, 255, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.2)",
+          // scale: shouldScale ? 1.4 : 1,
+        }
+      }
       whileHover={{
-        boxShadow:
-          "0px 0px 0px 2px rgba(255, 255, 255, 1), 0px 2px 2px 0px rgba(0, 0, 0, 0.2)",
+        // boxShadow:
+        //   "0px 0px 0px 2px rgba(255, 255, 255, 1), 0px 2px 2px 0px rgba(0, 0, 0, 0.2)",
         color: "rgba(255, 255, 255, 1)",
       }}
       transition={{
@@ -36,19 +40,19 @@ export default function Button({
         damping: 5,
         mass: 0.01,
         bounce: 0,
-        boxShadow: { duration: 0.15, delay: 0.05 },
+        // boxShadow: { duration: 0.1 },
       }}
-      className="relative origin-center select-none self-center rounded-[32px] px-6 py-3 text-xl text-white/80 outline-none focus-visible:shadow-[0px_0px_0px_2px_hsla(0,0%,100%,1),0px_2px_2px_0px_hsla(0,0%,0%,0.2)]"
+      className="relative origin-top select-none self-center rounded-[32px] bg-[#121212] px-6 py-3 text-xl text-white/80 outline-none focus-visible:shadow-[0px_0px_0px_2px_hsla(0,0%,100%,1),0px_2px_2px_0px_hsla(0,0%,0%,0.2)]"
     >
       <motion.span
-        initial={{ opacity: showForm ? 0 : 1, filter: "blur(4px)" }}
-        animate={{ opacity: showForm ? 0 : 1, filter: "blur(0px)" }}
+        initial={{ opacity: showForm ? 0 : 1 }}
+        animate={{
+          opacity: showForm ? 0 : 1,
+        }}
         transition={{
-          opacity: {
-            type: "tween",
-            duration: showForm ? 0.05 : 0.2,
-            delay: showForm ? 0 : 0.15,
-          },
+          type: "tween",
+          duration: showForm ? 0.02 : 0.25,
+          delay: showForm ? 0 : 0.2,
         }}
       >
         {children}

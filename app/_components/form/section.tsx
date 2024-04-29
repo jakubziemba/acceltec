@@ -1,7 +1,13 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+  useMotionValue,
+} from "framer-motion";
 import Form from "./form";
 import { tw } from "@/utils/tailwind";
 import AnimatedText from "../animated-text";
@@ -27,6 +33,12 @@ export default function FormSection() {
     target: sectionRef,
   });
 
+  const buttonScale = useTransform(
+    scrollYProgressSection,
+    [0.35, 0.99],
+    [1.1, 1.4],
+  );
+
   function handleButtonClick() {
     setShowForm(true);
     setShouldScroll(true);
@@ -51,7 +63,7 @@ export default function FormSection() {
 
     if (shouldScroll) return;
 
-    if (value < 0.99) {
+    if (value < 0.9) {
       setShowForm(false);
       setLockBodyScroll(false);
     }
@@ -134,32 +146,33 @@ export default function FormSection() {
                     : 0,
             }}
             transition={{
-              y: { duration: 0.25, stiffness: 200, damping: 28 },
+              y: { duration: 0.4, stiffness: 150, damping: 28 },
             }}
             className={tw("relative flex h-14 w-full justify-center")}
           >
             <motion.div
               initial={{
                 opacity: showForm ? 0 : 1,
-                filter: showForm ? "blur(4px)" : "blur(0px)",
-                scale: showForm ? 1.8 : 1,
+                // filter: showForm ? "blur(4px)" : "blur(0px)",
+                scale: showForm ? 1.8 : undefined,
               }}
               animate={{
                 opacity: showForm ? 0 : 1,
-                filter: showForm ? "blur(4px)" : "blur(0px)",
-                scale: showForm ? 1.8 : 1,
+                // filter: showForm ? "blur(4px)" : "blur(0px)",
+                scale: showForm ? 1.8 : undefined,
               }}
               transition={{
                 type: "spring",
                 bounce: 0,
-                duration: 0.3,
+                duration: 0.23,
                 opacity: {
                   type: "tween",
-                  duration: showForm ? 0.2 : 0.15,
-                  delay: showForm ? 0.03 : 0.08,
+                  duration: showForm ? 0.23 : 0.14,
+                  delay: showForm ? 0 : 0.06,
                 },
               }}
               className="absolute -top-20 left-0 flex w-full origin-bottom flex-col [perspective:100px]"
+              style={{ scale: buttonScale }}
             >
               <Button
                 showForm={showForm}
@@ -171,41 +184,51 @@ export default function FormSection() {
             </motion.div>
             <motion.div
               initial={{
-                opacity: showForm ? 1 : 0.4,
+                opacity: 0,
                 scale: showForm ? 1 : 0,
-                filter: showForm ? "blur(0px)" : "blur(4px)",
-                y: shouldButtonScale ? -40 : 0,
+                // filter: showForm ? "blur(0px)" : "blur(4px)",
+                // y:
+                //   shouldButtonScale && !showForm
+                //     ? -40
+                //     : shouldButtonScale && showForm
+                //       ? 0
+                //       : 0,
               }}
               animate={{
-                opacity: showForm ? 1 : 0.4,
+                opacity: showForm ? 1 : 0,
                 scale: showForm ? 1 : 0,
-                filter: showForm ? "blur(0px)" : "blur(4px)",
-                y:
-                  shouldButtonScale && !showForm
-                    ? -40
-                    : shouldButtonScale && showForm
-                      ? 0
-                      : 0,
+                // filter: showForm ? "blur(0px)" : "blur(4px)",
+                visibility: showForm ? "visible" : "hidden",
+                //   y:
+                //     shouldButtonScale && !showForm
+                //       ? -40
+                //       : shouldButtonScale && showForm
+                //         ? 0
+                //         : 0,
               }}
               transition={{
-                type: "spring",
-                bounce: 0,
-                duration: showForm ? 0.2 : 0.2,
-                y: { duration: 0.25 },
-                scale: { duration: showForm ? 0.3 : 0.2 },
                 opacity: {
                   type: "tween",
-                  duration: showForm ? 0.12 : 0.15,
-                  delay: showForm ? 0.08 : 0.12,
+                  duration: showForm ? 0.05 : 0.27,
+                  delay: showForm ? 0 : 0.07,
                 },
+                scale: {
+                  duration: showForm ? 0.23 : 0.22,
+                  // delay: showForm ? 0.05 : 0,
+                },
+                visibility: { delay: showForm ? 0 : 0.25 },
+                // y: { duration: 0.25 },
               }}
               className={tw(
-                "relative bottom-6 flex w-screen origin-top snap-y snap-mandatory snap-center flex-col items-center justify-end gap-8",
+                "relative -top-10 flex w-screen origin-center snap-y snap-mandatory snap-center flex-col items-center justify-end gap-8",
               )}
             >
               <Form ref={formRef} showForm={showForm} />
               <motion.div
-                initial={{ opacity: 0, y: "50%" }}
+                initial={{
+                  opacity: 0,
+                  y: "50%",
+                }}
                 animate={{
                   opacity: showForm ? 1 : 0,
                   y: showForm ? "0%" : "50%",
