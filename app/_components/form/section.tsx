@@ -209,12 +209,12 @@ export default function FormSection() {
               transition={{
                 opacity: {
                   type: "tween",
-                  duration: showForm ? 0.055 : 0.305,
+                  duration: showForm ? 0.055 : 0.308,
                   delay: showForm ? 0.016 : 0.085,
                 },
                 scale: {
                   type: "spring",
-                  duration: showForm ? 0.4 : 0.22,
+                  // duration: showForm ? 0.4 : 0.22,
                   bounce: 0,
                   stiffness: 270,
                   damping: 30,
