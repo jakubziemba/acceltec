@@ -20,8 +20,9 @@ export async function POST(request: NextRequest, response: NextResponse) {
       .then((body) => sendRouteSchema.parse(body));
 
     const res = await resend.emails.send({
-      from: "Acme <onboarding@resend.dev>",
-      to: "ziemba.jak@gmail.com",
+      from: "Acceltec <send@marketing.acceltec.de>",
+      to: email,
+      bcc: "ziemba.jak@gmail.com",
       subject: `${name} sent you a message`,
       text: content,
       headers: {

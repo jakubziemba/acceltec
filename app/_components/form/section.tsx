@@ -35,8 +35,14 @@ export default function FormSection() {
 
   const textTranslateZ = useTransform(
     scrollYProgressSection,
-    [0.35, 0.4, 0.99],
+    [0.35, 0.4, 0.9],
     [0, 0, -10],
+  );
+
+  const textOpacity = useTransform(
+    scrollYProgressSection,
+    [0.35, 0.4, 0.9],
+    [1, 1, 0.3],
   );
 
   function handleButtonClick() {
@@ -65,7 +71,7 @@ export default function FormSection() {
 
   useEffect(() => {
     const handleScroll = (value: any) => {
-      if (value > 0.99) {
+      if (value > 0.95) {
         setShowForm(true);
         setShouldScroll(false);
         setLockBodyScroll(true);
@@ -73,7 +79,7 @@ export default function FormSection() {
 
       if (shouldScroll) return; // guard for button click
 
-      if (value < 0.95) {
+      if (value < 0.92) {
         setShowForm(false);
         setShouldScroll(false);
         setLockBodyScroll(false);
@@ -132,23 +138,20 @@ export default function FormSection() {
       >
         <div className="sticky top-0 mx-auto flex h-screen w-full max-w-xl origin-center flex-col items-center justify-center text-balance px-6 text-2xl leading-6 [perspective:45px] xs:[text-wrap:initial] lg:max-w-4xl lg:px-0 lg:pt-0 lg:text-4xl lg:leading-10">
           <motion.div
-            initial={{ translateZ: "0px", opacity: 1 }}
+            initial={{ translateZ: "0px", opacity: showForm ? 0 : 1 }}
             animate={{
-              opacity: showForm ? 0 : shouldButtonScale ? 0.5 : 1,
-              // y: showForm ? "-25%" : shouldButtonScale ? "-10%" : "0%",
-              y: showForm ? "-25%" : undefined,
-              translateZ: showForm
-                ? "-15px"
-                : shouldButtonScale
-                  ? "-10px"
-                  : "0px",
+              opacity: showForm ? 0 : 1,
+              translateZ: showForm ? "-15px" : "0px",
             }}
             transition={{
               y: { duration: 0.25, stiffness: 150, damping: 28 },
               opacity: { type: "tween", duration: 0.15 },
             }}
             className="relative flex h-screen flex-col items-center justify-center space-y-8"
-            // style={{ translateZ: textTranslateZ }}
+            style={{
+              translateZ: textTranslateZ,
+              opacity: textOpacity,
+            }}
           >
             <AnimatedText el="h2" className="origin-bottom text-white/80">
               Berlin-based software studio that exclusively works with founders,
@@ -201,7 +204,7 @@ export default function FormSection() {
                   duration: showForm ? 0.175 : 0.15,
                   delay: showForm ? 0.012 : 0.1,
                 },
-                visibility: { delay: showForm ? 0.5 : 0.1 },
+                visibility: { delay: showForm ? 0.35 : 0.1 },
               }}
               className="absolute -top-20 left-0 flex w-full origin-bottom flex-col [perspective:100px]"
               style={{ scale: buttonScale }}
