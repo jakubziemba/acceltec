@@ -274,7 +274,7 @@ export default function FormSection() {
             </motion.div>
           </motion.div>
         </div>
-        <CanvasAnimation />
+        {/* <CanvasAnimation /> */}
       </section>
     </div>
   );
