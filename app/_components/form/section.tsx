@@ -122,7 +122,7 @@ export default function FormSection() {
     <div ref={containerRef} className="relative w-screen overflow-clip">
       <section
         ref={sectionRef}
-        className="relative mt-[100dvh] h-[150vh] w-full [perspective:45px]"
+        className="relative mt-[100dvh] h-[160dvh] w-full [perspective:45px]"
       >
         <div className="sticky top-0 mx-auto flex h-screen w-full max-w-xl origin-center flex-col items-center justify-center text-balance px-6 text-2xl leading-6 [perspective:45px] xs:[text-wrap:initial] lg:max-w-4xl lg:px-0 lg:pt-0 lg:text-4xl lg:leading-10">
           <motion.div
@@ -274,7 +274,7 @@ export default function FormSection() {
             </motion.div>
           </motion.div>
         </div>
-        {/* <CanvasAnimation /> */}
+        <CanvasAnimation />
       </section>
     </div>
   );
