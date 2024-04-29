@@ -1,13 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import {
-  motion,
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-  useMotionValue,
-} from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Form from "./form";
 import { tw } from "@/utils/tailwind";
 import AnimatedText from "../animated-text";
@@ -44,30 +38,47 @@ export default function FormSection() {
     setShouldScroll(true);
   }
 
-  useMotionValueEvent(scrollYProgressSection, "change", (value) => {
-    if (value > 0.25) {
-      setShouldButtonScale(true);
-    }
+  useEffect(() => {
+    const handleScrollSection = (value: any) => {
+      if (value > 0.25) {
+        setShouldButtonScale(true);
+      } else {
+        setShouldButtonScale(false);
+      }
+    };
 
-    if (value < 0.25) {
-      setShouldButtonScale(false);
-    }
-  });
+    const unsubscribe = scrollYProgressSection.on(
+      "change",
+      handleScrollSection,
+    );
 
-  useMotionValueEvent(scrollYProgress, "change", (value) => {
-    if (value > 0.99 && !shouldScroll) {
-      setShowForm(true);
-      setShouldScroll(false);
-      setLockBodyScroll(true);
-    }
+    return () => {
+      unsubscribe();
+    };
+  }, [scrollYProgressSection]);
 
-    if (shouldScroll) return;
+  useEffect(() => {
+    const handleScroll = (value: any) => {
+      if (value > 0.99 && !shouldScroll) {
+        setShowForm(true);
+        setShouldScroll(false);
+        setLockBodyScroll(true);
+      }
 
-    if (value < 0.95) {
-      setShowForm(false);
-      setLockBodyScroll(false);
-    }
-  });
+      if (shouldScroll) return;
+
+      if (value < 0.95) {
+        setShowForm(false);
+        setLockBodyScroll(false);
+      }
+    };
+
+    const unsubscribe = scrollYProgress.on("change", handleScroll);
+
+    return () => {
+      unsubscribe();
+    };
+  }, [scrollYProgress, shouldScroll]);
 
   useEffect(() => {
     if (!shouldScroll || !formRef.current) return;
