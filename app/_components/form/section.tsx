@@ -45,11 +45,11 @@ export default function FormSection() {
   }
 
   useMotionValueEvent(scrollYProgressSection, "change", (value) => {
-    if (value > 0.35) {
+    if (value > 0.25) {
       setShouldButtonScale(true);
     }
 
-    if (value < 0.35) {
+    if (value < 0.25) {
       setShouldButtonScale(false);
     }
   });
@@ -63,7 +63,7 @@ export default function FormSection() {
 
     if (shouldScroll) return;
 
-    if (value < 0.9) {
+    if (value < 0.95) {
       setShowForm(false);
       setLockBodyScroll(false);
     }
@@ -115,7 +115,7 @@ export default function FormSection() {
               translateZ: showForm ? "-15px" : "0px",
             }}
             transition={{
-              y: { duration: 0.25, stiffness: 200, damping: 28 },
+              y: { duration: 0.25, stiffness: 150, damping: 28 },
               opacity: { type: "tween", duration: 0.15 },
             }}
             className="relative flex h-screen flex-col items-center justify-center space-y-8"
@@ -146,19 +146,19 @@ export default function FormSection() {
                     : 0,
             }}
             transition={{
-              y: { duration: 0.4, stiffness: 150, damping: 28 },
+              y: { duration: 0.25, stiffness: 150, damping: 28 },
             }}
             className={tw("relative flex h-14 w-full justify-center")}
           >
             <motion.div
               initial={{
                 opacity: showForm ? 0 : 1,
-                // filter: showForm ? "blur(4px)" : "blur(0px)",
+                filter: showForm ? "blur(4px)" : "blur(0px)",
                 scale: showForm ? 1.8 : undefined,
               }}
               animate={{
                 opacity: showForm ? 0 : 1,
-                // filter: showForm ? "blur(4px)" : "blur(0px)",
+                filter: showForm ? "blur(4px)" : "blur(0px)",
                 scale: showForm ? 1.8 : undefined,
               }}
               transition={{
@@ -167,8 +167,8 @@ export default function FormSection() {
                 duration: 0.33,
                 opacity: {
                   type: "tween",
-                  duration: showForm ? 0.175 : 0.2,
-                  delay: showForm ? 0.05 : 0.05,
+                  duration: showForm ? 0.175 : 0.15,
+                  delay: showForm ? 0.012 : 0.1,
                 },
               }}
               className="absolute -top-20 left-0 flex w-full origin-bottom flex-col [perspective:100px]"
@@ -209,18 +209,18 @@ export default function FormSection() {
               transition={{
                 opacity: {
                   type: "tween",
-                  duration: showForm ? 0.055 : 0.29,
-                  delay: showForm ? 0.015 : 0.06,
+                  duration: showForm ? 0.055 : 0.305,
+                  delay: showForm ? 0.016 : 0.085,
                 },
                 scale: {
                   type: "spring",
                   duration: showForm ? 0.4 : 0.22,
                   bounce: 0,
-                  stiffness: 280,
+                  stiffness: 270,
                   damping: 30,
                   // delay: showForm ? 0.05 : 0,
                 },
-                visibility: { delay: showForm ? 0 : 0.25 },
+                visibility: { delay: showForm ? 0 : 0.34 },
                 // y: { duration: 0.25 },
               }}
               className={tw(
