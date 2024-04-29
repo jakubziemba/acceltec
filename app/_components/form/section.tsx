@@ -33,6 +33,12 @@ export default function FormSection() {
     [1.1, 1.1, 1.4],
   );
 
+  const textTranslateZ = useTransform(
+    scrollYProgressSection,
+    [0.35, 0.4, 0.99],
+    [0, 0, -10],
+  );
+
   function handleButtonClick() {
     setShowForm(true);
     setShouldScroll(true);
@@ -126,14 +132,15 @@ export default function FormSection() {
       >
         <div className="sticky top-0 mx-auto flex h-screen w-full max-w-xl origin-center flex-col items-center justify-center text-balance px-6 text-2xl leading-6 [perspective:45px] xs:[text-wrap:initial] lg:max-w-4xl lg:px-0 lg:pt-0 lg:text-4xl lg:leading-10">
           <motion.div
-            initial={{ y: "0%", translateZ: "0px", opacity: 1 }}
+            initial={{ translateZ: "0px", opacity: 1 }}
             animate={{
               opacity: showForm ? 0 : shouldButtonScale ? 0.5 : 1,
-              y: showForm ? "-25%" : shouldButtonScale ? "-10%" : "0%",
+              // y: showForm ? "-25%" : shouldButtonScale ? "-10%" : "0%",
+              y: showForm ? "-25%" : undefined,
               translateZ: showForm
                 ? "-15px"
                 : shouldButtonScale
-                  ? "-5px"
+                  ? "-10px"
                   : "0px",
             }}
             transition={{
@@ -141,6 +148,7 @@ export default function FormSection() {
               opacity: { type: "tween", duration: 0.15 },
             }}
             className="relative flex h-screen flex-col items-center justify-center space-y-8"
+            // style={{ translateZ: textTranslateZ }}
           >
             <AnimatedText el="h2" className="origin-bottom text-white/80">
               Berlin-based software studio that exclusively works with founders,
