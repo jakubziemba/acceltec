@@ -29,8 +29,8 @@ export default function FormSection() {
 
   const buttonScale = useTransform(
     scrollYProgressSection,
-    [0.35, 0.99],
-    [1.1, 1.4],
+    [0.35, 0.4, 0.99],
+    [1.1, 1.1, 1.4],
   );
 
   function handleButtonClick() {
@@ -59,16 +59,17 @@ export default function FormSection() {
 
   useEffect(() => {
     const handleScroll = (value: any) => {
-      if (value > 0.99 && !shouldScroll) {
+      if (value > 0.99) {
         setShowForm(true);
         setShouldScroll(false);
         setLockBodyScroll(true);
       }
 
-      if (shouldScroll) return;
+      if (shouldScroll) return; // guard
 
       if (value < 0.95) {
         setShowForm(false);
+        setShouldScroll(false);
         setLockBodyScroll(false);
       }
     };
@@ -83,9 +84,15 @@ export default function FormSection() {
   useEffect(() => {
     if (!shouldScroll || !formRef.current) return;
 
-    formRef.current?.scrollIntoView({
-      block: "start",
-    });
+    const scrollTimeout = setTimeout(() => {
+      formRef.current?.scrollIntoView({
+        block: "start",
+      });
+    }, 100);
+
+    return () => {
+      clearTimeout(scrollTimeout);
+    };
   }, [shouldScroll]);
 
   // useEffect(() => {
@@ -121,9 +128,13 @@ export default function FormSection() {
           <motion.div
             initial={{ y: "0%", translateZ: "0px", opacity: 1 }}
             animate={{
-              opacity: showForm ? 0 : 1,
+              opacity: showForm ? 0 : shouldButtonScale ? 0.5 : 1,
               y: showForm ? "-25%" : shouldButtonScale ? "-10%" : "0%",
-              translateZ: showForm ? "-15px" : "0px",
+              translateZ: showForm
+                ? "-15px"
+                : shouldButtonScale
+                  ? "-5px"
+                  : "0px",
             }}
             transition={{
               y: { duration: 0.25, stiffness: 150, damping: 28 },
@@ -165,12 +176,13 @@ export default function FormSection() {
               initial={{
                 opacity: showForm ? 0 : 1,
                 filter: showForm ? "blur(4px)" : "blur(0px)",
-                scale: showForm ? 1.8 : undefined,
+                scale: showForm && !shouldScroll ? 1.8 : undefined,
               }}
               animate={{
                 opacity: showForm ? 0 : 1,
                 filter: showForm ? "blur(4px)" : "blur(0px)",
-                scale: showForm ? 1.8 : undefined,
+                scale: showForm && !shouldScroll ? 1.8 : undefined,
+                visibility: showForm ? "hidden" : "visible",
               }}
               transition={{
                 type: "spring",
@@ -181,6 +193,7 @@ export default function FormSection() {
                   duration: showForm ? 0.175 : 0.15,
                   delay: showForm ? 0.012 : 0.1,
                 },
+                visibility: { delay: showForm ? 0.5 : 0.1 },
               }}
               className="absolute -top-20 left-0 flex w-full origin-bottom flex-col [perspective:100px]"
               style={{ scale: buttonScale }}
@@ -242,16 +255,17 @@ export default function FormSection() {
               <motion.div
                 initial={{
                   opacity: 0,
-                  y: "50%",
+                  y: 20,
                 }}
                 animate={{
                   opacity: showForm ? 1 : 0,
-                  y: showForm ? "0%" : "50%",
+                  y: showForm ? 0 : 20,
                 }}
                 transition={{
                   type: "tween",
-                  duration: 0.15,
-                  delay: showForm ? 0.23 : 0,
+                  duration: 0.3,
+                  delay: showForm ? 0.45 : 0,
+                  ease: "easeOut",
                 }}
                 className="w-full"
               >
