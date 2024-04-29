@@ -164,11 +164,11 @@ export default function FormSection() {
               transition={{
                 type: "spring",
                 bounce: 0,
-                duration: 0.23,
+                duration: 0.33,
                 opacity: {
                   type: "tween",
-                  duration: showForm ? 0.23 : 0.14,
-                  delay: showForm ? 0 : 0.06,
+                  duration: showForm ? 0.175 : 0.2,
+                  delay: showForm ? 0.05 : 0.05,
                 },
               }}
               className="absolute -top-20 left-0 flex w-full origin-bottom flex-col [perspective:100px]"
@@ -185,7 +185,7 @@ export default function FormSection() {
             <motion.div
               initial={{
                 opacity: 0,
-                scale: showForm ? 1 : 0,
+                scale: showForm ? 1 : 0.05,
                 // filter: showForm ? "blur(0px)" : "blur(4px)",
                 // y:
                 //   shouldButtonScale && !showForm
@@ -195,8 +195,8 @@ export default function FormSection() {
                 //       : 0,
               }}
               animate={{
-                opacity: showForm ? 1 : 0,
-                scale: showForm ? 1 : 0,
+                opacity: showForm ? 1 : 0.05,
+                scale: showForm ? 1 : 0.05,
                 // filter: showForm ? "blur(0px)" : "blur(4px)",
                 visibility: showForm ? "visible" : "hidden",
                 //   y:
@@ -209,11 +209,15 @@ export default function FormSection() {
               transition={{
                 opacity: {
                   type: "tween",
-                  duration: showForm ? 0.05 : 0.27,
-                  delay: showForm ? 0 : 0.07,
+                  duration: showForm ? 0.055 : 0.29,
+                  delay: showForm ? 0.015 : 0.06,
                 },
                 scale: {
-                  duration: showForm ? 0.23 : 0.22,
+                  type: "spring",
+                  duration: showForm ? 0.4 : 0.22,
+                  bounce: 0,
+                  stiffness: 280,
+                  damping: 30,
                   // delay: showForm ? 0.05 : 0,
                 },
                 visibility: { delay: showForm ? 0 : 0.25 },

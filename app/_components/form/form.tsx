@@ -66,8 +66,8 @@ const Form = (
               initial={{ opacity: showForm ? 1 : 0 }}
               animate={{ opacity: showForm ? 1 : 0 }}
               transition={{
-                duration: showForm ? 0.18 : 0.15,
-                delay: showForm ? 0.18 : 0,
+                duration: showForm ? 0.2 : 0.15,
+                delay: showForm ? 0.2 : 0,
               }}
               className="lg:flex-2 flex flex-col gap-2 text-base leading-10 tracking-wide lg:w-full lg:max-w-md lg:text-xl"
             >
@@ -169,8 +169,8 @@ const Form = (
               initial={{ opacity: showForm ? 1 : 0 }}
               animate={{ opacity: showForm ? 1 : 0 }}
               transition={{
-                duration: showForm ? 0.18 : 0.15,
-                delay: showForm ? 0.18 : 0,
+                duration: showForm ? 0.2 : 0.15,
+                delay: showForm ? 0.2 : 0,
               }}
               className="relative isolate w-full overflow-hidden rounded-[18px] bg-white/5 lg:flex-1"
             >
