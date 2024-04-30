@@ -2,12 +2,7 @@
 
 import { MouseEvent, useEffect, useRef, useState } from "react";
 import { useWindowSize } from "usehooks-ts";
-import {
-  motion,
-  useMotionTemplate,
-  useMotionValueEvent,
-  useSpring,
-} from "framer-motion";
+import { motion, useMotionTemplate, useSpring } from "framer-motion";
 import { tw } from "@/utils/tailwind";
 
 const INITIAL_X = -100;
@@ -51,20 +46,6 @@ export default function LogoHero({ className = "" }) {
   );
 
   let gradientMove = useMotionTemplate`translate(${mouseXSpring} ${mouseYSpring}) rotate(112.237) scale(${initialAnimationOver ? "350 550" : "300 300"})`;
-
-  useMotionValueEvent(mouseXSpring, "change", (value) => {
-    if (!logoBounds) return;
-
-    if (isMobile && value >= logoBounds.right + X_OFFSET_MOBILE) {
-      setInitialAnimationOver(true);
-      mouseXSpring.set(DEFAULT_X);
-      mouseYSpring.set(DEFAULT_Y);
-    } else if (!isMobile && value >= logoBounds.right + X_OFFSET_DESKTOP) {
-      setInitialAnimationOver(true);
-      mouseXSpring.set(DEFAULT_X);
-      mouseYSpring.set(DEFAULT_Y);
-    }
-  });
 
   function initialAnimation() {
     if (!ref.current || !logoBounds) return;
@@ -122,6 +103,26 @@ export default function LogoHero({ className = "" }) {
 
     initialAnimation();
   }, [logoBounds]); // Add logoBounds as dependency
+
+  useEffect(() => {
+    const unsubscribeX = mouseXSpring.on("change", (value) => {
+      if (!logoBounds) return;
+
+      if (isMobile && value >= logoBounds.right + X_OFFSET_MOBILE) {
+        setInitialAnimationOver(true);
+        mouseXSpring.set(DEFAULT_X);
+        mouseYSpring.set(DEFAULT_Y);
+      } else if (!isMobile && value >= logoBounds.right + X_OFFSET_DESKTOP) {
+        setInitialAnimationOver(true);
+        mouseXSpring.set(DEFAULT_X);
+        mouseYSpring.set(DEFAULT_Y);
+      }
+    });
+
+    return () => {
+      unsubscribeX();
+    };
+  }, [mouseXSpring, logoBounds, isMobile, mouseYSpring]);
 
   return (
     <div
