@@ -26,13 +26,13 @@ export default function CanvasAnimation({
     };
 
     const R = (x: number, y: number, t: number) => {
-      return Math.floor(0 + 8 * Math.cos((x * x + 40 * y) / 250 + t * 2));
+      return Math.floor(0 + 9 * Math.cos((x * x + 40 * y) / 150 + t * 2));
     };
 
     const G = (x: number, y: number, t: number) => {
       return Math.floor(
         0 +
-          8 *
+          4 *
             Math.sin(
               ((x * x * Math.cos(t / 4) + x * 4 * y * Math.sin(t / 3)) * 2) /
                 1250,
@@ -42,7 +42,7 @@ export default function CanvasAnimation({
 
     const B = (x: number, y: number, t: number) => {
       return Math.floor(
-        0 + 8 * Math.sin(1 * Math.sin(t / 2) + (x * x + 3 * y) / 1500),
+        4 * Math.sin(40 * Math.sin(t / 6) + (x * x + 20 * y) / 1500),
       );
     };
 
