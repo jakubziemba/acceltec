@@ -26,16 +26,16 @@ export default function CanvasAnimation({
     };
 
     const R = (x: number, y: number, t: number) => {
-      return Math.floor(0 + 9 * Math.cos((x * x + 40 * y) / 150 + t * 2));
+      return Math.floor(0 + 10 * Math.cos((x * x + 50 * y) / 250 + t * 2));
     };
 
     const G = (x: number, y: number, t: number) => {
       return Math.floor(
         0 +
-          4 *
+          5 *
             Math.sin(
               ((x * x * Math.cos(t / 4) + x * 4 * y * Math.sin(t / 3)) * 2) /
-                1250,
+                800,
             ),
       );
     };
