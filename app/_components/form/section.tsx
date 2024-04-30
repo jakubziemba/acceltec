@@ -267,7 +267,7 @@ export default function FormSection() {
         </div>
       </section>
       <motion.div
-        className="fixed left-0 top-0 -z-50 h-screen w-screen"
+        className="pointer-events-none fixed left-0 top-0 -z-50 h-screen w-screen"
         transition={{
           opacity: { duration: 0.25, type: "tween" },
         }}
