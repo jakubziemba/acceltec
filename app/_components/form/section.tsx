@@ -29,7 +29,7 @@ export default function FormSection() {
 
   const { scrollYProgress: scrollYProgressCanvas } = useScroll({
     target: sectionRef,
-    offset: ["48% end", "end end"],
+    offset: ["30% end", "end end"],
   });
 
   const buttonScale = useTransform(
