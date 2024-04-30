@@ -66,10 +66,6 @@ export default function FormSection() {
       if (value > 0.25) {
         setShouldButtonScale(true);
       }
-
-      // if (showForm) {
-      //   setPlayCanvas(false);
-      // }
     };
 
     const unsubscribe = scrollYProgressSection.on(
@@ -125,6 +121,10 @@ export default function FormSection() {
 
       if (value > 0) {
         setPlayCanvas(true);
+      }
+
+      if (value <= 0) {
+        setPlayCanvas(false);
       }
     });
 
@@ -270,8 +270,6 @@ export default function FormSection() {
       </section>
       <motion.div
         className="fixed left-0 top-0 -z-50 h-screen w-screen"
-        // initial={{ opacity: 0 }}
-        // animate={{ opacity: shouldScroll ? 0 : 1 }}
         transition={{
           opacity: { duration: 0.25, type: "tween" },
         }}
