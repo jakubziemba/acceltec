@@ -117,8 +117,6 @@ export default function FormSection() {
 
   useEffect(() => {
     const unsubscribe = scrollYProgressCanvas.on("change", (value: any) => {
-      console.log(value);
-
       if (value > 0) {
         setPlayCanvas(true);
       }
