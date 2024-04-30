@@ -16,7 +16,7 @@ export default function FormSection() {
   const [showForm, setShowForm] = useState(false);
   const [shouldButtonScale, setShouldButtonScale] = useState(false);
   const [shouldScroll, setShouldScroll] = useState(false);
-  const [lockBodyScroll, setLockBodyScroll] = useState(false);
+  const [playCanvas, setPlayCanvas] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -27,22 +27,29 @@ export default function FormSection() {
     target: sectionRef,
   });
 
+  const { scrollYProgress: scrollYProgressCanvas } = useScroll({
+    target: sectionRef,
+    offset: ["48% end", "end end"],
+  });
+
   const buttonScale = useTransform(
     scrollYProgressSection,
-    [0.35, 0.4, 0.95],
-    [1.1, 1.1, 1.4],
+    [0.25, 0.95],
+    [1, 1.4],
   );
 
   const textTranslateZ = useTransform(
     scrollYProgressSection,
-    [0.35, 0.4, 0.95],
-    [0, 0, -10],
+    [0.25, 0.95],
+    [0, -10],
   );
 
-  const textOpacity = useTransform(
-    scrollYProgressSection,
-    [0.35, 0.4, 0.95, 0.96],
-    [1, 1, 0.3, 0],
+  const textOpacity = useTransform(scrollYProgressSection, [0.4, 0.95], [1, 0]);
+
+  const canvasOpacity = useTransform(
+    scrollYProgressCanvas,
+    [0, 0.25, 0.8, 0.95],
+    [0, 1, 1, 0],
   );
 
   function handleButtonClick() {
@@ -52,10 +59,16 @@ export default function FormSection() {
 
   useEffect(() => {
     const handleScrollSection = (value: any) => {
+      if (value < 0.25) {
+        setShouldButtonScale(false);
+      }
+
       if (value > 0.25) {
         setShouldButtonScale(true);
-      } else {
-        setShouldButtonScale(false);
+      }
+
+      if (showForm) {
+        setPlayCanvas(false);
       }
     };
 
@@ -67,14 +80,13 @@ export default function FormSection() {
     return () => {
       unsubscribe();
     };
-  }, [scrollYProgressSection]);
+  }, [scrollYProgressSection, showForm]);
 
   useEffect(() => {
     const handleScroll = (value: any) => {
       if (value > 0.95) {
         setShowForm(true);
         setShouldScroll(false);
-        setLockBodyScroll(true);
       }
 
       if (shouldScroll) return; // guard for button click
@@ -82,7 +94,6 @@ export default function FormSection() {
       if (value < 0.95) {
         setShowForm(false);
         setShouldScroll(false);
-        setLockBodyScroll(false);
       }
     };
 
@@ -99,36 +110,28 @@ export default function FormSection() {
     const scrollTimeout = setTimeout(() => {
       formRef.current?.scrollIntoView({
         block: "start",
+        behavior: "smooth",
       });
-    }, 100);
+    }, 80);
 
     return () => {
       clearTimeout(scrollTimeout);
     };
   }, [shouldScroll]);
 
-  // useEffect(() => {
-  //   if (!lockBodyScroll) return;
+  useEffect(() => {
+    const unsubscribe = scrollYProgressCanvas.on("change", (value: any) => {
+      console.log(value);
 
-  //   if (showForm) {
-  //     document.body.style.overflow = "clip";
-  //   } else {
-  //     document.body.style.overflow = "auto";
-  //   }
+      if (value > 0) {
+        setPlayCanvas(true);
+      }
+    });
 
-  //   function checkScrollUp(event: any) {
-  //     if (event.wheelDeltaY > 15) {
-  //       setShowForm(false);
-  //     }
-  //   }
-
-  //   window.addEventListener("wheel", checkScrollUp);
-
-  //   return () => {
-  //     document.body.style.overflow = "auto";
-  //     window.removeEventListener("wheel", checkScrollUp);
-  //   };
-  // }, [lockBodyScroll, showForm]);
+    return () => {
+      unsubscribe();
+    };
+  }, [scrollYProgressCanvas]);
 
   return (
     <div ref={containerRef} className="relative w-screen overflow-clip">
@@ -169,7 +172,9 @@ export default function FormSection() {
             </AnimatedText>
           </motion.div>
           <motion.div
-            initial={{ y: shouldButtonScale ? -40 : 0 }}
+            initial={{
+              y: shouldButtonScale ? -40 : 0,
+            }}
             animate={{
               y:
                 shouldButtonScale && !showForm
@@ -181,7 +186,7 @@ export default function FormSection() {
             transition={{
               y: { duration: 0.25, stiffness: 150, damping: 28 },
             }}
-            className={tw("relative flex h-14 w-full justify-center")}
+            className="relative flex h-14 w-full justify-center"
           >
             <motion.div
               initial={{
@@ -192,7 +197,12 @@ export default function FormSection() {
               animate={{
                 opacity: showForm ? 0 : 1,
                 filter: showForm ? "blur(4px)" : "blur(0px)",
-                scale: showForm && !shouldScroll ? 1.8 : undefined,
+                scale:
+                  showForm && !shouldScroll
+                    ? 1.8
+                    : shouldButtonScale
+                      ? 1.1
+                      : undefined,
                 visibility: showForm ? "hidden" : "visible",
               }}
               transition={{
@@ -209,11 +219,7 @@ export default function FormSection() {
               className="absolute -top-20 left-0 flex w-full origin-bottom flex-col [perspective:100px]"
               style={{ scale: buttonScale }}
             >
-              <Button
-                showForm={showForm}
-                shouldScale={shouldButtonScale}
-                handleButtonClick={handleButtonClick}
-              >
+              <Button showForm={showForm} handleButtonClick={handleButtonClick}>
                 Pitch your project
               </Button>
             </motion.div>
@@ -241,9 +247,7 @@ export default function FormSection() {
                 },
                 visibility: { delay: showForm ? 0 : 0.34 },
               }}
-              className={tw(
-                "relative -top-10 flex w-screen origin-center snap-y snap-mandatory snap-center flex-col items-center justify-end gap-8",
-              )}
+              className="relative -top-10 flex w-screen origin-center snap-y snap-mandatory snap-center flex-col items-center justify-end gap-8"
             >
               <Form ref={formRef} showForm={showForm} />
               <motion.div
@@ -268,8 +272,18 @@ export default function FormSection() {
             </motion.div>
           </motion.div>
         </div>
-        {/* <CanvasAnimation /> */}
       </section>
+      <motion.div
+        className="fixed left-0 top-0 -z-50 h-screen w-screen"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: shouldScroll ? 0 : 0 }}
+        transition={{
+          opacity: { duration: 0.25, type: "tween" },
+        }}
+        style={{ opacity: canvasOpacity }}
+      >
+        <CanvasAnimation playCanvas={playCanvas} />
+      </motion.div>
     </div>
   );
 }
