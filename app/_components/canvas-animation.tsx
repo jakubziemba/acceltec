@@ -26,19 +26,24 @@ export default function CanvasAnimation({
     };
 
     const R = (x: number, y: number, t: number) => {
-      return Math.floor(0 + 15 * Math.cos((x * x + y * y + 100) / 200 + t));
+      return Math.floor(0 + 8 * Math.cos((x * x + 40 * y) / 250 + t * 2));
     };
 
     const G = (x: number, y: number, t: number) => {
       return Math.floor(
         0 +
-          4 *
-            Math.sin((x * x * Math.cos(t / 4) + y * y * Math.sin(t / 3)) / 250),
+          8 *
+            Math.sin(
+              ((x * x * Math.cos(t / 4) + x * 4 * y * Math.sin(t / 3)) * 2) /
+                1250,
+            ),
       );
     };
 
     const B = (x: number, y: number, t: number) => {
-      return Math.floor(0 + 7 * Math.sin(1 * Math.sin(t / 2) + (x * y) / 2400));
+      return Math.floor(
+        0 + 8 * Math.sin(1 * Math.sin(t / 2) + (x * x + 3 * y) / 1500),
+      );
     };
 
     let t = 0;
@@ -57,7 +62,7 @@ export default function CanvasAnimation({
           col(x, y, shade);
         }
       }
-      t = t + 0.001;
+      t = t + 0.0009;
       animationFrameId = window.requestAnimationFrame(run);
     };
 
