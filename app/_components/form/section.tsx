@@ -48,8 +48,8 @@ export default function FormSection() {
 
   const canvasOpacity = useTransform(
     scrollYProgressCanvas,
-    [0, 0.25, 0.8, 0.95],
-    [0, 1, 1, 0],
+    [0, 0.25, 0.8],
+    [0, 1, 1],
   );
 
   function handleButtonClick() {
@@ -67,9 +67,9 @@ export default function FormSection() {
         setShouldButtonScale(true);
       }
 
-      if (showForm) {
-        setPlayCanvas(false);
-      }
+      // if (showForm) {
+      //   setPlayCanvas(false);
+      // }
     };
 
     const unsubscribe = scrollYProgressSection.on(
@@ -197,12 +197,7 @@ export default function FormSection() {
               animate={{
                 opacity: showForm ? 0 : 1,
                 filter: showForm ? "blur(4px)" : "blur(0px)",
-                scale:
-                  showForm && !shouldScroll
-                    ? 1.8
-                    : shouldButtonScale
-                      ? 1.1
-                      : undefined,
+                scale: showForm && !shouldScroll ? 1.8 : undefined,
                 visibility: showForm ? "hidden" : "visible",
               }}
               transition={{
@@ -275,8 +270,8 @@ export default function FormSection() {
       </section>
       <motion.div
         className="fixed left-0 top-0 -z-50 h-screen w-screen"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: shouldScroll ? 0 : 0 }}
+        // initial={{ opacity: 0 }}
+        // animate={{ opacity: shouldScroll ? 0 : 1 }}
         transition={{
           opacity: { duration: 0.25, type: "tween" },
         }}
