@@ -11,6 +11,7 @@ body {
   color: rgb(var(--text-color));
   background: rgb(var(--background-color));
   font-weight: 500;
+  scroll-behavior: smooth;
 }
 
 @layer utilities {
