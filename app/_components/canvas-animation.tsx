@@ -17,11 +17,6 @@ export default function CanvasAnimation({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    if (window.innerWidth < 600) {
-      ctx.translate(canvas.width, 1);
-      ctx.rotate((0 * Math.PI) / 180);
-    }
-
     let animationFrameId: number;
 
     const col = (
@@ -37,23 +32,23 @@ export default function CanvasAnimation({
     };
 
     const R = (x: number, y: number, t: number) => {
-      return Math.floor(1 + 10 * Math.cos((x * x + 50 * y) / 250 + t * 2));
+      return Math.floor(0 + 9 * Math.cos((x * x + 50 * y) / 250 + t * 2));
     };
 
     const G = (x: number, y: number, t: number) => {
       return Math.floor(
-        2 +
+        1 +
           6 *
             Math.sin(
               ((x * x * Math.cos(t / 4) + x * 4 * y * Math.sin(t / 3)) * 2) /
-                1200,
+                800,
             ),
       );
     };
 
     const B = (x: number, y: number, t: number) => {
       return Math.floor(
-        6 * Math.sin(40 * Math.sin(t / 6) + (x * x + 20 * y) / 100),
+        4 * Math.sin(40 * Math.sin(t / 6) + (x * x + 20 * y) / 200),
       );
     };
 
@@ -78,7 +73,7 @@ export default function CanvasAnimation({
           col(x, y, shade, width / 32, height / 32);
         }
       }
-      t = t + 0.0015;
+      t = t + 0.0012;
       animationFrameId = window.requestAnimationFrame(run);
     };
 
@@ -94,7 +89,7 @@ export default function CanvasAnimation({
       ref={canvasRef}
       width={32}
       height={32}
-      className="absolute left-0 top-0 -z-50 h-lvh w-screen opacity-100 lg:rotate-0 lg:scale-100"
+      className="absolute left-0 top-0 -z-50 h-lvh w-screen opacity-100"
     />
   );
 }
