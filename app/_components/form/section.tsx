@@ -1,110 +1,329 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import { useWindowSize } from "usehooks-ts";
 import Form from "./form";
-import { tw } from "@/utils/tailwind";
 import AnimatedText from "../animated-text";
 import Button from "./button";
+import CanvasAnimation from "../canvas-animation";
+import Footer from "../footer/footer";
+import { tw } from "@/utils/tailwind";
 
 export default function FormSection() {
+  const { width } = useWindowSize();
   const containerRef = useRef<null | HTMLDivElement>(null);
+  const sectionRef = useRef<null | HTMLDivElement>(null);
   const formRef = useRef<null | HTMLFormElement>(null);
   const [showForm, setShowForm] = useState(false);
+  const [shouldButtonScale, setShouldButtonScale] = useState(false);
   const [shouldScroll, setShouldScroll] = useState(false);
+  const [playCanvas, setPlayCanvas] = useState(false);
+  const isMobile = width < 768;
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["0% end", "end end"],
   });
 
+  const { scrollYProgress: scrollYProgressSection } = useScroll({
+    target: sectionRef,
+  });
+
+  const { scrollYProgress: scrollYProgressCanvas } = useScroll({
+    target: sectionRef,
+    offset: ["30% end", "end end"],
+  });
+
+  const buttonScale = useTransform(
+    scrollYProgressSection,
+    isMobile ? [0.25, 0.8] : [0.25, 0.95],
+    isMobile ? [1, 1.3] : [1, 1.4],
+  );
+
+  const textTranslateZ = useTransform(
+    scrollYProgressSection,
+    isMobile ? [0.25, 0.8] : [0.25, 0.95],
+    [0, -10],
+  );
+
+  const textOpacity = useTransform(
+    scrollYProgressSection,
+    isMobile ? [0.25, 0.8] : [0.25, 0.9],
+    [1, 0],
+  );
+
+  const canvasOpacity = useTransform(
+    scrollYProgressCanvas,
+    isMobile ? [0, 0.3, 0.8] : [0, 0.25, 0.8],
+    [0, 1, 1],
+  );
+
   function handleButtonClick() {
     setShowForm(true);
     setShouldScroll(true);
   }
 
-  useMotionValueEvent(scrollYProgress, "change", (value) => {
-    if (value > 0.9) {
-      setShowForm(true);
-      setShouldScroll(false);
-    }
-
-    if (shouldScroll) return;
-
-    if (value < 0.9) {
-      setShowForm(false);
-    }
+  useMotionValueEvent(scrollYProgressSection, "change", (value) => {
+    console.log(value);
   });
+
+  useEffect(() => {
+    const handleScrollSection = (value: any) => {
+      if (value < 0.25) {
+        setShouldButtonScale(true);
+      }
+
+      if (value > 0.25) {
+        setShouldButtonScale(false);
+      }
+    };
+
+    const unsubscribe = scrollYProgressSection.on(
+      "change",
+      handleScrollSection,
+    );
+
+    return () => {
+      unsubscribe();
+    };
+  }, [scrollYProgressSection, showForm]);
+
+  useEffect(() => {
+    if (!isMobile) return;
+
+    const handleScrollSection = (value: any) => {
+      if (value > 0.8) {
+        setShowForm(true);
+        setShouldScroll(false);
+      }
+
+      if (shouldScroll) return; // guard for button click
+
+      if (value < 0.8) {
+        setShowForm(false);
+        setShouldScroll(false);
+      }
+    };
+
+    const unsubscribe = scrollYProgressSection.on(
+      "change",
+      handleScrollSection,
+    );
+
+    return () => {
+      unsubscribe();
+    };
+  }, [isMobile, scrollYProgressSection, showForm, shouldScroll]);
+
+  useEffect(() => {
+    const handleScroll = (value: any) => {
+      if (value > 0.95) {
+        setShowForm(true);
+        setShouldScroll(false);
+      }
+
+      if (shouldScroll) return; // guard for button click
+
+      if (value < 0.95) {
+        setShowForm(false);
+        setShouldScroll(false);
+      }
+    };
+
+    const unsubscribe = scrollYProgress.on("change", handleScroll);
+
+    return () => {
+      unsubscribe();
+    };
+  }, [scrollYProgress, shouldScroll]);
 
   useEffect(() => {
     if (!shouldScroll || !formRef.current) return;
 
-    formRef.current?.scrollIntoView({
-      block: "end",
-    });
+    const scrollTimeout = setTimeout(() => {
+      formRef.current?.scrollIntoView({
+        block: "start",
+        behavior: "smooth",
+      });
+    }, 100);
+
+    return () => {
+      clearTimeout(scrollTimeout);
+    };
   }, [shouldScroll]);
 
+  useEffect(() => {
+    const unsubscribe = scrollYProgressCanvas.on("change", (value: any) => {
+      if (value > 0) {
+        setPlayCanvas(true);
+      }
+
+      if (value <= 0) {
+        setPlayCanvas(false);
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [scrollYProgressCanvas]);
+
   return (
-    <section
-      ref={containerRef}
-      className="relative mt-[90vh] w-full [perspective:45px] 2xs:mt-[70vh] lg:mt-[100vh] 2xl:mt-[80vh] 4k:mt-[50vh]"
-    >
+    <div ref={containerRef} className="relative z-50 w-screen overflow-clip">
+      <section
+        ref={sectionRef}
+        className="relative mt-[80svh] h-[160vh] w-full [perspective:45px] lg:mt-[100svh]"
+      >
+        <div className="sticky top-0 mx-auto flex h-screen w-full max-w-xl origin-center flex-col items-center justify-center text-balance px-6 text-2xl leading-6 [perspective:45px] supports-[height:100lvh]:h-lvh xs:[text-wrap:initial] lg:max-w-4xl lg:px-0 lg:pt-0 lg:text-4xl lg:leading-10">
+          <motion.div
+            initial={{ translateZ: "0px" }}
+            animate={{
+              // opacity: showForm ? 0 : undefined,
+              translateZ: showForm ? "-15px" : "0px",
+            }}
+            transition={{
+              y: { duration: 0.25, stiffness: 150, damping: 28 },
+              opacity: { type: "tween", duration: 0.15 },
+            }}
+            className="relative flex h-screen flex-col items-center justify-center space-y-8 supports-[height:100lvh]:h-lvh"
+            style={{
+              translateZ: textTranslateZ,
+              opacity: textOpacity,
+            }}
+          >
+            <AnimatedText el="h2" className="origin-bottom text-white/80">
+              Berlin-based software studio that exclusively works with founders,
+              executives and innovative teams.
+            </AnimatedText>
+            <AnimatedText className="text-white/40">
+              We partner with companies and founders who aren’t afraid to
+              challenge conventional order. We invest our time, resources and
+              networks in those who recognize the value we bring to the table.
+            </AnimatedText>
+            <AnimatedText className="text-white/40">
+              We work in a research driven manner. We try to ask the right
+              questions to understand and uncover the problem space. We identify
+              the nail before we start worrying about the hammer.
+            </AnimatedText>
+          </motion.div>
+          <motion.div
+            initial={
+              {
+                // y: shouldButtonScale ? 30 : 0,
+                // maxHeight: "5svh",
+              }
+            }
+            animate={{
+              // y: shouldButtonScale ? 30 : 0,
+              height: showForm ? "100svh" : "5svh",
+            }}
+            transition={{
+              y: { duration: 0.25, stiffness: 150, damping: 28 },
+              height: {
+                delay: showForm ? 0.3 : 0,
+                duration: 0,
+              },
+            }}
+            className="relative flex w-full justify-center"
+          >
+            <motion.div
+              initial={{
+                opacity: showForm ? 0 : 1,
+                filter: showForm ? "blur(4px)" : "blur(0px)",
+                scale: showForm && !shouldScroll ? 1.8 : undefined,
+              }}
+              animate={{
+                opacity: showForm ? 0 : 1,
+                filter: showForm ? "blur(4px)" : "blur(0px)",
+                scale: showForm && !shouldScroll ? 1.8 : undefined,
+                visibility: showForm ? "hidden" : "visible",
+              }}
+              transition={{
+                type: "spring",
+                bounce: 0,
+                duration: 0.33,
+                opacity: {
+                  type: "tween",
+                  duration: showForm ? 0.175 : 0.15,
+                  delay: showForm ? 0.012 : 0.1,
+                },
+                visibility: { delay: showForm ? 0.35 : 0.1 },
+              }}
+              className="absolute -top-20 left-0 flex w-full origin-bottom flex-col [perspective:100px]"
+              style={{ scale: buttonScale }}
+            >
+              <Button showForm={showForm} handleButtonClick={handleButtonClick}>
+                Pitch your project
+              </Button>
+            </motion.div>
+            <motion.div
+              initial={{
+                opacity: 0,
+                scale: showForm ? 1 : 0.05,
+                position: showForm ? "fixed" : "relative",
+              }}
+              animate={{
+                opacity: showForm ? 1 : 0.05,
+                scale: showForm ? 1 : 0.05,
+                visibility: showForm ? "visible" : "hidden",
+                position: showForm ? "fixed" : "relative",
+              }}
+              transition={{
+                opacity: {
+                  type: "tween",
+                  duration: showForm ? 0.055 : 0.308,
+                  delay: showForm ? 0.016 : 0.085,
+                },
+                scale: {
+                  type: "spring",
+                  bounce: 0,
+                  stiffness: 270,
+                  damping: 30,
+                },
+                visibility: { delay: showForm ? 0 : 0.34 },
+                position: { delay: showForm ? 0 : 0.34 },
+              }}
+              className="bottom-0 flex h-full w-screen origin-[50%_90%] snap-y snap-mandatory snap-center flex-col items-center justify-between gap-0 sm:gap-2 lg:gap-8"
+            >
+              <Form ref={formRef} showForm={showForm} />
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  y: 20,
+                }}
+                animate={{
+                  opacity: showForm ? 1 : 0,
+                  y: showForm ? 0 : 20,
+                }}
+                transition={{
+                  type: "tween",
+                  duration: showForm ? 0.3 : 0.1,
+                  delay: showForm ? 0.45 : 0,
+                  ease: "easeOut",
+                }}
+                className="w-full"
+              >
+                <Footer />
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
       <motion.div
-        initial={{ opacity: 1, translateZ: "0px", y: 0 }}
-        animate={{
-          opacity: showForm ? 0.05 : 1,
-          translateZ: showForm ? "-2px" : "0px",
-          y: showForm ? 20 : 0,
-        }}
+        className="pointer-events-none fixed left-0 top-0 -z-50 h-lvh w-screen"
         transition={{
-          duration: 0.25,
-          opacity: { type: "linear", duration: 0.2 },
+          opacity: { duration: 0.25, type: "tween" },
         }}
-        className="sticky top-0 z-10 mx-auto flex h-screen w-full max-w-xl -translate-y-1/2 flex-col items-center justify-center space-y-8 text-balance px-6 text-2xl leading-6 [perspective:1000px] supports-[height:100dvh]:h-dvh xs:[text-wrap:initial] lg:max-w-4xl lg:space-y-6 lg:px-0 lg:pt-0 lg:text-4xl lg:leading-10"
+        style={{ opacity: canvasOpacity }}
       >
-        <AnimatedText el="h2" className="origin-bottom text-white/80">
-          Berlin-based software studio that exclusively works with founders,
-          executives and innovative teams.
-        </AnimatedText>
-        <AnimatedText className="text-white/40">
-          We partner with companies and founders who aren’t afraid to challenge
-          conventional order. We invest our time, resources and networks in
-          those who recognize the value we bring to the table.
-        </AnimatedText>
-        <AnimatedText className="text-white/40">
-          We work in a research driven manner. We try to ask the right questions
-          to understand and uncover the problem space. We identify the nail
-          before we start worrying about the hammer.
-        </AnimatedText>
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ margin: "-10%", once: true }}
-          className="flex w-full justify-center pt-8 [perspective:30px]"
-        >
-          {!showForm && (
-            <Button showForm={showForm} handleButtonClick={handleButtonClick}>
-              Pitch your project
-            </Button>
-          )}
-        </motion.div>
+        <CanvasAnimation playCanvas={playCanvas} />
       </motion.div>
-      <motion.div
-        key="pitch"
-        initial={{ position: "static" }}
-        animate={{
-          position: showForm ? "sticky" : "static",
-          y: showForm ? -160 : 0,
-        }}
-        exit={{ opacity: 0 }}
-        className="relative z-20 flex h-[476px] w-full flex-col items-center px-4 lg:px-0"
-      >
-        {showForm && (
-          <div className="sticky bottom-0 w-full">
-            <Form ref={formRef} showForm={showForm} />
-          </div>
-        )}
-      </motion.div>
-    </section>
+    </div>
   );
 }

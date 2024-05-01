@@ -11,17 +11,27 @@ const sendRouteSchema = z.object({
   content: z.string().min(2),
 });
 
-// TODO - register domain to send emails from any email address
-
 export async function POST(request: NextRequest, response: NextResponse) {
   try {
     const { name, email, content } = await request
       .json()
       .then((body) => sendRouteSchema.parse(body));
 
+    // anti-spam
+    if (
+      email.includes("@example.com") ||
+      email.includes("@test.com") ||
+      !email.includes("@") ||
+      !email
+    ) {
+      return NextResponse.json({ ok: true });
+    }
+
     const res = await resend.emails.send({
-      from: "Acme <onboarding@resend.dev>",
-      to: "ziemba.jak@gmail.com",
+      from: "Acceltec <send@marketing.acceltec.de>",
+      to: [email],
+      bcc: "ziemba.jak@gmail.com",
+      reply_to: email,
       subject: `${name} sent you a message`,
       text: content,
       headers: {
