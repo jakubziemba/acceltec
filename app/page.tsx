@@ -5,7 +5,7 @@ import FormSection from "./_components/form/section";
 
 export default function Home() {
   return (
-    <main className="container flex min-h-[calc(100vh-80px)] w-screen flex-col items-center">
+    <main className="container flex min-h-[calc(100svh-80px)] w-screen flex-col items-center">
       <div className="relative w-screen">
         <HeroSection />
         <FormSection />

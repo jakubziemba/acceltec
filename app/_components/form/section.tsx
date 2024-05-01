@@ -1,15 +1,22 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import { useWindowSize } from "usehooks-ts";
 import Form from "./form";
-import { tw } from "@/utils/tailwind";
 import AnimatedText from "../animated-text";
 import Button from "./button";
 import CanvasAnimation from "../canvas-animation";
 import Footer from "../footer/footer";
+import { tw } from "@/utils/tailwind";
 
 export default function FormSection() {
+  const { width } = useWindowSize();
   const containerRef = useRef<null | HTMLDivElement>(null);
   const sectionRef = useRef<null | HTMLDivElement>(null);
   const formRef = useRef<null | HTMLFormElement>(null);
@@ -17,6 +24,7 @@ export default function FormSection() {
   const [shouldButtonScale, setShouldButtonScale] = useState(false);
   const [shouldScroll, setShouldScroll] = useState(false);
   const [playCanvas, setPlayCanvas] = useState(false);
+  const isMobile = width < 768;
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -34,21 +42,25 @@ export default function FormSection() {
 
   const buttonScale = useTransform(
     scrollYProgressSection,
-    [0.25, 0.95],
-    [1, 1.4],
+    isMobile ? [0.25, 0.8] : [0.25, 0.95],
+    isMobile ? [1, 1.3] : [1, 1.4],
   );
 
   const textTranslateZ = useTransform(
     scrollYProgressSection,
-    [0.25, 0.95],
+    isMobile ? [0.25, 0.8] : [0.25, 0.95],
     [0, -10],
   );
 
-  const textOpacity = useTransform(scrollYProgressSection, [0.4, 0.95], [1, 0]);
+  const textOpacity = useTransform(
+    scrollYProgressSection,
+    isMobile ? [0.25, 0.8] : [0.25, 0.9],
+    [1, 0],
+  );
 
   const canvasOpacity = useTransform(
     scrollYProgressCanvas,
-    [0, 0.25, 0.8],
+    isMobile ? [0, 0.3, 0.8] : [0, 0.25, 0.8],
     [0, 1, 1],
   );
 
@@ -57,14 +69,18 @@ export default function FormSection() {
     setShouldScroll(true);
   }
 
+  useMotionValueEvent(scrollYProgressSection, "change", (value) => {
+    console.log(value);
+  });
+
   useEffect(() => {
     const handleScrollSection = (value: any) => {
       if (value < 0.25) {
-        setShouldButtonScale(false);
+        setShouldButtonScale(true);
       }
 
       if (value > 0.25) {
-        setShouldButtonScale(true);
+        setShouldButtonScale(false);
       }
     };
 
@@ -77,6 +93,33 @@ export default function FormSection() {
       unsubscribe();
     };
   }, [scrollYProgressSection, showForm]);
+
+  useEffect(() => {
+    if (!isMobile) return;
+
+    const handleScrollSection = (value: any) => {
+      if (value > 0.8) {
+        setShowForm(true);
+        setShouldScroll(false);
+      }
+
+      if (shouldScroll) return; // guard for button click
+
+      if (value < 0.8) {
+        setShowForm(false);
+        setShouldScroll(false);
+      }
+    };
+
+    const unsubscribe = scrollYProgressSection.on(
+      "change",
+      handleScrollSection,
+    );
+
+    return () => {
+      unsubscribe();
+    };
+  }, [isMobile, scrollYProgressSection, showForm, shouldScroll]);
 
   useEffect(() => {
     const handleScroll = (value: any) => {
@@ -108,7 +151,7 @@ export default function FormSection() {
         block: "start",
         behavior: "smooth",
       });
-    }, 80);
+    }, 100);
 
     return () => {
       clearTimeout(scrollTimeout);
@@ -132,12 +175,12 @@ export default function FormSection() {
   }, [scrollYProgressCanvas]);
 
   return (
-    <div ref={containerRef} className="relative w-screen overflow-clip">
+    <div ref={containerRef} className="relative z-50 w-screen overflow-clip">
       <section
         ref={sectionRef}
-        className="relative mt-[100dvh] h-[160dvh] w-full [perspective:45px]"
+        className="relative mt-[80svh] h-[160vh] w-full [perspective:45px] lg:mt-[100svh]"
       >
-        <div className="sticky top-0 mx-auto flex h-screen w-full max-w-xl origin-center flex-col items-center justify-center text-balance px-6 text-2xl leading-6 [perspective:45px] xs:[text-wrap:initial] lg:max-w-4xl lg:px-0 lg:pt-0 lg:text-4xl lg:leading-10">
+        <div className="sticky top-0 mx-auto flex h-screen w-full max-w-xl origin-center flex-col items-center justify-center text-balance px-6 text-2xl leading-6 [perspective:45px] supports-[height:100lvh]:h-lvh xs:[text-wrap:initial] lg:max-w-4xl lg:px-0 lg:pt-0 lg:text-4xl lg:leading-10">
           <motion.div
             initial={{ translateZ: "0px" }}
             animate={{
@@ -148,7 +191,7 @@ export default function FormSection() {
               y: { duration: 0.25, stiffness: 150, damping: 28 },
               opacity: { type: "tween", duration: 0.15 },
             }}
-            className="relative flex h-screen flex-col items-center justify-center space-y-8"
+            className="relative flex h-screen flex-col items-center justify-center space-y-8 supports-[height:100lvh]:h-lvh"
             style={{
               translateZ: textTranslateZ,
               opacity: textOpacity,
@@ -170,21 +213,24 @@ export default function FormSection() {
             </AnimatedText>
           </motion.div>
           <motion.div
-            initial={{
-              y: shouldButtonScale ? -40 : 0,
-            }}
+            initial={
+              {
+                // y: shouldButtonScale ? 30 : 0,
+                // maxHeight: "5svh",
+              }
+            }
             animate={{
-              y:
-                shouldButtonScale && !showForm
-                  ? -40
-                  : shouldButtonScale && showForm
-                    ? 0
-                    : 0,
+              // y: shouldButtonScale ? 30 : 0,
+              height: showForm ? "100svh" : "5svh",
             }}
             transition={{
               y: { duration: 0.25, stiffness: 150, damping: 28 },
+              height: {
+                delay: showForm ? 0.3 : 0,
+                duration: 0,
+              },
             }}
-            className="relative flex h-14 w-full justify-center"
+            className="relative flex w-full justify-center"
           >
             <motion.div
               initial={{
@@ -220,11 +266,13 @@ export default function FormSection() {
               initial={{
                 opacity: 0,
                 scale: showForm ? 1 : 0.05,
+                position: showForm ? "fixed" : "relative",
               }}
               animate={{
                 opacity: showForm ? 1 : 0.05,
                 scale: showForm ? 1 : 0.05,
                 visibility: showForm ? "visible" : "hidden",
+                position: showForm ? "fixed" : "relative",
               }}
               transition={{
                 opacity: {
@@ -239,8 +287,9 @@ export default function FormSection() {
                   damping: 30,
                 },
                 visibility: { delay: showForm ? 0 : 0.34 },
+                position: { delay: showForm ? 0 : 0.34 },
               }}
-              className="relative -top-10 flex w-screen origin-center snap-y snap-mandatory snap-center flex-col items-center justify-end gap-8"
+              className="bottom-0 flex h-full w-screen origin-[50%_90%] snap-y snap-mandatory snap-center flex-col items-center justify-between gap-0 sm:gap-2 lg:gap-8"
             >
               <Form ref={formRef} showForm={showForm} />
               <motion.div
@@ -267,7 +316,7 @@ export default function FormSection() {
         </div>
       </section>
       <motion.div
-        className="pointer-events-none fixed left-0 top-0 -z-50 h-screen w-screen"
+        className="pointer-events-none fixed left-0 top-0 -z-50 h-lvh w-screen"
         transition={{
           opacity: { duration: 0.25, type: "tween" },
         }}

@@ -46,14 +46,14 @@ const Form = (
   }
 
   return (
-    <div className="w-full self-center">
+    <div className="flex h-full w-full flex-col items-center justify-end px-6 lg:justify-center">
       <motion.form
         ref={ref}
         id={id}
-        className="mx-auto w-full max-w-4xl origin-bottom -scroll-mt-10 rounded-[30px] bg-[#121212]"
+        className="mx-auto w-full max-w-lg origin-bottom -scroll-mt-10 rounded-[30px] bg-[#121212] lg:max-w-4xl"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="mx-auto flex max-w-xl flex-col gap-4 rounded-[30px] bg-[hsla(0,0%,7%,1)] p-4 lg:max-w-full lg:flex-row lg:gap-6 lg:p-7">
+        <div className="mx-auto flex w-full max-w-xl flex-col gap-4 rounded-[30px] bg-[hsla(0,0%,7%,1)] p-3 2xs:p-4 lg:max-w-full lg:flex-row lg:gap-6 lg:p-7">
           <MotionConfig
             transition={{
               type: "linear",
@@ -73,7 +73,7 @@ const Form = (
             >
               <label
                 htmlFor="name"
-                className="w-full rounded-[18px] px-4 py-3 leading-10 tracking-wide text-white/50 lg:text-lg"
+                className="w-full rounded-[18px] px-4 py-2 leading-10 tracking-wide text-white/50 lg:text-lg"
               >
                 From
               </label>
@@ -116,7 +116,7 @@ const Form = (
                   id="content"
                   required
                   placeholder="My project is about..."
-                  className="peer h-32 resize-none bg-inherit px-4 py-2 leading-6 outline-none placeholder:tracking-wide placeholder:text-white/20 lg:h-72"
+                  className="peer min-h-24 resize-none bg-inherit px-4 py-2 leading-6 outline-none placeholder:tracking-wide placeholder:text-white/20 2xs:min-h-32 lg:min-h-72"
                   {...register("content")}
                   aria-invalid={errors?.content ? "true" : "false"}
                 />
@@ -126,7 +126,7 @@ const Form = (
                   )}
                 />
               </div>
-              <div className="flex min-h-14 justify-center py-1 lg:justify-start">
+              <div className="flex min-h-10 justify-center py-1 2xs:min-h-14 lg:justify-start">
                 <AnimatePresence mode="wait">
                   {!isSubmitSuccessful ? (
                     <motion.button
@@ -138,7 +138,7 @@ const Form = (
                         duration: 0.4,
                       }}
                       disabled={isSubmitting}
-                      className="px-4 py-1 text-base leading-9 text-white/50 outline-none transition duration-200 disabled:text-white/50 lg:w-max lg:rounded-xl lg:bg-inherit lg:text-xl lg:leading-10 lg:text-white lg:focus-visible:text-white/80 lg:active:scale-[0.98]"
+                      className="px-4 py-1 text-base leading-6 text-white/50 outline-none transition duration-200 disabled:text-white/50 xs:leading-9 lg:w-max lg:rounded-xl lg:bg-inherit lg:text-xl lg:leading-10 lg:text-white lg:focus-visible:text-white/80 lg:active:scale-[0.98]"
                     >
                       {isSubmitting ? "Sending..." : "Send"}
                     </motion.button>
@@ -174,11 +174,13 @@ const Form = (
               }}
               className="relative isolate w-full overflow-hidden rounded-[18px] bg-white/5 lg:flex-1"
             >
-              <div className="flex h-auto min-h-48 w-full flex-col justify-between px-6 pb-4 pt-2 tracking-wide lg:absolute lg:inset-0">
-                <p className="text-lg leading-10 text-white/50">To</p>
-                <div className="text-2xl leading-10">
+              <div className="flex h-auto min-h-32 w-full flex-col justify-between px-6 pb-4 pt-2 tracking-wide xs:min-h-48 lg:absolute lg:inset-0">
+                <p className="text-base leading-10 text-white/50 2xs:text-lg">
+                  To
+                </p>
+                <div className="text-xl leading-10">
                   <p className="text-white">Laurence Laumann</p>
-                  <p className="text-xl text-white/70">Founder</p>
+                  <p className="text-base text-white/70">Founder</p>
                 </div>
               </div>
               <LogoCardSVG className="absolute -top-96 left-36 -z-10 h-full w-full select-none lg:-left-7 lg:-top-[360px]" />

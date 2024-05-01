@@ -146,7 +146,7 @@ export default function LogoHero({ className = "" }) {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className={tw(
-          "h-full max-h-[70vh] w-full min-w-[790px] max-w-[1234px] lg:p-10",
+          "h-full max-h-[70svh] w-full min-w-[790px] max-w-[1234px] lg:p-10",
           className,
         )}
       >
