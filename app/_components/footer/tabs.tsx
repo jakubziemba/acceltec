@@ -20,6 +20,20 @@ const tabs = [
 
 export default function FooterTabs() {
   const [activeTab, setActiveTab] = useState(tabs[0].label);
+  const [hovered, setHovered] = useState(false);
+
+  useEffect(() => {
+    if (hovered) return;
+
+    const timeout = setTimeout(() => {
+      setHovered(false);
+      setActiveTab("");
+    }, 2000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [hovered]);
 
   return (
     <ul className="flex w-fit gap-1">
@@ -30,12 +44,18 @@ export default function FooterTabs() {
           <li
             key={tab.id}
             className={tw(
-              "relative cursor-pointer text-sm leading-8 outline-none transition-all duration-200 active:scale-[0.98] ",
+              "relative cursor-pointer text-sm leading-8 outline-none transition-all duration-[180ms] active:scale-[0.98] ",
               isActive ? "text-white/80" : "text-white/20",
             )}
             onFocus={() => setActiveTab(tab.label)}
-            onMouseOver={() => setActiveTab(tab.label)}
-            onMouseLeave={() => setActiveTab(tab.label)}
+            onMouseEnter={() => {
+              setHovered(true);
+              setActiveTab(tab.label);
+            }}
+            onMouseLeave={() => {
+              setHovered(false);
+              setActiveTab(tab.label);
+            }}
           >
             <Link
               href={tab.href}
