@@ -69,7 +69,7 @@ const Form = (
                 duration: showForm ? 0.2 : 0.15,
                 delay: showForm ? 0.1 : 0.03,
               }}
-              className="lg:flex-2 flex flex-col gap-2 text-base leading-10 tracking-wide lg:w-full lg:max-w-md lg:text-xl"
+              className="lg:flex-2 lg:order-0 order-1 flex flex-col gap-2 text-base leading-10 tracking-wide lg:w-full lg:max-w-md lg:text-xl"
             >
               <label
                 htmlFor="name"
@@ -172,12 +172,10 @@ const Form = (
                 duration: showForm ? 0.2 : 0.15,
                 delay: showForm ? 0.1 : 0.03,
               }}
-              className="relative isolate w-full overflow-hidden rounded-[18px] bg-white/5 lg:flex-1"
+              className="order-0 relative isolate w-full overflow-hidden rounded-[18px] bg-white/5 lg:order-1 lg:flex-1"
             >
               <div className="flex h-auto min-h-32 w-full flex-col justify-between px-6 pb-4 pt-2 tracking-wide xs:min-h-48 lg:absolute lg:inset-0">
-                <p className="text-base leading-10 text-white/50 2xs:text-lg">
-                  To
-                </p>
+                <p className="text-base leading-10 text-white/50">To</p>
                 <div className="text-xl leading-10">
                   <p className="text-white">Laurence Laumann</p>
                   <p className="text-base text-white/70">Founder</p>

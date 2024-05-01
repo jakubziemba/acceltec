@@ -17,26 +17,10 @@ export default function CanvasAnimation({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const dpr = window.devicePixelRatio || 1;
-
-    // // Function to set canvas dimensions
-    // const setCanvasSize = () => {
-    //   const width = window.innerWidth;
-    //   const height = window.innerHeight;
-
-    //   canvas.width = width * dpr;
-    //   canvas.height = height * dpr;
-    //   ctx.scale(dpr / 32, dpr / 32);
-    // };
-
-    // // Initial size set
-    // setCanvasSize();
-
-    // // Resize observer to update canvas size on resize
-    // const resizeObserver = new ResizeObserver(() => {
-    //   setCanvasSize();
-    // });
-    // resizeObserver.observe(canvas);
+    if (window.innerWidth < 600) {
+      ctx.translate(canvas.width, 1);
+      ctx.rotate((0 * Math.PI) / 180);
+    }
 
     let animationFrameId: number;
 
@@ -53,23 +37,23 @@ export default function CanvasAnimation({
     };
 
     const R = (x: number, y: number, t: number) => {
-      return Math.floor(0 + 10 * Math.cos((x * x + 50 * y) / 250 + t * 2));
+      return Math.floor(1 + 10 * Math.cos((x * x + 50 * y) / 250 + t * 2));
     };
 
     const G = (x: number, y: number, t: number) => {
       return Math.floor(
-        0 +
-          5 *
+        2 +
+          6 *
             Math.sin(
               ((x * x * Math.cos(t / 4) + x * 4 * y * Math.sin(t / 3)) * 2) /
-                800,
+                1200,
             ),
       );
     };
 
     const B = (x: number, y: number, t: number) => {
       return Math.floor(
-        4 * Math.sin(40 * Math.sin(t / 6) + (x * x + 20 * y) / 1500),
+        6 * Math.sin(40 * Math.sin(t / 6) + (x * x + 20 * y) / 100),
       );
     };
 
@@ -94,7 +78,7 @@ export default function CanvasAnimation({
           col(x, y, shade, width / 32, height / 32);
         }
       }
-      t = t + 0.0009;
+      t = t + 0.0015;
       animationFrameId = window.requestAnimationFrame(run);
     };
 
@@ -110,7 +94,7 @@ export default function CanvasAnimation({
       ref={canvasRef}
       width={32}
       height={32}
-      className="absolute left-0 top-0 -z-50 h-lvh w-screen opacity-100"
+      className="absolute left-0 top-0 -z-50 h-lvh w-screen opacity-100 lg:rotate-0 lg:scale-100"
     />
   );
 }
