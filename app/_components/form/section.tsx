@@ -178,7 +178,7 @@ export default function FormSection() {
     <div ref={containerRef} className="relative z-50 w-screen overflow-clip">
       <section
         ref={sectionRef}
-        className="relative mt-[80svh] h-[160vh] w-full [perspective:45px] lg:mt-[100svh]"
+        className="relative mt-[80lvh] h-[160vh] w-full [perspective:45px] lg:mt-[100lvh]"
       >
         <div className="sticky top-0 mx-auto flex h-screen w-full max-w-xl origin-center flex-col items-center justify-center text-balance px-6 text-2xl leading-6 [perspective:45px] supports-[height:100lvh]:h-lvh xs:[text-wrap:initial] lg:max-w-4xl lg:px-0 lg:pt-0 lg:text-4xl lg:leading-10">
           <motion.div
@@ -190,8 +190,9 @@ export default function FormSection() {
             transition={{
               y: { duration: 0.25, stiffness: 150, damping: 28 },
               opacity: { type: "tween", duration: 0.15 },
+              translateZ: { duration: 0.25, stiffness: 150, damping: 10 },
             }}
-            className="relative flex h-screen flex-col items-center justify-center space-y-8 supports-[height:100lvh]:h-lvh"
+            className="relative flex h-screen flex-col items-center justify-center space-y-8 supports-[height:100svh]:h-svh"
             style={{
               translateZ: textTranslateZ,
               opacity: textOpacity,
@@ -215,7 +216,7 @@ export default function FormSection() {
           <motion.div
             initial={
               {
-                // y: shouldButtonScale ? 30 : 0,
+                // y: 0,
                 // maxHeight: "5svh",
               }
             }
@@ -226,8 +227,8 @@ export default function FormSection() {
             transition={{
               y: { duration: 0.25, stiffness: 150, damping: 28 },
               height: {
-                delay: showForm ? 0.3 : 0,
-                duration: 0,
+                delay: showForm ? 0.6 : 0,
+                duration: 0.25,
               },
             }}
             className="relative flex w-full justify-center"
@@ -237,12 +238,14 @@ export default function FormSection() {
                 opacity: showForm ? 0 : 1,
                 filter: showForm ? "blur(4px)" : "blur(0px)",
                 scale: showForm && !shouldScroll ? 1.8 : undefined,
+                y: 0,
               }}
               animate={{
                 opacity: showForm ? 0 : 1,
                 filter: showForm ? "blur(4px)" : "blur(0px)",
                 scale: showForm && !shouldScroll ? 1.8 : undefined,
                 visibility: showForm ? "hidden" : "visible",
+                y: shouldButtonScale ? 30 : 0,
               }}
               transition={{
                 type: "spring",
@@ -254,6 +257,7 @@ export default function FormSection() {
                   delay: showForm ? 0.012 : 0.1,
                 },
                 visibility: { delay: showForm ? 0.35 : 0.1 },
+                y: { duration: 0.25, stiffness: 150, damping: 28 },
               }}
               className="absolute -top-20 left-0 flex w-full origin-bottom flex-col [perspective:100px]"
               style={{ scale: buttonScale }}
@@ -316,10 +320,10 @@ export default function FormSection() {
         </div>
       </section>
       <motion.div
-        className="pointer-events-none fixed left-0 top-0 -z-50 h-lvh w-screen"
         transition={{
           opacity: { duration: 0.25, type: "tween" },
         }}
+        className="pointer-events-none fixed left-0 top-0 -z-50 h-screen w-screen scale-105 lg:scale-100"
         style={{ opacity: canvasOpacity }}
       >
         <CanvasAnimation playCanvas={playCanvas} />

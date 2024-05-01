@@ -59,7 +59,7 @@ export default function CanvasAnimation({
     const G = (x: number, y: number, t: number) => {
       return Math.floor(
         0 +
-          6 *
+          5 *
             Math.sin(
               ((x * x * Math.cos(t / 4) + x * 4 * y * Math.sin(t / 3)) * 2) /
                 800,
