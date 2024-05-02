@@ -5,8 +5,10 @@ import { motion } from "framer-motion";
 
 export default function CanvasAnimation({
   playCanvas,
+  showForm,
 }: {
   playCanvas: boolean;
+  showForm?: boolean;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -32,23 +34,23 @@ export default function CanvasAnimation({
     };
 
     const R = (x: number, y: number, t: number) => {
-      return Math.floor(0 + 9 * Math.cos((x * x + 50 * y) / 250 + t * 2));
+      return Math.floor(4 + 10 * Math.cos((x * x + 50 * y) / 250 + t * 2)); // Increased base and amplitude
     };
 
     const G = (x: number, y: number, t: number) => {
       return Math.floor(
-        1 +
-          6 *
+        4 +
+          10 *
             Math.sin(
               ((x * x * Math.cos(t / 4) + x * 4 * y * Math.sin(t / 3)) * 2) /
                 800,
             ),
-      );
+      ); // Increased base and amplitude
     };
 
     const B = (x: number, y: number, t: number) => {
       return Math.floor(
-        4 * Math.sin(40 * Math.sin(t / 6) + (x * x + 20 * y) / 200),
+        2 + 10 * Math.sin(40 * Math.sin(t / 6) + (x * x + 20 * y) / 200), // Increased base and amplitude
       );
     };
 
@@ -85,11 +87,15 @@ export default function CanvasAnimation({
   }, [playCanvas]);
 
   return (
-    <canvas
+    <motion.canvas
       ref={canvasRef}
       width={32}
       height={32}
-      className="absolute left-0 top-0 -z-50 h-lvh w-screen opacity-100"
+      animate={{ opacity: showForm ? 0.5 : 1 }}
+      transition={{
+        opacity: { duration: 1, type: "tween" },
+      }}
+      className="absolute left-0 top-0 -z-50 h-lvh w-screen"
     />
   );
 }

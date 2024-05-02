@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter_Tight } from "next/font/google";
 import "./globals.css";
+import Script from "next/script";
 import Footer from "./_components/footer/footer";
 import { tw } from "@/utils/tailwind";
 import CanvasAnimation from "./_components/canvas-animation";
@@ -27,7 +28,11 @@ export default function RootLayout({
         )}
       >
         {children}
-        {/* <Footer /> */}
+        <Script
+          defer
+          data-domain="acceltec.de"
+          src="https://plausible.io/js/script.js"
+        />
       </body>
     </html>
   );

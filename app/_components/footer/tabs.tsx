@@ -36,7 +36,7 @@ export default function FooterTabs() {
   }, [hovered]);
 
   return (
-    <ul className="flex w-fit gap-1">
+    <ul className="flex w-fit gap-1 overflow-clip">
       {tabs.map((tab) => {
         const isActive = tab.label === activeTab;
 

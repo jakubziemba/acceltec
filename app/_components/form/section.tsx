@@ -301,13 +301,10 @@ export default function FormSection() {
         </div>
       </section>
       <motion.div
-        transition={{
-          opacity: { duration: 0.25, type: "tween" },
-        }}
         className="pointer-events-none fixed left-0 top-0 -z-50 h-screen w-screen scale-105 lg:scale-100"
         style={{ opacity: canvasOpacity }}
       >
-        <CanvasAnimation playCanvas={playCanvas} />
+        <CanvasAnimation playCanvas={playCanvas} showForm={showForm} />
       </motion.div>
     </div>
   );
