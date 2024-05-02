@@ -19,6 +19,8 @@ export default function CanvasAnimation({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    if (!playCanvas) return;
+
     let animationFrameId: number;
 
     const col = (
@@ -57,8 +59,6 @@ export default function CanvasAnimation({
     let t = 0;
 
     const run = () => {
-      if (!playCanvas) return;
-
       // Clear the canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 

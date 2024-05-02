@@ -37,7 +37,7 @@ export default function FormSection() {
   const buttonScale = useTransform(
     scrollYProgressSection,
     isMobile ? [0, 0.8] : [0, 0.95],
-    isMobile ? [1, 1.3] : [1, 1.4],
+    isMobile ? [1, 1.25] : [1, 1.4],
   );
 
   const textTranslateZ = useTransform(
@@ -170,7 +170,7 @@ export default function FormSection() {
         ref={sectionRef}
         className="relative mt-[80lvh] h-[160vh] w-full [perspective:45px] lg:mt-[100lvh]"
       >
-        <div className="sticky top-0 mx-auto flex h-screen w-full max-w-xl origin-center flex-col items-center justify-center text-balance px-6 text-2xl leading-6 [perspective:45px] supports-[height:100lvh]:h-lvh max-xs:text-xl max-xs:leading-6 max-2xs:text-lg max-2xs:leading-5 max-[350px]:text-base max-[350px]:leading-5 xs:[text-wrap:initial] lg:max-w-4xl lg:px-0 lg:pt-0 lg:text-4xl lg:leading-10">
+        <div className="sticky top-0 mx-auto flex h-screen w-full max-w-xl origin-center flex-col items-center justify-center text-balance px-6 text-base leading-5 [perspective:45px] supports-[height:100lvh]:h-lvh max-2xs:text-lg max-2xs:leading-6 max-[350px]:text-sm max-[350px]:leading-4 xs:[text-wrap:initial] md:text-2xl md:leading-6 lg:max-w-4xl lg:px-0 lg:pt-0 lg:text-4xl lg:leading-10">
           <motion.div
             initial={{ z: 0 }}
             animate={{
@@ -181,7 +181,7 @@ export default function FormSection() {
               opacity: { type: "tween", duration: 0.24 },
               z: { duration: 0.24 },
             }}
-            className="relative flex h-screen flex-col items-center justify-center space-y-8 supports-[height:100svh]:h-svh max-2xs:-top-10"
+            className="relative flex h-screen flex-col items-center justify-center space-y-6 supports-[height:100svh]:h-svh max-2xs:-top-10 xl:space-y-8"
             style={{
               translateZ: textTranslateZ,
               opacity: textOpacity,
@@ -189,10 +189,12 @@ export default function FormSection() {
           >
             <AnimatedText el="h2" className="origin-bottom text-white/80">
               Berlin-based software studio that exclusively works with founders,
-              forward-looking leaders, and innovative teams. By partnering with
-              us, you gain access to outstanding designers and developers
-              without the long hiring process or the need to recruit an in-house
-              team.
+              forward-looking leaders, and innovative teams.
+            </AnimatedText>
+            <AnimatedText className="text-white/40">
+              By partnering with us, you gain access to outstanding designers
+              and developers without the long hiring process or the need to
+              recruit an in-house team.
             </AnimatedText>
             <AnimatedText className="text-white/40">
               With dozens of projects launched and 20+ companies we collaborated
