@@ -301,7 +301,7 @@ export default function FormSection() {
         </div>
       </section>
       <motion.div
-        className="pointer-events-none fixed left-0 top-0 -z-50 h-screen w-screen scale-105 bg-transparent lg:scale-100"
+        className="pointer-events-none fixed left-0 top-0 -z-50 h-screen w-screen scale-105 lg:scale-100"
         style={{ opacity: canvasOpacity }}
       >
         <CanvasAnimation playCanvas={playCanvas} showForm={showForm} />

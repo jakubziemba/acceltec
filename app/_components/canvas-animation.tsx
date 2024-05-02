@@ -34,13 +34,13 @@ export default function CanvasAnimation({
     };
 
     const R = (x: number, y: number, t: number) => {
-      return Math.floor(2 + 5 * Math.cos((x * x + 50 * y) / 250 + t * 2)); // Increased base and amplitude
+      return Math.floor(4 + 10 * Math.cos((x * x + 50 * y) / 250 + t * 2)); // Increased base and amplitude
     };
 
     const G = (x: number, y: number, t: number) => {
       return Math.floor(
-        0 +
-          4 *
+        1 +
+          10 *
             Math.sin(
               ((x * x * Math.cos(t / 4) + x * 4 * y * Math.sin(t / 3)) * 2) /
                 800,
@@ -50,7 +50,7 @@ export default function CanvasAnimation({
 
     const B = (x: number, y: number, t: number) => {
       return Math.floor(
-        2 + 2 * Math.sin(40 * Math.sin(t / 6) + (x * x + 20 * y) / 200), // Increased base and amplitude
+        1 + 6 * Math.sin(40 * Math.sin(t / 6) + (x * x + 20 * y) / 200), // Increased base and amplitude
       );
     };
 
@@ -91,11 +91,11 @@ export default function CanvasAnimation({
       ref={canvasRef}
       width={32}
       height={32}
-      animate={{ opacity: showForm ? 0.3 : 0.5 }}
+      animate={{ opacity: showForm ? 0.5 : 0.9 }}
       transition={{
         opacity: { duration: 1, type: "tween" },
       }}
-      className="absolute left-0 top-0 -z-50 h-lvh w-screen blur-[999px]"
+      className="absolute left-0 top-0 -z-50 h-lvh w-screen"
     />
   );
 }
