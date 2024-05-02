@@ -75,7 +75,7 @@ export default function CanvasAnimation({
           col(x, y, shade, width / 32, height / 32);
         }
       }
-      t = t + 0.001;
+      t = t + 0.0012;
       animationFrameId = window.requestAnimationFrame(run);
     };
 
