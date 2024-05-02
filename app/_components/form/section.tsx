@@ -170,7 +170,7 @@ export default function FormSection() {
         ref={sectionRef}
         className="relative mt-[80lvh] h-[160vh] w-full [perspective:45px] lg:mt-[100lvh]"
       >
-        <div className="sticky top-0 mx-auto flex h-screen w-full max-w-xl origin-center flex-col items-center justify-center text-balance px-6 text-2xl leading-6 [perspective:45px] supports-[height:100lvh]:h-lvh max-xs:text-lg max-xs:leading-5 max-2xs:text-base max-2xs:leading-5 xs:[text-wrap:initial] lg:max-w-4xl lg:px-0 lg:pt-0 lg:text-4xl lg:leading-10">
+        <div className="sticky top-0 mx-auto flex h-screen w-full max-w-xl origin-center flex-col items-center justify-center text-balance px-6 text-2xl leading-6 [perspective:45px] supports-[height:100lvh]:h-lvh max-xs:text-xl max-xs:leading-6 max-2xs:text-lg max-2xs:leading-5 max-[350px]:text-base max-[350px]:leading-5 xs:[text-wrap:initial] lg:max-w-4xl lg:px-0 lg:pt-0 lg:text-4xl lg:leading-10">
           <motion.div
             initial={{ z: 0 }}
             animate={{
