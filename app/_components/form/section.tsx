@@ -170,7 +170,7 @@ export default function FormSection() {
         ref={sectionRef}
         className="relative mt-[80lvh] h-[160vh] w-full [perspective:45px] lg:mt-[100lvh]"
       >
-        <div className="sticky top-0 mx-auto flex h-screen w-full max-w-xl origin-center flex-col items-center justify-center text-balance px-6 text-2xl leading-6 [perspective:45px] supports-[height:100lvh]:h-lvh xs:[text-wrap:initial] lg:max-w-4xl lg:px-0 lg:pt-0 lg:text-4xl lg:leading-10">
+        <div className="sticky top-0 mx-auto flex h-screen w-full max-w-xl origin-center flex-col items-center justify-center text-balance px-6 text-lg leading-6 [perspective:45px] supports-[height:100lvh]:h-lvh xs:[text-wrap:initial] lg:max-w-4xl lg:px-0 lg:pt-0 lg:text-4xl lg:leading-10">
           <motion.div
             initial={{ z: 0 }}
             animate={{
@@ -189,17 +189,22 @@ export default function FormSection() {
           >
             <AnimatedText el="h2" className="origin-bottom text-white/80">
               Berlin-based software studio that exclusively works with founders,
-              executives and innovative teams.
+              forward-looking leaders, and innovative teams. By partnering with
+              us, you gain access to outstanding designers and developers
+              without the long hiring process or the need to recruit an in-house
+              team.
             </AnimatedText>
             <AnimatedText className="text-white/40">
-              We partner with companies and founders who aren’t afraid to
-              challenge conventional order. We invest our time, resources and
-              networks in those who recognize the value we bring to the table.
+              With dozens of projects launched and 20+ companies we collaborated
+              with, we fast track the entire process and drive organisational
+              change from within. We bring careful planning, transparent
+              communication, and aggressive execution to keep you ahead of the
+              game.
             </AnimatedText>
             <AnimatedText className="text-white/40">
-              We work in a research driven manner. We try to ask the right
-              questions to understand and uncover the problem space. We identify
-              the nail before we start worrying about the hammer.
+              We build web and mobile apps for companies we believe in and we
+              only commit to a handful of projects per year. Let&apos;s start to
+              build.
             </AnimatedText>
           </motion.div>
           <motion.div

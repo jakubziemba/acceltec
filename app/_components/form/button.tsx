@@ -13,15 +13,16 @@ export default function Button({
 }) {
   return (
     <motion.button
+      initial={{ opacity: 0 }}
       onClick={handleButtonClick}
       whileHover={{
         color: "rgba(255, 255, 255, 1)",
       }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ margin: "-15%", once: true }}
       transition={{
-        type: "spring",
-        damping: 5,
-        mass: 0.01,
-        bounce: 0,
+        type: "tween",
+        duration: 0.38,
       }}
       className="relative origin-top select-none self-center rounded-[32px] bg-[#121212] px-6 py-3 text-xl text-white/80 outline-none focus-visible:shadow-[0px_0px_0px_2px_hsla(0,0%,100%,1),0px_2px_2px_0px_hsla(0,0%,0%,0.2)]"
     >
