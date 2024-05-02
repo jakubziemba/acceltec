@@ -91,7 +91,7 @@ export default function CanvasAnimation({
       ref={canvasRef}
       width={32}
       height={32}
-      animate={{ opacity: showForm ? 0.5 : 0.9 }}
+      animate={{ opacity: showForm ? 0.6 : 0.9 }}
       transition={{
         opacity: { duration: 1, type: "tween" },
       }}

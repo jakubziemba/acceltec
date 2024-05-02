@@ -170,7 +170,7 @@ export default function FormSection() {
         ref={sectionRef}
         className="relative mt-[80lvh] h-[160vh] w-full [perspective:45px] lg:mt-[100lvh]"
       >
-        <div className="sticky top-0 mx-auto flex h-screen w-full max-w-xl origin-center flex-col items-center justify-center text-balance px-6 text-lg leading-6 [perspective:45px] supports-[height:100lvh]:h-lvh xs:[text-wrap:initial] lg:max-w-4xl lg:px-0 lg:pt-0 lg:text-4xl lg:leading-10">
+        <div className="sticky top-0 mx-auto flex h-screen w-full max-w-xl origin-center flex-col items-center justify-center text-balance px-6 text-2xl leading-6 [perspective:45px] supports-[height:100lvh]:h-lvh max-xs:text-lg max-xs:leading-5 max-2xs:text-base max-2xs:leading-5 xs:[text-wrap:initial] lg:max-w-4xl lg:px-0 lg:pt-0 lg:text-4xl lg:leading-10">
           <motion.div
             initial={{ z: 0 }}
             animate={{
@@ -181,7 +181,7 @@ export default function FormSection() {
               opacity: { type: "tween", duration: 0.24 },
               z: { duration: 0.24 },
             }}
-            className="relative flex h-screen flex-col items-center justify-center space-y-8 supports-[height:100svh]:h-svh"
+            className="relative flex h-screen flex-col items-center justify-center space-y-8 supports-[height:100svh]:h-svh max-2xs:-top-10"
             style={{
               translateZ: textTranslateZ,
               opacity: textOpacity,
@@ -245,7 +245,7 @@ export default function FormSection() {
                 visibility: { delay: showForm ? 0.35 : 0.1 },
                 y: { duration: 0.25, type: "tween" },
               }}
-              className="absolute -top-10 left-0 flex w-full origin-bottom flex-col [perspective:100px] lg:-top-20"
+              className="absolute -top-12 left-0 flex w-full origin-bottom flex-col [perspective:100px] max-2xs:-top-5 2xl:-top-20"
               style={{ scale: buttonScale }}
             >
               <Button showForm={showForm} handleButtonClick={handleButtonClick}>
@@ -279,7 +279,7 @@ export default function FormSection() {
                 visibility: { delay: showForm ? 0 : 0.34 },
                 position: { delay: showForm ? 0 : 0.34 },
               }}
-              className="bottom-0 flex h-full w-screen origin-[50%_88%] snap-y snap-mandatory snap-center flex-col items-center justify-between gap-0 xs:origin-[50%_85%] sm:gap-2 lg:gap-8 2xl:origin-[50%_92%]"
+              className="bottom-0 flex h-full w-screen origin-[50%_88%] snap-y snap-mandatory snap-center flex-col items-center justify-between gap-0 max-2xs:origin-[50%_94%] xs:origin-[50%_85%] sm:gap-2 md:origin-[50%_93%] lg:gap-8 2xl:origin-[50%_92%]"
             >
               <Form ref={formRef} showForm={showForm} />
               <motion.div

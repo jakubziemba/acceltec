@@ -19,7 +19,7 @@ export default function Button({
         color: "rgba(255, 255, 255, 1)",
       }}
       whileInView={{ opacity: 1 }}
-      viewport={{ margin: "-15%", once: true }}
+      viewport={{ margin: "-60px", once: true }}
       transition={{
         type: "tween",
         duration: 0.38,
