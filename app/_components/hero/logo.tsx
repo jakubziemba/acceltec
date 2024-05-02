@@ -10,7 +10,7 @@ const INITIAL_Y = -100;
 const DEFAULT_X = 486;
 const DEFAULT_Y = 84;
 
-const X_OFFSET_MOBILE = 1000;
+const X_OFFSET_MOBILE = 800;
 const X_OFFSET_DESKTOP = 200;
 
 export default function LogoHero({ className = "" }) {
@@ -21,9 +21,9 @@ export default function LogoHero({ className = "" }) {
   const isMobile = width < 1024;
 
   const initialTransition = {
-    damping: 40,
-    stiffness: 50,
-    mass: 0.2,
+    damping: 48,
+    stiffness: 70,
+    mass: 0.15,
     bounce: 0,
   };
 
