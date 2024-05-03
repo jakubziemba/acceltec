@@ -48,8 +48,14 @@ export default function FormSection() {
 
   const textOpacity = useTransform(
     scrollYProgressSection,
-    isMobile ? [0, 0.8] : [0, 0.9],
-    [1, 0],
+    isMobile ? [0, 0.8, 1] : [0, 0.9, 1],
+    [1, 0.05, 0],
+  );
+
+  const textBlur = useTransform(
+    scrollYProgressSection,
+    isMobile ? [0.7, 0.8] : [0.6, 0.95],
+    ["blur(0px)", "blur(6px)"],
   );
 
   const canvasOpacity = useTransform(
@@ -120,7 +126,7 @@ export default function FormSection() {
 
       if (shouldScroll) return; // guard for button click
 
-      if (value < 0.95) {
+      if (value < 0.9) {
         setShowForm(false);
         setShouldScroll(false);
       }
@@ -175,16 +181,19 @@ export default function FormSection() {
             initial={{ z: 0 }}
             animate={{
               z: showForm ? -10 : 0,
+              // filter: showForm ? "blur(12px)" : "blur(0px)",
             }}
             transition={{
               y: { duration: 0.25, stiffness: 150, damping: 28 },
               opacity: { type: "tween", duration: 0.24 },
               z: { duration: 0.24 },
+              // filter: { duration: 0.24 },
             }}
             className="relative flex h-screen flex-col items-center justify-center space-y-6 supports-[height:100svh]:h-svh max-2xs:-top-10 xl:space-y-8"
             style={{
               translateZ: textTranslateZ,
               opacity: textOpacity,
+              filter: textBlur,
             }}
           >
             <AnimatedText el="h2" className="origin-bottom text-white/80">
@@ -281,7 +290,7 @@ export default function FormSection() {
                 visibility: { delay: showForm ? 0 : 0.34 },
                 position: { delay: showForm ? 0 : 0.34 },
               }}
-              className="bottom-0 flex h-full min-h-screen w-screen origin-[50%_88%] snap-y snap-mandatory snap-center flex-col items-center justify-between gap-0 overflow-y-scroll max-2xs:origin-[50%_94%] xs:origin-[50%_85%] sm:gap-2 md:origin-[50%_93%] lg:gap-8 2xl:origin-[50%_92%]"
+              className="bottom-0 flex h-full min-h-screen w-screen origin-[50%_88%] flex-col items-center justify-between gap-0 max-2xs:origin-[50%_94%] xs:origin-[50%_85%] sm:gap-2 md:origin-[50%_93%] lg:gap-8 2xl:origin-[50%_92%]"
             >
               <Form ref={formRef} showForm={showForm} />
               <motion.div

@@ -18,7 +18,10 @@ export default function Button({
       whileHover={{
         color: "rgba(255, 255, 255, 1)",
       }}
-      whileInView={{ opacity: 1 }}
+      whileInView={{
+        opacity: 1,
+        boxShadow: "0px 16px 32px 8px rgba(0, 0, 0, 0.35)",
+      }}
       viewport={{ margin: "-60px", once: true }}
       transition={{
         type: "tween",
