@@ -5,10 +5,8 @@ import { motion } from "framer-motion";
 
 export default function CanvasAnimation({
   playCanvas,
-  showForm,
 }: {
   playCanvas: boolean;
-  showForm?: boolean;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -87,15 +85,11 @@ export default function CanvasAnimation({
   }, [playCanvas]);
 
   return (
-    <motion.canvas
+    <canvas
       ref={canvasRef}
       width={32}
       height={32}
-      animate={{ opacity: showForm ? 0.6 : 0.9 }}
-      transition={{
-        opacity: { duration: 1, type: "tween" },
-      }}
-      className="absolute left-0 top-0 -z-50 h-lvh w-screen"
+      className="absolute left-0 top-0 -z-50 h-lvh w-screen opacity-90"
     />
   );
 }

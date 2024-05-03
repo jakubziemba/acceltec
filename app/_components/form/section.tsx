@@ -54,8 +54,8 @@ export default function FormSection() {
 
   const canvasOpacity = useTransform(
     scrollYProgressCanvas,
-    isMobile ? [0, 0.3] : [0, 0.25],
-    [0, 1],
+    isMobile ? [0, 0.3, 0.8] : [0, 0.28, 0.95],
+    [0, 1, 0.6],
   );
 
   function handleButtonClick() {
@@ -311,7 +311,7 @@ export default function FormSection() {
         className="pointer-events-none fixed left-0 top-0 -z-50 h-screen w-screen scale-105 lg:scale-100"
         style={{ opacity: canvasOpacity }}
       >
-        <CanvasAnimation playCanvas={playCanvas} showForm={showForm} />
+        <CanvasAnimation playCanvas={playCanvas} />
       </motion.div>
     </div>
   );
