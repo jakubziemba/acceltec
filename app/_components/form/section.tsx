@@ -13,6 +13,7 @@ export default function FormSection() {
   const { width, height } = useWindowSize();
   const containerRef = useRef<null | HTMLDivElement>(null);
   const sectionRef = useRef<null | HTMLDivElement>(null);
+  const textRef = useRef<null | HTMLDivElement>(null);
   const formRef = useRef<null | HTMLFormElement>(null);
   const [showForm, setShowForm] = useState(false);
   const [shouldButtonScale, setShouldButtonScale] = useState(false);
@@ -95,16 +96,8 @@ export default function FormSection() {
 
   useEffect(() => {
     const handleScrollSection = (value: any) => {
-      // if (value > 0.8) {
-      //   setShowForm(true);
-      //   setShouldScroll(false);
-      // }
-
       if (shouldScroll) return; // guard for button click
 
-      // if (document.body.style.overflow === "hidden") {
-      //   document.body.style.overflow = "unset";
-      // }
       if (!isMobile && value < 0.95) {
         setShowForm(false);
         setShouldScroll(false);
@@ -138,13 +131,6 @@ export default function FormSection() {
         setShowForm(true);
         setShouldScroll(false);
       }
-
-      // if (shouldScroll) return; // guard for button click
-
-      // if (value < 0.9) {
-      //   setShowForm(false);
-      //   setShouldScroll(false);
-      // }
     };
 
     const unsubscribe = scrollYProgress.on("change", handleScroll);
@@ -156,12 +142,10 @@ export default function FormSection() {
 
   useEffect(() => {
     if (!shouldScroll || !containerHeight) return;
-    // document.body.style.overflow = "hidden";
 
     const scrollTimeout = setTimeout(() => {
-      // formRef.current?.scrollIntoView({ behavior: "smooth" });
       window.scrollTo({
-        top: containerHeight - 150,
+        top: isMobile ? containerHeight - 116 : containerHeight,
         behavior: "smooth",
       });
     }, 100);
@@ -191,10 +175,11 @@ export default function FormSection() {
     <div ref={containerRef} className="relative z-50 w-screen overflow-clip">
       <section
         ref={sectionRef}
-        className="relative mt-[80lvh] min-h-[200vh] w-full [perspective:45px] lg:mt-[100lvh] 2xl:mt-[70lvh]"
+        className="relative mt-[80lvh] min-h-[200vh] w-full [perspective:45px] lg:mt-[100lvh] 2xl:mt-[90lvh]"
       >
-        <div className="sticky top-12 mx-auto flex h-screen w-full max-w-xl origin-center flex-col items-center justify-center px-6 text-lg leading-5 [perspective:45px] max-2xs:text-lg max-2xs:leading-5 max-[350px]:text-sm max-[350px]:leading-4 xs:[text-wrap:initial] md:text-2xl md:leading-6 lg:top-20 lg:max-w-4xl lg:px-0 lg:pt-0 lg:text-4xl lg:leading-10">
+        <div className="sticky top-12 mx-auto flex h-screen w-full max-w-xl origin-center flex-col items-center justify-center px-6 text-lg leading-5 [perspective:45px] max-2xs:text-lg max-2xs:leading-5 max-[350px]:text-sm max-[350px]:leading-4 xs:[text-wrap:initial] md:text-2xl md:leading-6 lg:top-16 lg:max-w-4xl lg:px-0 lg:pt-0 lg:text-4xl lg:leading-10">
           <motion.div
+            ref={textRef}
             initial={{ z: 0 }}
             animate={{
               z: showForm ? -10 : 0,
@@ -202,7 +187,7 @@ export default function FormSection() {
             transition={{
               duration: 0.24,
             }}
-            className="relative flex h-screen flex-col items-center justify-center space-y-6 max-2xs:-top-10 xl:space-y-8"
+            className="relative flex h-screen flex-col items-center justify-center space-y-6 xl:space-y-8"
             style={{
               translateZ: textTranslateZ,
               opacity: textOpacity,
@@ -233,7 +218,7 @@ export default function FormSection() {
           </motion.div>
           <motion.div
             layout
-            className="pointer-events-none relative bottom-0 isolate -mt-[calc(100vh-588px)] flex h-[588px] w-full flex-col justify-center self-center lg:-mt-[calc(100vh-588px)]"
+            className="pointer-events-none relative bottom-0 isolate -mt-[calc(100vh-588px)] flex h-[588px] w-full flex-col justify-center self-center 2xs:-bottom-10 lg:-mt-[calc(100vh-588px)]"
           >
             <motion.div
               initial={{
@@ -241,15 +226,14 @@ export default function FormSection() {
                 filter: showForm ? "blur(4px)" : "blur(0px)",
                 scale: showForm && !shouldScroll ? 1.8 : undefined,
                 y: 0,
-                bottom: -40,
               }}
               animate={{
                 opacity: showForm ? 0 : 1,
                 filter: showForm ? "blur(4px)" : "blur(0px)",
                 scale: showForm && !shouldScroll ? 1.8 : undefined,
                 visibility: showForm ? "hidden" : "visible",
-                bottom: showForm ? offsetFromBottom : 0,
-                y: shouldButtonScale ? -30 : 0,
+                bottom: showForm ? offsetFromBottom : isMobile ? 30 : 40,
+                y: shouldButtonScale ? -25 : 0,
               }}
               transition={{
                 type: "spring",
@@ -261,9 +245,9 @@ export default function FormSection() {
                   delay: showForm ? 0.012 : 0.1,
                 },
                 visibility: { delay: showForm ? 0.35 : 0.1 },
-                y: { duration: 0.25, type: "tween" },
+                y: { duration: 0.4, type: "tween" },
               }}
-              className="pointer-events-auto absolute -bottom-10 flex w-full origin-bottom flex-col [perspective:100px]"
+              className="pointer-events-auto absolute flex w-full origin-bottom flex-col [perspective:100px]"
               style={{ scale: buttonScale }}
             >
               <Button showForm={showForm} handleButtonClick={handleButtonClick}>
@@ -274,17 +258,17 @@ export default function FormSection() {
               initial={{
                 opacity: 0,
                 scale: showForm ? 1 : 0.05,
-                bottom: -40,
                 y: 0,
               }}
               animate={{
-                opacity: showForm ? 1 : 0.05,
+                opacity: showForm ? 1 : 0,
                 scale: showForm ? 1 : 0.05,
                 visibility: showForm ? "visible" : "hidden",
-                bottom: showForm ? offsetFromBottom : 0,
-                y: shouldButtonScale ? -30 : 0,
+                bottom: showForm ? offsetFromBottom : isMobile ? 30 : 40,
+                y: shouldButtonScale ? -25 : 0,
               }}
               transition={{
+                y: { duration: 0.4, type: "tween" },
                 opacity: {
                   type: "tween",
                   duration: showForm ? 0.055 : 0.308,
@@ -299,7 +283,7 @@ export default function FormSection() {
                 visibility: { delay: showForm ? 0 : 0.34 },
                 position: { delay: showForm ? 0 : 0.34 },
               }}
-              className="pointer-events-auto absolute -bottom-10 flex h-svh w-full origin-bottom flex-col items-center justify-end gap-0"
+              className="pointer-events-auto absolute flex h-svh w-full origin-bottom flex-col items-center justify-end gap-0 2xs:-bottom-10"
             >
               <Form ref={formRef} showForm={showForm} />
             </motion.div>
@@ -307,11 +291,9 @@ export default function FormSection() {
           <motion.div
             initial={{
               opacity: 0,
-              y: "100%",
             }}
             animate={{
               opacity: showForm ? 1 : 0,
-              y: showForm ? "0%" : "100%",
             }}
             transition={{
               type: "tween",
