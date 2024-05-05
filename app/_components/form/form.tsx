@@ -50,7 +50,7 @@ const Form = (
       <motion.form
         ref={ref}
         id={id}
-        className="mx-auto w-full max-w-lg origin-bottom -scroll-mt-10 rounded-[30px] bg-[#121212] lg:max-w-4xl"
+        className="mx-auto w-full max-w-lg origin-bottom rounded-[30px] bg-[#121212] lg:max-w-4xl"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="mx-auto flex w-full max-w-xl flex-col gap-4 rounded-[30px] bg-[hsla(0,0%,7%,1)] p-3 2xs:p-4 lg:max-w-full lg:flex-row lg:gap-6 lg:p-7">
