@@ -28,7 +28,7 @@ export default function FooterTabs() {
     const timeout = setTimeout(() => {
       setHovered(false);
       setActiveTab("");
-    }, 2000);
+    }, 700);
 
     return () => {
       clearTimeout(timeout);

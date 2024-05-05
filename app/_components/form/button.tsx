@@ -39,8 +39,8 @@ export default function Button({
         }}
         transition={{
           type: "tween",
-          duration: showForm ? 0.02 : 0.24,
-          delay: showForm ? 0 : 0.16,
+          duration: showForm ? 0.04 : 0.24,
+          delay: showForm ? 0 : 0.2,
           filter: {
             duration: 0.3,
             delay: showForm ? 0.1 : 0.2,

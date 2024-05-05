@@ -219,7 +219,7 @@ export default function FormSection() {
           <div className="pointer-events-none fixed bottom-[30px] isolate flex h-screen w-full flex-col justify-center 2xs:-bottom-10 ">
             <motion.div
               initial={{
-                opacity: showForm ? 0 : 1,
+                // opacity: showForm ? 0 : 1,
                 filter: showForm ? "blur(4px)" : "blur(0px)",
                 // scale: showForm && !shouldScroll ? 1.8 : undefined,
                 y: 0,
@@ -227,13 +227,13 @@ export default function FormSection() {
                 transformOrigin: "bottom",
               }}
               animate={{
-                opacity: showForm ? 0 : 1,
+                // opacity: showForm ? 0 : 1,
                 filter: showForm ? "blur(4px)" : "blur(0px)",
                 // scale: showForm && !shouldScroll ? 1.8 : undefined,
                 visibility: showForm ? "hidden" : "visible",
-                bottom: showForm ? 150 : 30,
-                // bottom: showForm ? offsetFromBottom : 30,
-                y: shouldButtonScale ? -25 : 0,
+                // bottom: showForm ? 150 : 30,
+                bottom: showForm ? offsetFromBottom : 30,
+                y: shouldButtonScale ? -40 : 0,
               }}
               transition={{
                 type: "tween",
@@ -270,9 +270,9 @@ export default function FormSection() {
                 opacity: showForm ? 1 : 0.05,
                 scale: showForm ? 1 : 0.05,
                 visibility: showForm ? "visible" : "hidden",
-                // bottom: showForm ? offsetFromBottom : 30,
-                bottom: showForm ? 150 : 30,
-                // y: shouldButtonScale ? -25 : 0,
+                bottom: showForm ? offsetFromBottom : 30,
+                // bottom: showForm ? 150 : 30,
+                y: shouldButtonScale ? -40 : 0,
               }}
               transition={{
                 y: { duration: 0.35, type: "tween" },

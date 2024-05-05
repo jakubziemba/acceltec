@@ -46,7 +46,7 @@ const Form = (
   }
 
   return (
-    <div className="flex w-full flex-col items-center justify-center lg:justify-center">
+    <div className="flex w-full flex-col items-center justify-center rounded-[30px] bg-[#121212] lg:justify-center">
       <motion.form
         ref={ref}
         id={id}
