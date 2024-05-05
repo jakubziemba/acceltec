@@ -35,17 +35,15 @@ export default function Button({
         }}
         animate={{
           opacity: showForm ? 0 : 1,
-          filter: showForm
-            ? ["blur(6px)", "blur(0px)"]
-            : ["blur(6px)", "blur(0px)"],
+          // filter: ["blur(6px)", "blur(0px)"],
         }}
         transition={{
           type: "tween",
-          duration: showForm ? 0.056 : 0.24,
-          delay: showForm ? 0 : 0.2,
+          duration: showForm ? 0.02 : 0.24,
+          delay: showForm ? 0 : 0.16,
           filter: {
             duration: 0.3,
-            delay: showForm ? 0 : 0.2,
+            delay: showForm ? 0.1 : 0.2,
           },
         }}
       >

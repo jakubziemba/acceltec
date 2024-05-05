@@ -216,11 +216,9 @@ export default function FormSection() {
               build.
             </AnimatedText>
           </motion.div>
-          <motion.div
-            layout
-            className="pointer-events-none relative bottom-0 isolate -mt-[calc(100vh-588px)] flex h-[588px] w-full flex-col justify-center self-center 2xs:-bottom-10 lg:-mt-[calc(100vh-588px)]"
-          >
+          <motion.div className="pointer-events-none relative bottom-0 isolate -mt-[calc(100vh-588px)] flex h-[588px] w-full flex-col justify-center self-center 2xs:-bottom-10 lg:-mt-[calc(100vh-588px)]">
             <motion.div
+              layout
               initial={{
                 opacity: showForm ? 0 : 1,
                 filter: showForm ? "blur(4px)" : "blur(0px)",
@@ -233,19 +231,24 @@ export default function FormSection() {
                 scale: showForm && !shouldScroll ? 1.8 : undefined,
                 visibility: showForm ? "hidden" : "visible",
                 bottom: showForm ? offsetFromBottom : isMobile ? 30 : 40,
-                y: shouldButtonScale ? -25 : 0,
               }}
+              whileInView={{ y: shouldButtonScale ? -25 : 0 }}
               transition={{
                 type: "spring",
                 bounce: 0,
                 duration: 0.33,
                 opacity: {
                   type: "tween",
-                  duration: showForm ? 0.175 : 0.15,
-                  delay: showForm ? 0.012 : 0.1,
+                  duration: showForm ? 0.08 : 0.15,
+                  delay: showForm ? 0 : 0.18,
                 },
                 visibility: { delay: showForm ? 0.35 : 0.1 },
-                y: { duration: 0.4, type: "tween" },
+                y: { duration: 0.25, type: "tween" },
+                bottom: {
+                  duration: 0.25,
+                  type: "tween",
+                  delay: showForm ? 0.1 : 0,
+                },
               }}
               className="pointer-events-auto absolute flex w-full origin-bottom flex-col [perspective:100px]"
               style={{ scale: buttonScale }}
@@ -257,31 +260,34 @@ export default function FormSection() {
             <motion.div
               initial={{
                 opacity: 0,
-                scale: showForm ? 1 : 0.05,
+                scale: showForm ? 1 : 0,
                 y: 0,
               }}
               animate={{
                 opacity: showForm ? 1 : 0,
-                scale: showForm ? 1 : 0.05,
+                scale: showForm ? 1 : 0,
                 visibility: showForm ? "visible" : "hidden",
                 bottom: showForm ? offsetFromBottom : isMobile ? 30 : 40,
                 y: shouldButtonScale ? -25 : 0,
               }}
               transition={{
-                y: { duration: 0.4, type: "tween" },
+                y: { duration: 0.25, type: "tween" },
                 opacity: {
                   type: "tween",
-                  duration: showForm ? 0.055 : 0.308,
-                  delay: showForm ? 0.016 : 0.085,
+                  duration: showForm ? 0.12 : 0.308,
+                  delay: showForm ? 0.012 : 0.085,
                 },
                 scale: {
-                  type: "spring",
-                  bounce: 0,
-                  stiffness: 270,
-                  damping: 30,
+                  type: "tween",
+                  duration: 0.25,
+                  ease: "easeOut",
                 },
                 visibility: { delay: showForm ? 0 : 0.34 },
-                position: { delay: showForm ? 0 : 0.34 },
+                bottom: {
+                  duration: 0.25,
+                  type: "tween",
+                  delay: showForm ? 0.1 : 0,
+                },
               }}
               className="pointer-events-auto absolute flex h-svh w-full origin-bottom flex-col items-center justify-end gap-0 2xs:-bottom-10"
             >
