@@ -13,7 +13,7 @@ export default function Button({
 }) {
   return (
     <motion.button
-      initial={{ opacity: 1 }}
+      initial={{ opacity: 1, filter: "blur(0px)" }}
       onClick={handleButtonClick}
       whileHover={{
         color: "rgba(255, 255, 255, 1)",
@@ -35,12 +35,16 @@ export default function Button({
         }}
         animate={{
           opacity: showForm ? 0 : 1,
-          // filter: ["blur(6px)", "blur(0px)"],
+          filter: showForm
+            ? ["blur(6px)", "blur(0px)"]
+            : ["blur(6px)", "blur(0px)"],
+          visibility: showForm ? "hidden" : "visible",
         }}
         transition={{
           type: "tween",
-          duration: showForm ? 0.04 : 0.24,
-          delay: showForm ? 0 : 0.2,
+          duration: showForm ? 0.1 : 0.18,
+          delay: showForm ? 0 : 0.19,
+          visibility: { delay: showForm ? 0.2 : 0.22 },
           filter: {
             duration: 0.3,
             delay: showForm ? 0.1 : 0.2,

@@ -17,7 +17,7 @@ export default function FormSection() {
   const formRef = useRef<null | HTMLFormElement>(null);
   const [showForm, setShowForm] = useState(false);
   const [shouldButtonScale, setShouldButtonScale] = useState(false);
-  const [shouldScroll, setShouldScroll] = useState(false);
+  const [shouldScrollToForm, setShouldScroll] = useState(false);
   const [playCanvas, setPlayCanvas] = useState(false);
   const isMobile = width < 768;
   const containerHeight = containerRef.current?.getBoundingClientRect().height;
@@ -73,6 +73,7 @@ export default function FormSection() {
     setShouldScroll(true);
   }
 
+  // button scale on scroll trigger
   useEffect(() => {
     const handleScrollSection = (value: any) => {
       if (value > 0) {
@@ -94,9 +95,10 @@ export default function FormSection() {
     };
   }, [scrollYProgressSection, showForm]);
 
+  // show form trigger on scroll up
   useEffect(() => {
     const handleScrollSection = (value: any) => {
-      if (shouldScroll) return; // guard for button click
+      if (shouldScrollToForm) return; // guard for button click
 
       if (!isMobile && value < 0.95) {
         setShowForm(false);
@@ -116,8 +118,9 @@ export default function FormSection() {
     return () => {
       unsubscribe();
     };
-  }, [isMobile, scrollYProgress, shouldScroll]);
+  }, [isMobile, scrollYProgress, shouldScrollToForm]);
 
+  // show form trigger on scroll down
   useEffect(() => {
     const handleScroll = (value: any) => {
       if (value > 0.95) {
@@ -140,8 +143,9 @@ export default function FormSection() {
     };
   }, [scrollYProgress, isMobile]);
 
+  // scroll to form on button click
   useEffect(() => {
-    if (!shouldScroll || !containerHeight) return;
+    if (!shouldScrollToForm || !containerHeight) return;
 
     const scrollTimeout = setTimeout(() => {
       window.scrollTo({
@@ -153,7 +157,7 @@ export default function FormSection() {
     return () => {
       clearTimeout(scrollTimeout);
     };
-  }, [shouldScroll, containerHeight]);
+  }, [shouldScrollToForm, containerHeight]);
 
   useEffect(() => {
     const unsubscribe = scrollYProgressCanvas.on("change", (value: any) => {
@@ -221,7 +225,7 @@ export default function FormSection() {
               initial={{
                 // opacity: showForm ? 0 : 1,
                 filter: showForm ? "blur(4px)" : "blur(0px)",
-                // scale: showForm && !shouldScroll ? 1.8 : undefined,
+                // scale: showForm && !shouldScrollToForm ? 1.8 : undefined,
                 y: 0,
                 bottom: 30,
                 transformOrigin: "bottom",
@@ -229,9 +233,8 @@ export default function FormSection() {
               animate={{
                 // opacity: showForm ? 0 : 1,
                 filter: showForm ? "blur(4px)" : "blur(0px)",
-                // scale: showForm && !shouldScroll ? 1.8 : undefined,
+                // scale: showForm && !shouldScrollToForm ? 1.8 : undefined,
                 visibility: showForm ? "hidden" : "visible",
-                // bottom: showForm ? 150 : 30,
                 bottom: showForm ? offsetFromBottom : 30,
                 y: shouldButtonScale ? -40 : 0,
               }}
@@ -261,30 +264,30 @@ export default function FormSection() {
             </motion.div>
             <motion.div
               initial={{
-                opacity: 0,
+                // opacity: 0,
                 scale: showForm ? 1 : 0,
                 bottom: 30,
                 transformOrigin: "bottom",
+                y: 0,
               }}
               animate={{
-                opacity: showForm ? 1 : 0.05,
-                scale: showForm ? 1 : 0.05,
+                // opacity: showForm ? 1 : 0,
+                scale: showForm ? 1 : 0,
                 visibility: showForm ? "visible" : "hidden",
                 bottom: showForm ? offsetFromBottom : 30,
-                // bottom: showForm ? 150 : 30,
                 y: shouldButtonScale ? -40 : 0,
               }}
               transition={{
                 y: { duration: 0.35, type: "tween" },
                 opacity: {
                   type: "tween",
-                  duration: showForm ? 0.12 : 0.308,
-                  delay: showForm ? 0.012 : 0.085,
+                  duration: showForm ? 0.18 : 0.308,
+                  delay: showForm ? 0.02 : 0.085,
                 },
                 scale: {
                   type: "tween",
                   duration: 0.25,
-                  ease: "easeOut",
+                  delay: showForm ? 0.02 : 0,
                 },
                 visibility: { delay: showForm ? 0 : 0.34 },
                 bottom: {
