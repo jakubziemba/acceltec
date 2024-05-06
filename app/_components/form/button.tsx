@@ -42,12 +42,12 @@ export default function Button({
         }}
         transition={{
           type: "tween",
-          duration: showForm ? 0.1 : 0.18,
-          delay: showForm ? 0 : 0.19,
-          visibility: { delay: showForm ? 0.2 : 0.22 },
+          duration: showForm ? 0.12 : 0.18,
+          delay: showForm ? -0.02 : 0.17,
+          visibility: { delay: showForm ? 0.2 : 0 },
           filter: {
             duration: 0.3,
-            delay: showForm ? 0.1 : 0.2,
+            delay: showForm ? 0.05 : 0.015,
           },
         }}
       >

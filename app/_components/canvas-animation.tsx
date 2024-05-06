@@ -17,9 +17,34 @@ export default function CanvasAnimation({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    if (!playCanvas) return;
-
+    let t = 0;
     let animationFrameId: number;
+
+    const run = () => {
+      // Clear the canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const width = canvas.width;
+      const height = canvas.height;
+
+      // Run the animation
+      for (let x = 0; x < width; x += width / 32) {
+        for (let y = 0; y < height; y += height / 32) {
+          const shade = Math.max(
+            0,
+            Math.min(255, R(x, y, t) + G(x, y, t) + B(x, y, t)),
+          );
+          col(x, y, shade, width / 32, height / 32);
+        }
+      }
+      t = t + 0.0012;
+      animationFrameId = window.requestAnimationFrame(run);
+    };
+
+    const stopCanvasAnimation = () => {
+      window.cancelAnimationFrame(animationFrameId);
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+    };
 
     const col = (
       x: number,
@@ -54,33 +79,14 @@ export default function CanvasAnimation({
       );
     };
 
-    let t = 0;
-
-    const run = () => {
-      // Clear the canvas
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      const width = canvas.width;
-      const height = canvas.height;
-
-      // Run the animation
-      for (let x = 0; x < width; x += width / 32) {
-        for (let y = 0; y < height; y += height / 32) {
-          const shade = Math.max(
-            0,
-            Math.min(255, R(x, y, t) + G(x, y, t) + B(x, y, t)),
-          );
-          col(x, y, shade, width / 32, height / 32);
-        }
-      }
-      t = t + 0.0012;
-      animationFrameId = window.requestAnimationFrame(run);
-    };
-
-    run();
+    if (playCanvas) {
+      run();
+    } else {
+      stopCanvasAnimation();
+    }
 
     return () => {
-      window.cancelAnimationFrame(animationFrameId);
+      stopCanvasAnimation();
     };
   }, [playCanvas]);
 

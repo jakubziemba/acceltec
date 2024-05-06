@@ -67,7 +67,7 @@ const Form = (
               animate={{ opacity: showForm ? 1 : 0 }}
               transition={{
                 duration: showForm ? 0.2 : 0.15,
-                delay: showForm ? 0.1 : 0.03,
+                delay: showForm ? 0.15 : 0.03,
               }}
               className="lg:flex-2 lg:order-0 order-1 flex flex-col gap-2 text-base leading-10 tracking-wide lg:w-full lg:max-w-md lg:text-xl"
             >
@@ -170,7 +170,7 @@ const Form = (
               animate={{ opacity: showForm ? 1 : 0 }}
               transition={{
                 duration: showForm ? 0.2 : 0.15,
-                delay: showForm ? 0.1 : 0.03,
+                delay: showForm ? 0.15 : 0.03,
               }}
               className="order-0 relative isolate w-full overflow-hidden rounded-[18px] bg-white/5 lg:order-1 lg:flex-1"
             >
