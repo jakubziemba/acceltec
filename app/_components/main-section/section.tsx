@@ -58,7 +58,7 @@ export default function MainSection() {
 
   const textBlur = useTransform(
     scrollYProgressSection,
-    isMobile ? [0.7, 0.8] : [0.6, 0.95],
+    isMobile ? [0.5, 0.8] : [0.6, 0.95],
     ["blur(0px)", "blur(6px)"],
   );
 
