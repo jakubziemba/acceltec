@@ -22,7 +22,7 @@ export default function FormSection() {
   const isMobile = width < 768;
   const containerHeight = containerRef.current?.getBoundingClientRect().height;
   const boxHeight = 588;
-  const offsetFromBottom = (height - boxHeight) / 4;
+  const offsetFromBottom = (height - boxHeight) / 3;
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -220,22 +220,15 @@ export default function FormSection() {
               build.
             </AnimatedText>
           </motion.div>
-          <div className="pointer-events-none fixed bottom-0 isolate flex h-[calc(100vh-80px)] w-full flex-col justify-center max-2xs:-bottom-10">
+          <div className="pointer-events-none fixed bottom-0 isolate z-50 flex h-[calc(100vh-80px)] w-full flex-col justify-center max-2xs:-bottom-10">
             <div className="relative -bottom-10 h-screen">
               <motion.div
                 initial={{
-                  opacity: showForm ? 0.5 : 1,
-                  // filter: showForm ? "blur(4px)" : "blur(0px)",
-                  // scale: showForm && !shouldScrollToForm ? 1.8 : undefined,
                   y: 0,
                   bottom: 0,
                   transformOrigin: "bottom",
                 }}
                 animate={{
-                  opacity: showForm ? 0.5 : 1,
-                  // filter: showForm ? "blur(4px)" : "blur(0px)",
-                  // scale: showForm && !shouldScrollToForm ? 1.8 : undefined,
-                  // visibility: showForm ? "hidden" : "visible",
                   bottom: showForm ? offsetFromBottom : 0,
                   y: shouldButtonScale ? -20 : 0,
                 }}
@@ -253,7 +246,6 @@ export default function FormSection() {
                   bottom: {
                     duration: 0.35,
                     type: "tween",
-                    // delay: showForm ? 0.1 : 0,
                   },
                 }}
                 className="pointer-events-auto absolute flex w-full origin-bottom flex-col [perspective:100px]"
@@ -268,15 +260,12 @@ export default function FormSection() {
               </motion.div>
               <motion.div
                 initial={{
-                  // scale: 0,
-                  opacity: 0,
-                  scale: showForm ? 1 : 0,
-                  bottom: showForm ? offsetFromBottom : 0,
+                  scale: 0,
+                  bottom: 0,
                   transformOrigin: "bottom",
                   y: 0,
                 }}
                 animate={{
-                  opacity: showForm ? 1 : 0,
                   scale: showForm ? 1 : 0,
                   visibility: showForm ? "visible" : "hidden",
                   bottom: showForm ? offsetFromBottom : 0,
@@ -287,18 +276,17 @@ export default function FormSection() {
                   opacity: {
                     type: "tween",
                     duration: showForm ? 0.18 : 0.308,
-                    delay: showForm ? 0.02 : 0.085,
+                    delay: showForm ? 0.02 : 0.25,
                   },
                   scale: {
                     type: "tween",
-                    duration: 0.23,
-                    delay: showForm ? 0.03 : 0,
+                    duration: 0.27,
+                    delay: showForm ? 0.01 : 0,
                   },
-                  visibility: { delay: showForm ? 0 : 0.34 },
+                  visibility: { delay: showForm ? 0 : 0.28 },
                   bottom: {
                     duration: 0.35,
                     type: "tween",
-                    // delay: showForm ? 0.1 : 0,
                   },
                 }}
                 className="pointer-events-auto absolute flex h-full w-full origin-bottom flex-col items-center justify-end gap-0 px-6 lg:px-0"
@@ -319,7 +307,7 @@ export default function FormSection() {
                 duration: showForm ? 0.3 : 0.2,
                 ease: "easeOut",
               }}
-              className="relative bottom-0 w-full"
+              className="pointer-events-auto relative bottom-0 z-[9999] w-full"
             >
               <Footer />
             </motion.div>

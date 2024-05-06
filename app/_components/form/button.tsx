@@ -13,7 +13,7 @@ export default function Button({
 }) {
   return (
     <motion.button
-      initial={{ opacity: 1, filter: "blur(0px)" }}
+      initial={{ opacity: 0 }}
       onClick={handleButtonClick}
       whileHover={{
         color: "rgba(255, 255, 255, 1)",
@@ -31,26 +31,18 @@ export default function Button({
     >
       <motion.span
         initial={{
-          opacity: showForm ? 0 : 1,
+          opacity: 1,
           filter: "blur(0px)",
         }}
         animate={{
           opacity: showForm ? 0 : 1,
-          filter: showForm
-            ? ["blur(6px)", "blur(0px)"]
-            : ["blur(6px)", "blur(0px)"],
-          visibility: showForm ? "hidden" : "visible",
         }}
         transition={{
           type: "tween",
-          duration: showForm ? 0.12 : 0.18,
-          delay: showForm ? -0.02 : 0.16,
-          visibility: { delay: showForm ? 0.2 : 0 },
-          filter: {
-            duration: 0.3,
-            delay: showForm ? 0.05 : 0.015,
-          },
+          duration: showForm ? 0.04 : 0.17,
+          delay: showForm ? 0 : 0.23,
         }}
+        className="relative inset-0 block"
       >
         {children}
       </motion.span>
