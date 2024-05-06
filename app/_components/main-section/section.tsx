@@ -9,7 +9,7 @@ import Button from "./button";
 import CanvasAnimation from "../canvas-animation";
 import Footer from "../footer/footer";
 
-export default function FormSection() {
+export default function MainSection() {
   const { width, height } = useWindowSize();
   const containerRef = useRef<null | HTMLDivElement>(null);
   const sectionRef = useRef<null | HTMLDivElement>(null);
