@@ -22,7 +22,7 @@ export default function FormSection() {
   const isMobile = width < 768;
   const containerHeight = containerRef.current?.getBoundingClientRect().height;
   const boxHeight = 588;
-  const offsetFromBottom = isMobile ? 10 : (height - boxHeight) / 2;
+  const offsetFromBottom = isMobile ? 10 : (height - boxHeight) / 3;
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -50,11 +50,11 @@ export default function FormSection() {
     [0, -10],
   );
 
-  const textOpacity = useTransform(
-    scrollYProgressSection,
-    isMobile ? [0, 0.8, 1] : [0, 0.9, 1],
-    [1, 0.05, 0],
-  );
+  // const textOpacity = useTransform(
+  //   scrollYProgressSection,
+  //   isMobile ? [0, 0.8, 1] : [0, 0.9, 1],
+  //   [1, 0.05, 0],
+  // );
 
   const textBlur = useTransform(
     scrollYProgressSection,
@@ -277,14 +277,18 @@ export default function FormSection() {
                   opacity: {
                     type: "tween",
                     duration: showForm ? 0.18 : 0.308,
-                    delay: showForm ? 0.02 : 0.25,
+                    delay: showForm ? 0.02 : 0.325,
                   },
                   scale: {
-                    type: "tween",
-                    duration: 0.27,
+                    // type: "tween",
+                    // ease: [0.16, 0.8, 0.3, 1],
+                    type: "spring",
+                    bounce: 0,
+                    stiffness: 350,
+                    damping: 32,
                     delay: showForm ? 0.01 : 0,
                   },
-                  visibility: { delay: showForm ? 0 : 0.28 },
+                  visibility: { delay: showForm ? 0 : 0.2 },
                   bottom: {
                     duration: 0.35,
                     type: "tween",

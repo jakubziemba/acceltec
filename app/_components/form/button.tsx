@@ -40,7 +40,7 @@ export default function Button({
         transition={{
           type: "tween",
           duration: showForm ? 0.04 : 0.17,
-          delay: showForm ? 0 : 0.23,
+          delay: showForm ? 0 : 0.2,
         }}
         className="relative inset-0 block"
       >
