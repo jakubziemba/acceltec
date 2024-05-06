@@ -22,7 +22,7 @@ export default function FormSection() {
   const isMobile = width < 768;
   const containerHeight = containerRef.current?.getBoundingClientRect().height;
   const boxHeight = 588;
-  const offsetFromBottom = (height - boxHeight) / 3;
+  const offsetFromBottom = isMobile ? 10 : (height - boxHeight) / 2;
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -159,6 +159,7 @@ export default function FormSection() {
     };
   }, [shouldScrollToForm, containerHeight]);
 
+  // play canvas on scroll
   useEffect(() => {
     const unsubscribe = scrollYProgressCanvas.on("change", (value: any) => {
       if (value > 0) {
@@ -230,7 +231,7 @@ export default function FormSection() {
                 }}
                 animate={{
                   bottom: showForm ? offsetFromBottom : 0,
-                  y: shouldButtonScale ? -20 : 0,
+                  y: shouldButtonScale ? -40 : 0,
                 }}
                 transition={{
                   type: "tween",
@@ -269,7 +270,7 @@ export default function FormSection() {
                   scale: showForm ? 1 : 0,
                   visibility: showForm ? "visible" : "hidden",
                   bottom: showForm ? offsetFromBottom : 0,
-                  y: shouldButtonScale ? -20 : 0,
+                  y: shouldButtonScale ? -40 : 0,
                 }}
                 transition={{
                   y: { duration: 0.35, type: "tween" },
@@ -307,7 +308,7 @@ export default function FormSection() {
                 duration: showForm ? 0.3 : 0.2,
                 ease: "easeOut",
               }}
-              className="pointer-events-auto relative bottom-0 z-[9999] w-full"
+              className="pointer-events-auto relative bottom-0 w-full"
             >
               <Footer />
             </motion.div>

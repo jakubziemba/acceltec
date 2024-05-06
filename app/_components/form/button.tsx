@@ -13,7 +13,7 @@ export default function Button({
 }) {
   return (
     <motion.button
-      initial={{ opacity: 0 }}
+      initial={{ opacity: 1 }}
       onClick={handleButtonClick}
       whileHover={{
         color: "rgba(255, 255, 255, 1)",
