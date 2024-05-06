@@ -32,6 +32,7 @@ export default function Button({
       <motion.span
         initial={{
           opacity: showForm ? 0 : 1,
+          filter: "blur(0px)",
         }}
         animate={{
           opacity: showForm ? 0 : 1,
@@ -43,7 +44,7 @@ export default function Button({
         transition={{
           type: "tween",
           duration: showForm ? 0.12 : 0.18,
-          delay: showForm ? -0.02 : 0.17,
+          delay: showForm ? -0.02 : 0.16,
           visibility: { delay: showForm ? 0.2 : 0 },
           filter: {
             duration: 0.3,
