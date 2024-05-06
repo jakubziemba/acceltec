@@ -19,7 +19,7 @@ const tabs = [
 ];
 
 export default function FooterTabs() {
-  const [activeTab, setActiveTab] = useState(tabs[0].label);
+  const [activeTab, setActiveTab] = useState("");
   const [hovered, setHovered] = useState(false);
 
   useEffect(() => {

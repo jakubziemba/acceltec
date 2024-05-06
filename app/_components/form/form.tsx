@@ -8,7 +8,6 @@ import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import LogoCardSVG from "./logo-card";
 import CheckIcon from "./check-icon";
 import { tw } from "@/utils/tailwind";
-import Footer from "../footer/footer";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -33,6 +32,8 @@ const Form = (
   } = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
+  const DURATION = showForm ? 0.2 : 0.15;
+  const DELAY = showForm ? 0.12 : 0.03;
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     await fetch("/api/send", {
@@ -63,11 +64,11 @@ const Form = (
             }}
           >
             <motion.div
-              initial={{ opacity: showForm ? 1 : 0 }}
+              initial={{ opacity: 0 }}
               animate={{ opacity: showForm ? 1 : 0 }}
               transition={{
-                duration: showForm ? 0.2 : 0.15,
-                delay: showForm ? 0.15 : 0.03,
+                duration: DURATION,
+                delay: DELAY,
               }}
               className="lg:flex-2 lg:order-0 order-1 flex flex-col gap-2 text-base leading-10 tracking-wide lg:w-full lg:max-w-md lg:text-xl"
             >
@@ -166,12 +167,9 @@ const Form = (
               </div>
             </motion.div>
             <motion.div
-              initial={{ opacity: showForm ? 1 : 0 }}
+              initial={{ opacity: 0 }}
               animate={{ opacity: showForm ? 1 : 0 }}
-              transition={{
-                duration: showForm ? 0.2 : 0.15,
-                delay: showForm ? 0.15 : 0.03,
-              }}
+              transition={{ duration: DURATION, delay: DELAY }}
               className="order-0 relative isolate w-full overflow-hidden rounded-[18px] bg-white/5 lg:order-1 lg:flex-1"
             >
               <div className="flex h-auto min-h-32 w-full flex-col justify-between px-6 pb-4 pt-2 tracking-wide xs:min-h-48 lg:absolute lg:inset-0">
