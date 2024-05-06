@@ -10,8 +10,8 @@ const INITIAL_Y = -100;
 const DEFAULT_X = 486;
 const DEFAULT_Y = 84;
 
-const X_OFFSET_MOBILE = 800;
-const X_OFFSET_DESKTOP = 200;
+const X_OFFSET_MOBILE = 1000;
+const X_OFFSET_DESKTOP = 300;
 
 export default function LogoHero({ className = "" }) {
   const { width } = useWindowSize();
@@ -21,10 +21,11 @@ export default function LogoHero({ className = "" }) {
   const isMobile = width < 1024;
 
   const initialTransition = {
-    damping: 48,
-    stiffness: 70,
+    damping: 80,
+    stiffness: 200,
     mass: 0.15,
     bounce: 0,
+    velocity: 200,
   };
 
   const defaultTransition = {
@@ -33,7 +34,6 @@ export default function LogoHero({ className = "" }) {
     stiffness: 150,
     bounce: 0,
     velocity: 100,
-    // restDelta: 0.001,
   };
 
   const mouseXSpring = useSpring(
@@ -73,11 +73,6 @@ export default function LogoHero({ className = "" }) {
     return () => clearTimeout(timeout);
   }
 
-  function resetMousePosition() {
-    mouseXSpring.set(DEFAULT_X);
-    mouseYSpring.set(DEFAULT_Y);
-  }
-
   function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent) {
     if (!currentTarget || !ref.current || !initialAnimationOver) return;
 
@@ -89,6 +84,11 @@ export default function LogoHero({ className = "" }) {
 
     mouseXSpring.set(xPosition);
     mouseYSpring.set(yPosition);
+  }
+
+  function resetMousePosition() {
+    mouseXSpring.set(DEFAULT_X);
+    mouseYSpring.set(DEFAULT_Y);
   }
 
   useEffect(() => {
@@ -110,12 +110,8 @@ export default function LogoHero({ className = "" }) {
 
       if (isMobile && value >= logoBounds.right + X_OFFSET_MOBILE) {
         setInitialAnimationOver(true);
-        mouseXSpring.set(DEFAULT_X);
-        mouseYSpring.set(DEFAULT_Y);
       } else if (!isMobile && value >= logoBounds.right + X_OFFSET_DESKTOP) {
         setInitialAnimationOver(true);
-        mouseXSpring.set(DEFAULT_X);
-        mouseYSpring.set(DEFAULT_Y);
       }
     });
 

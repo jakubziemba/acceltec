@@ -22,7 +22,7 @@ export default function FormSection() {
   const isMobile = width < 768;
   const containerHeight = containerRef.current?.getBoundingClientRect().height;
   const boxHeight = 588;
-  const offsetFromBottom = isMobile ? 10 : (height - boxHeight) / 3;
+  const offsetFromBottom = (height - boxHeight) / 3;
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
