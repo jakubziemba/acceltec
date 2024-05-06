@@ -13,7 +13,7 @@ export default function Button({
 }) {
   return (
     <motion.button
-      initial={{ opacity: 0 }}
+      initial={{ opacity: 1, filter: "blur(0px)" }}
       onClick={handleButtonClick}
       whileHover={{
         color: "rgba(255, 255, 255, 1)",
@@ -27,25 +27,28 @@ export default function Button({
         type: "tween",
         duration: 0.38,
       }}
-      className="relative origin-top select-none self-center rounded-[32px] bg-[#121212] px-6 py-3 text-lg text-white/80 outline-none focus-visible:shadow-[0px_0px_0px_2px_hsla(0,0%,100%,1),0px_2px_2px_0px_hsla(0,0%,0%,0.2)] sm:text-xl"
+      className="relative origin-bottom select-none self-center rounded-[32px] bg-[#121212] px-6 py-3 text-lg text-white/80 outline-none focus-visible:shadow-[0px_0px_0px_2px_hsla(0,0%,100%,1),0px_2px_2px_0px_hsla(0,0%,0%,0.2)] sm:text-xl"
     >
       <motion.span
         initial={{
           opacity: showForm ? 0 : 1,
+          filter: "blur(0px)",
         }}
         animate={{
           opacity: showForm ? 0 : 1,
           filter: showForm
             ? ["blur(6px)", "blur(0px)"]
             : ["blur(6px)", "blur(0px)"],
+          visibility: showForm ? "hidden" : "visible",
         }}
         transition={{
           type: "tween",
-          duration: showForm ? 0.056 : 0.24,
-          delay: showForm ? 0 : 0.2,
+          duration: showForm ? 0.12 : 0.18,
+          delay: showForm ? -0.02 : 0.16,
+          visibility: { delay: showForm ? 0.2 : 0 },
           filter: {
             duration: 0.3,
-            delay: showForm ? 0 : 0.2,
+            delay: showForm ? 0.05 : 0.015,
           },
         }}
       >

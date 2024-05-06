@@ -10,15 +10,19 @@ import CanvasAnimation from "../canvas-animation";
 import Footer from "../footer/footer";
 
 export default function FormSection() {
-  const { width } = useWindowSize();
+  const { width, height } = useWindowSize();
   const containerRef = useRef<null | HTMLDivElement>(null);
   const sectionRef = useRef<null | HTMLDivElement>(null);
+  const textRef = useRef<null | HTMLDivElement>(null);
   const formRef = useRef<null | HTMLFormElement>(null);
   const [showForm, setShowForm] = useState(false);
   const [shouldButtonScale, setShouldButtonScale] = useState(false);
-  const [shouldScroll, setShouldScroll] = useState(false);
+  const [shouldScrollToForm, setShouldScroll] = useState(false);
   const [playCanvas, setPlayCanvas] = useState(false);
   const isMobile = width < 768;
+  const containerHeight = containerRef.current?.getBoundingClientRect().height;
+  const boxHeight = 588;
+  const offsetFromBottom = (height - boxHeight) / 4;
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -69,6 +73,7 @@ export default function FormSection() {
     setShouldScroll(true);
   }
 
+  // button scale on scroll trigger
   useEffect(() => {
     const handleScrollSection = (value: any) => {
       if (value > 0) {
@@ -90,16 +95,17 @@ export default function FormSection() {
     };
   }, [scrollYProgressSection, showForm]);
 
+  // show form trigger on scroll up
   useEffect(() => {
-    if (!isMobile) return;
-
     const handleScrollSection = (value: any) => {
-      if (value > 0.8) {
-        setShowForm(true);
+      if (shouldScrollToForm) return; // guard for button click
+
+      if (!isMobile && value < 0.95) {
+        setShowForm(false);
         setShouldScroll(false);
       }
 
-      if (shouldScroll) return; // guard for button click
+      if (!isMobile) return;
 
       if (value < 0.8) {
         setShowForm(false);
@@ -107,16 +113,14 @@ export default function FormSection() {
       }
     };
 
-    const unsubscribe = scrollYProgressSection.on(
-      "change",
-      handleScrollSection,
-    );
+    const unsubscribe = scrollYProgress.on("change", handleScrollSection);
 
     return () => {
       unsubscribe();
     };
-  }, [isMobile, scrollYProgressSection, showForm, shouldScroll]);
+  }, [isMobile, scrollYProgress, shouldScrollToForm]);
 
+  // show form trigger on scroll down
   useEffect(() => {
     const handleScroll = (value: any) => {
       if (value > 0.95) {
@@ -124,10 +128,10 @@ export default function FormSection() {
         setShouldScroll(false);
       }
 
-      if (shouldScroll) return; // guard for button click
+      if (!isMobile) return;
 
-      if (value < 0.9) {
-        setShowForm(false);
+      if (value > 0.8) {
+        setShowForm(true);
         setShouldScroll(false);
       }
     };
@@ -137,22 +141,23 @@ export default function FormSection() {
     return () => {
       unsubscribe();
     };
-  }, [scrollYProgress, shouldScroll]);
+  }, [scrollYProgress, isMobile]);
 
+  // scroll to form on button click
   useEffect(() => {
-    if (!shouldScroll || !formRef.current) return;
+    if (!shouldScrollToForm || !containerHeight) return;
 
     const scrollTimeout = setTimeout(() => {
-      formRef.current?.scrollIntoView({
-        block: "start",
+      window.scrollTo({
+        top: containerHeight - 60,
         behavior: "smooth",
       });
-    }, 100);
+    }, 0);
 
     return () => {
       clearTimeout(scrollTimeout);
     };
-  }, [shouldScroll]);
+  }, [shouldScrollToForm, containerHeight]);
 
   useEffect(() => {
     const unsubscribe = scrollYProgressCanvas.on("change", (value: any) => {
@@ -174,25 +179,22 @@ export default function FormSection() {
     <div ref={containerRef} className="relative z-50 w-screen overflow-clip">
       <section
         ref={sectionRef}
-        className="relative mt-[80lvh] h-[200vh] w-full [perspective:45px] lg:mt-[100lvh] 2xl:mt-[70lvh]"
+        className="relative mt-[80vh] h-[200vh] w-full [perspective:45px] lg:mt-[100vh] 2xl:mt-[90vh]"
       >
-        <div className="sticky top-0 mx-auto flex h-screen w-full max-w-xl origin-center flex-col items-center justify-center px-6 text-lg leading-5 [perspective:45px] supports-[height:100svh]:h-lvh max-2xs:text-lg max-2xs:leading-5 max-[350px]:text-sm max-[350px]:leading-4 xs:[text-wrap:initial] md:text-2xl md:leading-6 lg:max-w-4xl lg:px-0 lg:pt-0 lg:text-4xl lg:leading-10">
+        <div className="sticky top-0 mx-auto flex h-screen w-full max-w-xl origin-center flex-col items-center justify-center px-6 text-lg leading-5 [perspective:45px] max-2xs:text-lg max-2xs:leading-5 max-[350px]:text-sm max-[350px]:leading-4 xs:[text-wrap:initial] md:text-2xl md:leading-6 lg:max-w-4xl lg:px-0 lg:pt-0 lg:text-[34px] lg:leading-10">
           <motion.div
+            ref={textRef}
             initial={{ z: 0 }}
             animate={{
               z: showForm ? -10 : 0,
-              // filter: showForm ? "blur(12px)" : "blur(0px)",
             }}
             transition={{
-              y: { duration: 0.25, stiffness: 150, damping: 28 },
-              opacity: { type: "tween", duration: 0.24 },
-              z: { duration: 0.24 },
-              // filter: { duration: 0.24 },
+              duration: 0.24,
             }}
-            className="relative flex h-screen flex-col items-center justify-center space-y-6 supports-[height:100svh]:h-svh max-2xs:-top-10 xl:space-y-8"
+            className="relative flex h-screen flex-col items-center justify-center space-y-6 xl:space-y-8"
             style={{
               translateZ: textTranslateZ,
-              opacity: textOpacity,
+              // opacity: textOpacity,
               filter: textBlur,
             }}
           >
@@ -218,102 +220,110 @@ export default function FormSection() {
               build.
             </AnimatedText>
           </motion.div>
-          <motion.div
-            animate={{
-              height: showForm ? "100vh" : "5vh",
-            }}
-            transition={{
-              height: {
-                delay: showForm ? 0.6 : 0,
-                duration: 0,
-              },
-            }}
-            className="relative flex w-full justify-center"
-          >
-            <motion.div
-              initial={{
-                opacity: showForm ? 0 : 1,
-                filter: showForm ? "blur(4px)" : "blur(0px)",
-                scale: showForm && !shouldScroll ? 1.8 : undefined,
-                y: -30,
-              }}
-              animate={{
-                opacity: showForm ? 0 : 1,
-                filter: showForm ? "blur(4px)" : "blur(0px)",
-                scale: showForm && !shouldScroll ? 1.8 : undefined,
-                visibility: showForm ? "hidden" : "visible",
-                y: shouldButtonScale ? -30 : 0,
-              }}
-              transition={{
-                type: "spring",
-                bounce: 0,
-                duration: 0.33,
-                opacity: {
-                  type: "tween",
-                  duration: showForm ? 0.175 : 0.15,
-                  delay: showForm ? 0.012 : 0.1,
-                },
-                visibility: { delay: showForm ? 0.35 : 0.1 },
-                y: { duration: 0.25, type: "tween" },
-              }}
-              className="absolute -top-12 left-0 flex w-full origin-bottom flex-col [perspective:100px] max-2xs:-top-5 2xl:-top-20"
-              style={{ scale: buttonScale }}
-            >
-              <Button showForm={showForm} handleButtonClick={handleButtonClick}>
-                Pitch your project
-              </Button>
-            </motion.div>
-            <motion.div
-              initial={{
-                opacity: 0,
-                scale: showForm ? 1 : 0.05,
-                position: showForm ? "fixed" : "relative",
-              }}
-              animate={{
-                opacity: showForm ? 1 : 0.05,
-                scale: showForm ? 1 : 0.05,
-                visibility: showForm ? "visible" : "hidden",
-                position: showForm ? "fixed" : "relative",
-              }}
-              transition={{
-                opacity: {
-                  type: "tween",
-                  duration: showForm ? 0.055 : 0.308,
-                  delay: showForm ? 0.016 : 0.085,
-                },
-                scale: {
-                  type: "spring",
-                  bounce: 0,
-                  stiffness: 270,
-                  damping: 30,
-                },
-                visibility: { delay: showForm ? 0 : 0.34 },
-                position: { delay: showForm ? 0 : 0.34 },
-              }}
-              className="bottom-0 flex h-full min-h-screen w-screen origin-[50%_88%] flex-col items-center justify-between gap-0 max-2xs:origin-[50%_94%] xs:origin-[50%_85%] sm:gap-2 md:origin-[50%_93%] lg:gap-8 2xl:origin-[50%_92%]"
-            >
-              <Form ref={formRef} showForm={showForm} />
+          <div className="pointer-events-none fixed bottom-0 isolate flex h-[calc(100vh-80px)] w-full flex-col justify-center max-2xs:-bottom-10">
+            <div className="relative -bottom-10 h-screen">
               <motion.div
                 initial={{
-                  opacity: 0,
-                  y: 20,
+                  opacity: showForm ? 0.5 : 1,
+                  // filter: showForm ? "blur(4px)" : "blur(0px)",
+                  // scale: showForm && !shouldScrollToForm ? 1.8 : undefined,
+                  y: 0,
+                  bottom: 0,
+                  transformOrigin: "bottom",
                 }}
                 animate={{
-                  opacity: showForm ? 1 : 0,
-                  y: showForm ? 0 : 20,
+                  opacity: showForm ? 0.5 : 1,
+                  // filter: showForm ? "blur(4px)" : "blur(0px)",
+                  // scale: showForm && !shouldScrollToForm ? 1.8 : undefined,
+                  // visibility: showForm ? "hidden" : "visible",
+                  bottom: showForm ? offsetFromBottom : 0,
+                  y: shouldButtonScale ? -20 : 0,
                 }}
                 transition={{
                   type: "tween",
-                  duration: showForm ? 0.3 : 0.1,
-                  delay: showForm ? 0.45 : 0,
-                  ease: "easeOut",
+                  bounce: 0,
+                  duration: 0.33,
+                  opacity: {
+                    type: "tween",
+                    duration: showForm ? 0.08 : 0.15,
+                    delay: showForm ? 0 : 0.18,
+                  },
+                  visibility: { delay: showForm ? 0.35 : 0.1 },
+                  y: { duration: 0.35, type: "tween" },
+                  bottom: {
+                    duration: 0.35,
+                    type: "tween",
+                    // delay: showForm ? 0.1 : 0,
+                  },
                 }}
-                className="w-full"
+                className="pointer-events-auto absolute flex w-full origin-bottom flex-col [perspective:100px]"
+                style={{ scale: buttonScale }}
               >
-                <Footer />
+                <Button
+                  showForm={showForm}
+                  handleButtonClick={handleButtonClick}
+                >
+                  Pitch your project
+                </Button>
               </motion.div>
+              <motion.div
+                initial={{
+                  // scale: 0,
+                  opacity: 0,
+                  scale: showForm ? 1 : 0,
+                  bottom: showForm ? offsetFromBottom : 0,
+                  transformOrigin: "bottom",
+                  y: 0,
+                }}
+                animate={{
+                  opacity: showForm ? 1 : 0,
+                  scale: showForm ? 1 : 0,
+                  visibility: showForm ? "visible" : "hidden",
+                  bottom: showForm ? offsetFromBottom : 0,
+                  y: shouldButtonScale ? -20 : 0,
+                }}
+                transition={{
+                  y: { duration: 0.35, type: "tween" },
+                  opacity: {
+                    type: "tween",
+                    duration: showForm ? 0.18 : 0.308,
+                    delay: showForm ? 0.02 : 0.085,
+                  },
+                  scale: {
+                    type: "tween",
+                    duration: 0.23,
+                    delay: showForm ? 0.03 : 0,
+                  },
+                  visibility: { delay: showForm ? 0 : 0.34 },
+                  bottom: {
+                    duration: 0.35,
+                    type: "tween",
+                    // delay: showForm ? 0.1 : 0,
+                  },
+                }}
+                className="pointer-events-auto absolute flex h-full w-full origin-bottom flex-col items-center justify-end gap-0 px-6 lg:px-0"
+              >
+                <Form ref={formRef} showForm={showForm} />
+              </motion.div>
+            </div>
+            <motion.div
+              initial={{
+                opacity: 0,
+              }}
+              animate={{
+                opacity: showForm ? 1 : 0,
+              }}
+              transition={{
+                type: "tween",
+                delay: showForm ? 0.45 : 0,
+                duration: showForm ? 0.3 : 0.2,
+                ease: "easeOut",
+              }}
+              className="relative bottom-0 w-full"
+            >
+              <Footer />
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </section>
       <motion.div

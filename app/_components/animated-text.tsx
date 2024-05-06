@@ -15,7 +15,7 @@ export default function AnimatedText({
 }) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, {
-    margin: "-25%",
+    margin: "-20%",
     once: true,
   });
   return (

@@ -46,11 +46,11 @@ const Form = (
   }
 
   return (
-    <div className="flex h-full w-full flex-col items-center justify-end px-6 lg:justify-center">
+    <div className="flex w-full flex-col items-center justify-center rounded-[30px] bg-[#121212] lg:justify-center">
       <motion.form
         ref={ref}
         id={id}
-        className="mx-auto w-full max-w-lg origin-bottom -scroll-mt-10 rounded-[30px] bg-[#121212] lg:max-w-4xl"
+        className="mx-auto w-full max-w-lg origin-bottom rounded-[30px] bg-[#121212] lg:max-w-4xl"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="mx-auto flex w-full max-w-xl flex-col gap-4 rounded-[30px] bg-[hsla(0,0%,7%,1)] p-3 2xs:p-4 lg:max-w-full lg:flex-row lg:gap-6 lg:p-7">
@@ -67,7 +67,7 @@ const Form = (
               animate={{ opacity: showForm ? 1 : 0 }}
               transition={{
                 duration: showForm ? 0.2 : 0.15,
-                delay: showForm ? 0.1 : 0.03,
+                delay: showForm ? 0.15 : 0.03,
               }}
               className="lg:flex-2 lg:order-0 order-1 flex flex-col gap-2 text-base leading-10 tracking-wide lg:w-full lg:max-w-md lg:text-xl"
             >
@@ -170,7 +170,7 @@ const Form = (
               animate={{ opacity: showForm ? 1 : 0 }}
               transition={{
                 duration: showForm ? 0.2 : 0.15,
-                delay: showForm ? 0.1 : 0.03,
+                delay: showForm ? 0.15 : 0.03,
               }}
               className="order-0 relative isolate w-full overflow-hidden rounded-[18px] bg-white/5 lg:order-1 lg:flex-1"
             >
