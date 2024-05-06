@@ -2,13 +2,7 @@
 
 import { MouseEvent, useEffect, useRef, useState } from "react";
 import { useWindowSize } from "usehooks-ts";
-import {
-  easeIn,
-  motion,
-  useAnimation,
-  useMotionTemplate,
-  useSpring,
-} from "framer-motion";
+import { motion, useMotionTemplate, useSpring } from "framer-motion";
 import { tw } from "@/utils/tailwind";
 
 const INITIAL_X = -100;
@@ -17,7 +11,7 @@ const DEFAULT_X = 486;
 const DEFAULT_Y = 84;
 
 const X_OFFSET_MOBILE = 1000;
-const X_OFFSET_DESKTOP = 300;
+const X_OFFSET_DESKTOP = 400;
 
 export default function LogoHero({ className = "" }) {
   const { width } = useWindowSize();
@@ -26,7 +20,6 @@ export default function LogoHero({ className = "" }) {
   const initialRef = useRef<SVGSVGElement>(null);
   const ref = useRef<SVGSVGElement>(null);
   const isMobile = width < 1024;
-  const controls = useAnimation();
 
   const initialTransition = {
     damping: 80,
@@ -84,15 +77,6 @@ export default function LogoHero({ className = "" }) {
     return () => clearTimeout(timeout);
   }
 
-  function handleMouseLeave() {
-    if (!initialAnimationOver) return;
-    const timeout = setTimeout(() => {
-      resetMousePosition();
-    }, 700);
-
-    return () => clearTimeout(timeout);
-  }
-
   function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent) {
     if (!currentTarget || !ref.current || !initialAnimationOver) return;
     mouseXScale.set(300);
@@ -108,11 +92,6 @@ export default function LogoHero({ className = "" }) {
     mouseYSpring.set(yPosition);
   }
 
-  function resetMousePosition() {
-    mouseXSpring.set(DEFAULT_X);
-    mouseYSpring.set(DEFAULT_Y);
-  }
-
   useEffect(() => {
     if (!ref.current) return;
 
@@ -124,7 +103,7 @@ export default function LogoHero({ className = "" }) {
     if (!logoBounds) return;
 
     initialAnimation();
-  }, [logoBounds]); // Add logoBounds as dependency
+  }, [logoBounds, initialAnimationOver]); // Add logoBounds as dependency
 
   useEffect(() => {
     const unsubscribeX = shimmerX.on("change", (value) => {
@@ -145,7 +124,6 @@ export default function LogoHero({ className = "" }) {
   return (
     <div
       onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
       className="relative top-0 flex h-full min-h-[70svh] w-full justify-center px-6 py-8 lg:p-10"
     >
       <motion.svg
