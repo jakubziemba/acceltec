@@ -141,7 +141,7 @@ export default function MainSection() {
 
     const scrollTimeout = setTimeout(() => {
       window.scrollTo({
-        top: containerHeight - 60,
+        top: isMobile ? containerHeight - 100 : containerHeight - 60,
         behavior: "smooth",
       });
     }, 0);
@@ -183,10 +183,11 @@ export default function MainSection() {
             transition={{
               duration: 0.24,
             }}
-            className="relative flex h-screen flex-col items-center justify-center space-y-6 xl:space-y-8"
+            className="backface-hidden relative flex h-screen flex-col items-center justify-center space-y-6 xl:space-y-8"
             style={{
               translateZ: textTranslateZ,
               filter: textBlur,
+              backfaceVisibility: "hidden",
             }}
           >
             <TextSection />
@@ -204,20 +205,8 @@ export default function MainSection() {
                   y: shouldButtonScale ? -35 : 0,
                 }}
                 transition={{
+                  duration: 0.35,
                   type: "tween",
-                  bounce: 0,
-                  duration: 0.33,
-                  opacity: {
-                    type: "tween",
-                    duration: showForm ? 0.08 : 0.15,
-                    delay: showForm ? 0 : 0.18,
-                  },
-                  visibility: { delay: showForm ? 0.35 : 0.1 },
-                  y: { duration: 0.35, type: "tween" },
-                  bottom: {
-                    duration: 0.35,
-                    type: "tween",
-                  },
                 }}
                 className="pointer-events-auto absolute flex w-full origin-bottom flex-col [perspective:100px]"
                 style={{ scale: buttonScale }}
@@ -231,10 +220,10 @@ export default function MainSection() {
               </motion.div>
               <motion.div
                 initial={{
-                  scale: 0,
-                  bottom: 0,
-                  transformOrigin: "bottom",
                   y: 0,
+                  bottom: 0,
+                  scale: 0,
+                  transformOrigin: "bottom",
                 }}
                 animate={{
                   scale: showForm ? 1 : 0,
@@ -244,10 +233,9 @@ export default function MainSection() {
                 }}
                 transition={{
                   y: { duration: 0.35, type: "tween" },
-                  opacity: {
+                  bottom: {
+                    duration: 0.35,
                     type: "tween",
-                    duration: showForm ? 0.18 : 0.308,
-                    delay: showForm ? 0.02 : 0.325,
                   },
                   scale: {
                     type: "spring",
@@ -257,10 +245,6 @@ export default function MainSection() {
                     delay: showForm ? 0.01 : 0,
                   },
                   visibility: { delay: showForm ? 0 : 0.2 },
-                  bottom: {
-                    duration: 0.35,
-                    type: "tween",
-                  },
                 }}
                 className="pointer-events-auto absolute flex h-full w-full origin-bottom flex-col items-center justify-end gap-0 px-6 lg:px-0"
               >
@@ -269,12 +253,12 @@ export default function MainSection() {
             </div>
             <motion.div
               initial={{
-                opacity: 0,
                 y: 20,
+                opacity: 0,
               }}
               animate={{
-                opacity: showForm ? 1 : 0,
                 y: showForm ? 0 : 20,
+                opacity: showForm ? 1 : 0,
                 visibility: showForm ? "visible" : "hidden",
               }}
               transition={{
