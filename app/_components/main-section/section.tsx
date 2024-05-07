@@ -17,8 +17,8 @@ export default function MainSection() {
   const [shouldButtonScale, setShouldButtonScale] = useState(false);
   const [shouldScrollToForm, setShouldScroll] = useState(false);
   const [playCanvas, setPlayCanvas] = useState(false);
-  const isMobile = width < 768;
   const containerHeight = containerRef.current?.getBoundingClientRect().height;
+  const isMobile = width < 768;
   const boxHeight = 588;
   const offsetFromBottom = isMobile ? 50 : (height - boxHeight) / 3;
 
@@ -178,14 +178,14 @@ export default function MainSection() {
           <motion.div
             initial={{ z: 0 }}
             animate={{
-              z: showForm ? -10 : 0,
+              translateZ: showForm ? -10 : 0,
             }}
             transition={{
               duration: 0.24,
             }}
             className="backface-hidden relative flex h-screen flex-col items-center justify-center space-y-6 xl:space-y-8"
             style={{
-              translateZ: textTranslateZ,
+              z: textTranslateZ,
               filter: textBlur,
               backfaceVisibility: "hidden",
             }}
