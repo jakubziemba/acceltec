@@ -30,7 +30,6 @@ export async function POST(request: NextRequest, response: NextResponse) {
     const res = await resend.emails.send({
       from: "Acceltec <send@marketing.acceltec.de>",
       to: "hello@acceltec.de",
-      bcc: "ziemba.jak@gmail.com",
       reply_to: email,
       subject: `${name} sent you a message`,
       text: content,
