@@ -19,7 +19,7 @@ export default function AnimatedText({
     once: true,
   });
   return (
-    <Wrapper className={tw("[perspective:250px]", className)}>
+    <Wrapper className={className}>
       <motion.span
         ref={ref}
         initial={{

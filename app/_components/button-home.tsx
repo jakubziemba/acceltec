@@ -51,7 +51,7 @@ const ButtonHome = ({ children }: { children: React.ReactNode }) => {
         },
         visibility: { delay: 0.16 },
       }}
-      className="relative origin-center select-none self-center rounded-[32px] bg-[#121212] px-6 py-3 text-lg text-white/80 outline-none focus-visible:shadow-[0px_0px_0px_2px_hsla(0,0%,100%,1),0px_2px_2px_0px_hsla(0,0%,0%,0.2)] sm:text-xl"
+      className="relative origin-center select-none self-center rounded-[32px] bg-[#161616] px-6 py-3 text-lg text-white/80 outline-none focus-visible:shadow-[0px_0px_0px_2px_hsla(0,0%,100%,1),0px_2px_2px_0px_hsla(0,0%,0%,0.2)] sm:text-xl"
       style={{
         boxShadow:
           "0px 0px 0px 2px rgba(255, 255, 255, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.2)",
