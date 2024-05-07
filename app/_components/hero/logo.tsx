@@ -13,6 +13,27 @@ const DEFAULT_Y = 84;
 const X_OFFSET_MOBILE = 1000;
 const X_OFFSET_DESKTOP = 400;
 
+const initialTransition = {
+  damping: 350,
+  stiffness: 550,
+  mass: 0.9,
+  bounce: 0,
+};
+
+const defaultTransition = {
+  damping: 40,
+  mass: 0.2,
+  stiffness: 150,
+  bounce: 0,
+  velocity: 100,
+};
+
+const scaleTransition = {
+  stiffness: 1000,
+  damping: 200,
+  bounce: 0,
+};
+
 export default function LogoHero({ className = "" }) {
   const { width } = useWindowSize();
   const [logoBounds, setLogoBounds] = useState<DOMRect>();
@@ -20,28 +41,6 @@ export default function LogoHero({ className = "" }) {
   const initialRef = useRef<SVGSVGElement>(null);
   const ref = useRef<SVGSVGElement>(null);
   const isMobile = width < 1024;
-
-  const initialTransition = {
-    damping: 80,
-    stiffness: 200,
-    mass: 0.15,
-    bounce: 0,
-    velocity: 200,
-  };
-
-  const scaleTransition = {
-    stiffness: 1000,
-    damping: 200,
-    bounce: 0,
-  };
-
-  const defaultTransition = {
-    damping: 40,
-    mass: 0.2,
-    stiffness: 150,
-    bounce: 0,
-    velocity: 100,
-  };
 
   const shimmerX = useSpring(INITIAL_X, initialTransition);
   const shimmerY = useSpring(INITIAL_Y, initialTransition);
