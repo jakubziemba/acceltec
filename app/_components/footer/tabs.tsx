@@ -71,7 +71,7 @@ export default function FooterTabs() {
                   bounce: 0,
                   duration: 0.4,
                 }}
-                className="absolute inset-0 -z-10 rounded-[10px] bg-white/10"
+                className="absolute inset-0 rounded-[10px] bg-white/10"
               />
             )}
           </li>

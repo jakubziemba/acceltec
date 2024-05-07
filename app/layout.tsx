@@ -9,9 +9,9 @@ import CanvasAnimation from "./_components/canvas-animation";
 const inter = Inter_Tight({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Acceltec",
+  title: "acceltec | Web & Mobile Apps for Start-ups",
   description:
-    "Berlin-based software studio that exclusively works with founders, executives and innovative teams.",
+    "We are a Berlin-based software studio that works with founders and innovative teams to create the digital products of tomorrow.",
 };
 
 export default function RootLayout({
