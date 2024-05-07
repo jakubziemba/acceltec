@@ -194,7 +194,6 @@ export default function MainSection() {
           <div className="pointer-events-none fixed bottom-0 isolate z-50 flex h-[calc(100vh-80px)] w-full flex-col justify-center max-2xs:-bottom-10">
             <div className="relative -bottom-10 h-screen">
               <motion.div
-                layout
                 initial={{
                   y: 0,
                   bottom: 0,
@@ -202,7 +201,7 @@ export default function MainSection() {
                 }}
                 animate={{
                   bottom: showForm ? offsetFromBottom : 0,
-                  y: shouldButtonScale ? (isMobile ? -30 : -40) : 0,
+                  y: shouldButtonScale ? -35 : 0,
                 }}
                 transition={{
                   type: "tween",
@@ -231,7 +230,6 @@ export default function MainSection() {
                 </Button>
               </motion.div>
               <motion.div
-                layout
                 initial={{
                   scale: 0,
                   bottom: 0,
@@ -242,7 +240,7 @@ export default function MainSection() {
                   scale: showForm ? 1 : 0,
                   visibility: showForm ? "visible" : "hidden",
                   bottom: showForm ? offsetFromBottom : 0,
-                  y: shouldButtonScale ? (isMobile ? -30 : -40) : 0,
+                  y: shouldButtonScale ? -35 : 0,
                 }}
                 transition={{
                   y: { duration: 0.35, type: "tween" },
@@ -275,12 +273,14 @@ export default function MainSection() {
               }}
               animate={{
                 opacity: showForm ? 1 : 0,
+                visibility: showForm ? "visible" : "hidden",
               }}
               transition={{
                 type: "tween",
                 delay: showForm ? 0.45 : 0,
                 duration: showForm ? 0.3 : 0.2,
                 ease: "easeOut",
+                visibility: { delay: showForm ? 0.4 : 0.25 },
               }}
               className="pointer-events-auto relative bottom-0 w-full"
             >
