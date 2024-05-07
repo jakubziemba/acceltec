@@ -4,17 +4,15 @@ import { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useWindowSize } from "usehooks-ts";
 import Form from "./form";
-import AnimatedText from "../animated-text";
 import Button from "./button";
 import CanvasAnimation from "../canvas-animation";
 import Footer from "../footer/footer";
+import TextSection from "./text";
 
 export default function MainSection() {
   const { width, height } = useWindowSize();
   const containerRef = useRef<null | HTMLDivElement>(null);
   const sectionRef = useRef<null | HTMLDivElement>(null);
-  const textRef = useRef<null | HTMLDivElement>(null);
-  const formRef = useRef<null | HTMLFormElement>(null);
   const [showForm, setShowForm] = useState(false);
   const [shouldButtonScale, setShouldButtonScale] = useState(false);
   const [shouldScrollToForm, setShouldScroll] = useState(false);
@@ -22,7 +20,7 @@ export default function MainSection() {
   const isMobile = width < 768;
   const containerHeight = containerRef.current?.getBoundingClientRect().height;
   const boxHeight = 588;
-  const offsetFromBottom = (height - boxHeight) / 3;
+  const offsetFromBottom = isMobile ? 50 : (height - boxHeight) / 3;
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -49,12 +47,6 @@ export default function MainSection() {
     isMobile ? [0, 0.8] : [0, 0.95],
     [0, -10],
   );
-
-  // const textOpacity = useTransform(
-  //   scrollYProgressSection,
-  //   isMobile ? [0, 0.8, 1] : [0, 0.9, 1],
-  //   [1, 0.05, 0],
-  // );
 
   const textBlur = useTransform(
     scrollYProgressSection,
@@ -180,11 +172,10 @@ export default function MainSection() {
     <div ref={containerRef} className="relative z-50 w-screen overflow-clip">
       <section
         ref={sectionRef}
-        className="relative mt-[80vh] h-[200vh] w-full [perspective:45px] lg:mt-[100vh] 2xl:mt-[90vh]"
+        className="relative mt-[80vh] h-[200vh] w-full lg:mt-[100vh] 2xl:mt-[90vh]"
       >
         <div className="sticky top-0 mx-auto flex h-screen w-full max-w-xl origin-center flex-col items-center justify-center px-6 text-lg leading-5 [perspective:45px] max-2xs:text-lg max-2xs:leading-5 max-[350px]:text-sm max-[350px]:leading-4 xs:[text-wrap:initial] md:text-2xl md:leading-6 lg:max-w-4xl lg:px-0 lg:pt-0 lg:text-[34px] lg:leading-10">
           <motion.div
-            ref={textRef}
             initial={{ z: 0 }}
             animate={{
               z: showForm ? -10 : 0,
@@ -195,35 +186,15 @@ export default function MainSection() {
             className="relative flex h-screen flex-col items-center justify-center space-y-6 xl:space-y-8"
             style={{
               translateZ: textTranslateZ,
-              // opacity: textOpacity,
               filter: textBlur,
             }}
           >
-            <AnimatedText el="h2" className="origin-bottom text-white/80">
-              Berlin-based software studio that exclusively works with founders,
-              forward-looking leaders, and innovative teams.
-            </AnimatedText>
-            <AnimatedText className="text-white/40">
-              By partnering with us, you gain access to outstanding designers
-              and developers without the long hiring process or the need to
-              recruit an in-house team.
-            </AnimatedText>
-            <AnimatedText className="text-white/40">
-              With dozens of projects launched and 20+ companies we collaborated
-              with, we fast track the entire process and drive organisational
-              change from within. We bring careful planning, transparent
-              communication, and aggressive execution to keep you ahead of the
-              game.
-            </AnimatedText>
-            <AnimatedText className="text-white/40">
-              We build web and mobile apps for companies we believe in and we
-              only commit to a handful of projects per year. Let&apos;s start to
-              build.
-            </AnimatedText>
+            <TextSection />
           </motion.div>
           <div className="pointer-events-none fixed bottom-0 isolate z-50 flex h-[calc(100vh-80px)] w-full flex-col justify-center max-2xs:-bottom-10">
             <div className="relative -bottom-10 h-screen">
               <motion.div
+                layout
                 initial={{
                   y: 0,
                   bottom: 0,
@@ -231,7 +202,7 @@ export default function MainSection() {
                 }}
                 animate={{
                   bottom: showForm ? offsetFromBottom : 0,
-                  y: shouldButtonScale ? -40 : 0,
+                  y: shouldButtonScale ? (isMobile ? -30 : -40) : 0,
                 }}
                 transition={{
                   type: "tween",
@@ -260,6 +231,7 @@ export default function MainSection() {
                 </Button>
               </motion.div>
               <motion.div
+                layout
                 initial={{
                   scale: 0,
                   bottom: 0,
@@ -270,7 +242,7 @@ export default function MainSection() {
                   scale: showForm ? 1 : 0,
                   visibility: showForm ? "visible" : "hidden",
                   bottom: showForm ? offsetFromBottom : 0,
-                  y: shouldButtonScale ? -40 : 0,
+                  y: shouldButtonScale ? (isMobile ? -30 : -40) : 0,
                 }}
                 transition={{
                   y: { duration: 0.35, type: "tween" },
@@ -280,8 +252,6 @@ export default function MainSection() {
                     delay: showForm ? 0.02 : 0.325,
                   },
                   scale: {
-                    // type: "tween",
-                    // ease: [0.16, 0.8, 0.3, 1],
                     type: "spring",
                     bounce: 0,
                     stiffness: 350,
@@ -296,7 +266,7 @@ export default function MainSection() {
                 }}
                 className="pointer-events-auto absolute flex h-full w-full origin-bottom flex-col items-center justify-end gap-0 px-6 lg:px-0"
               >
-                <Form ref={formRef} showForm={showForm} />
+                <Form showForm={showForm} />
               </motion.div>
             </div>
             <motion.div
