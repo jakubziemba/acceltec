@@ -1,8 +1,9 @@
 "use client";
 
+import { memo } from "react";
 import { motion } from "framer-motion";
 
-export default function Button({
+const Button = memo(function Button({
   children,
   showForm,
   handleButtonClick,
@@ -48,4 +49,6 @@ export default function Button({
       </motion.span>
     </motion.button>
   );
-}
+});
+
+export default Button;

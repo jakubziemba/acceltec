@@ -1,27 +1,31 @@
 "use client";
 
-import React from "react";
+import { useEffect, useRef, useState, memo } from "react";
 import Link from "next/link";
-import { motion, useMotionValueEvent, useScroll } from "framer-motion";
-import { useState } from "react";
+import { motion, useScroll } from "framer-motion";
 
 const ButtonHome = ({ children }: { children: React.ReactNode }) => {
   const { scrollY } = useScroll();
   const [isVisible, setIsVisible] = useState(true);
-  let lastScrollY = scrollY.get();
-
+  const lastScrollY = useRef(scrollY.get());
   const MotionLink = motion(Link);
 
-  useMotionValueEvent(scrollY, "change", (currentScrollY) => {
-    if (currentScrollY > lastScrollY && currentScrollY > 100) {
-      setIsVisible(false);
-    } else if (currentScrollY < lastScrollY) {
-      setIsVisible(true);
-    } else {
-      setIsVisible(true);
-    }
-    lastScrollY = currentScrollY;
-  });
+  useEffect(() => {
+    const unsubscribe = scrollY.on("change", (currentScrollY) => {
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+        setIsVisible(false);
+      } else if (currentScrollY < lastScrollY.current) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(true);
+      }
+      lastScrollY.current = currentScrollY;
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [scrollY]);
 
   return (
     <MotionLink
@@ -63,4 +67,4 @@ const ButtonHome = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default React.memo(ButtonHome);
+export default memo(ButtonHome);

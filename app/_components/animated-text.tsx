@@ -1,10 +1,9 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, memo } from "react";
 import { motion, useInView } from "framer-motion";
-import { tw } from "@/utils/tailwind";
 
-export default function AnimatedText({
+const AnimatedText = memo(function AnimatedText({
   el: Wrapper = "p",
   className,
   children,
@@ -37,4 +36,6 @@ export default function AnimatedText({
       </motion.span>
     </Wrapper>
   );
-}
+});
+
+export default AnimatedText;

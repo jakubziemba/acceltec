@@ -270,9 +270,11 @@ export default function MainSection() {
             <motion.div
               initial={{
                 opacity: 0,
+                y: 20,
               }}
               animate={{
                 opacity: showForm ? 1 : 0,
+                y: showForm ? 0 : 20,
                 visibility: showForm ? "visible" : "hidden",
               }}
               transition={{

@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef } from "react";
+import { memo } from "react";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -21,10 +21,7 @@ const formSchema = z.object({
   }),
 });
 
-const Form = (
-  { showForm }: { id?: string; showForm?: boolean },
-  ref: React.ForwardedRef<HTMLFormElement>,
-) => {
+const Form = ({ showForm }: { showForm?: boolean }) => {
   const {
     register,
     handleSubmit,
@@ -52,7 +49,7 @@ const Form = (
         className="mx-auto w-full max-w-lg origin-bottom rounded-[30px] bg-[#161616] lg:max-w-4xl"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="mx-auto flex w-full max-w-xl flex-col gap-4 rounded-[30px] bg-[hsla(0,0%,7%,1)] p-3 2xs:p-4 lg:max-w-full lg:flex-row lg:gap-6 lg:p-7">
+        <div className="mx-auto flex w-full max-w-xl flex-col gap-4 rounded-[30px] bg-[#161616] p-3 2xs:p-4 lg:max-w-full lg:flex-row lg:gap-6 lg:p-7">
           <MotionConfig
             transition={{
               type: "linear",
@@ -186,4 +183,4 @@ const Form = (
   );
 };
 
-export default forwardRef(Form);
+export default memo(Form);

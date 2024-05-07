@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, memo } from "react";
 
-export default function CanvasAnimation({
+const CanvasAnimation = memo(function CanvasAnimation({
   playCanvas,
 }: {
   playCanvas: boolean;
@@ -98,4 +97,6 @@ export default function CanvasAnimation({
       className="absolute left-0 top-0 -z-50 h-lvh w-screen opacity-90"
     />
   );
-}
+});
+
+export default CanvasAnimation;
