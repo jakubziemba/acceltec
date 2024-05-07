@@ -36,7 +36,7 @@ export default function FooterTabs() {
   }, [hovered]);
 
   return (
-    <ul className="flex w-fit gap-1 overflow-clip">
+    <ul className="flex w-fit gap-1">
       {tabs.map((tab) => {
         const isActive = tab.label === activeTab;
 
@@ -59,7 +59,7 @@ export default function FooterTabs() {
           >
             <Link
               href={tab.href}
-              className="relative inset-0 px-3 py-2 outline-none"
+              className="relative inset-0 z-10 px-3 py-2 outline-none"
             >
               {tab.label}
             </Link>
