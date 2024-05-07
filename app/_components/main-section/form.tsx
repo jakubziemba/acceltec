@@ -174,7 +174,7 @@ const Form = (
                 <p className="text-base leading-10 text-white/50">To</p>
                 <div className="text-xl leading-10">
                   <p className="text-white">Laurence Laumann</p>
-                  <p className="text-base text-white/70">Founder</p>
+                  <p className="text-base font-normal text-white/70">Founder</p>
                 </div>
               </div>
               <LogoCardSVG className="absolute -top-96 left-36 -z-10 h-full w-full select-none lg:-left-7 lg:-top-[360px]" />

@@ -15,7 +15,7 @@ const X_OFFSET_DESKTOP = 400;
 
 const initialTransition = {
   damping: 350,
-  stiffness: 550,
+  stiffness: 500,
   mass: 0.9,
   bounce: 0,
 };
