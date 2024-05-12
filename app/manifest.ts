@@ -2,11 +2,8 @@ import { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "acceltec GmbH",
-    short_name: "acceltec",
-    description:
-      "Berlin-based software studio that exclusively works with founders, executives and innovative teams.",
-    start_url: "/",
+    name: "test",
+    short_name: "test",
     display: "standalone",
     background_color: "#000",
     theme_color: "#000",
