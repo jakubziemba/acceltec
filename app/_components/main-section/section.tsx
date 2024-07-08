@@ -174,7 +174,11 @@ export default function MainSection() {
         ref={sectionRef}
         className="relative mt-[80vh] h-[200vh] w-full lg:mt-[100vh] 2xl:mt-[90vh]"
       >
-        <div className="sticky top-0 mx-auto flex h-screen w-full max-w-xl origin-center flex-col items-center justify-center px-6 text-lg leading-5 [perspective:45px] max-2xs:text-lg max-2xs:leading-5 max-[350px]:text-sm max-[350px]:leading-4 xs:[text-wrap:initial] md:text-2xl md:leading-6 lg:max-w-4xl lg:px-0 lg:pt-0 lg:text-[34px] lg:leading-10">
+        <motion.div
+          layout
+          layoutRoot
+          className="sticky top-0 mx-auto flex h-screen w-full max-w-xl origin-center flex-col items-center justify-center px-6 text-lg leading-5 [perspective:45px] max-2xs:text-lg max-2xs:leading-5 max-[350px]:text-sm max-[350px]:leading-4 xs:[text-wrap:initial] md:text-2xl md:leading-6 lg:max-w-4xl lg:px-0 lg:pt-0 lg:text-[34px] lg:leading-10"
+        >
           <motion.div
             initial={{ z: 0 }}
             animate={{
@@ -273,7 +277,7 @@ export default function MainSection() {
               <Footer />
             </motion.div>
           </div>
-        </div>
+        </motion.div>
       </section>
       <motion.div
         className="pointer-events-none fixed left-0 top-0 -z-50 h-screen w-screen scale-105 lg:scale-100"
